@@ -6,6 +6,7 @@
 #include "Character.h"
 #include "Drawer.h"
 #include <random>
+#include <Windows.h>
 
 class Game
 {

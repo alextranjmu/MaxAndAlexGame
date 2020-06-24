@@ -54,6 +54,7 @@ private:
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Color*                                              pSysBuffer = nullptr;
 public:
+	//big benis
 	static constexpr int ScreenWidth = 1120;
 	static constexpr int ScreenHeight = 630;
 };
