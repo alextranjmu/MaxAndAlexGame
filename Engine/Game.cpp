@@ -4,14 +4,14 @@
 #include <random>
 #include <windows.h>
 #include "Block.h"
+#include "Graphics.h"
 
 
-Game::Game( MainWindow& wnd )
+Game::Game(MainWindow& wnd)
 	:
-	wnd( wnd ),
-	gfx( wnd ),
-	rng( rd() ),
-	
+	wnd(wnd),
+	gfx(wnd),
+	rng(rd()),
 	xDist( 0,770 ),
 	yDist( 0,570 ) 
 	
@@ -22,6 +22,7 @@ Game::Game( MainWindow& wnd )
 
 void Game::Go()
 {
+
 	gfx.BeginFrame();	
 	UpdateModel();
 	ComposeFrame();

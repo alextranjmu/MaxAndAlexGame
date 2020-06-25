@@ -7,7 +7,6 @@
 #include <string>
 #include <array>
 #include <Windows.h>
-
 // Ignore the intellisense error "cannot open source file" for .shh files.
 // They will be created during the build sequence before the preprocessor runs.
 namespace FramebufferShaders
@@ -24,6 +23,8 @@ using Microsoft::WRL::ComPtr;
 
 Graphics::Graphics( HWNDKey& key )
 {
+	Graphics::resize();
+
 	assert( key.hWnd != nullptr );
 
 	//////////////////////////////////////////////////////
@@ -232,6 +233,12 @@ Graphics::~Graphics()
 	}
 	// clear the state of the device context before destruction
 	if( pImmediateContext ) pImmediateContext->ClearState();
+}
+
+void Graphics::resize()
+{
+	//ScreenWidth = 1000;
+	//ScreenHeight = 1000;
 }
 
 void Graphics::EndFrame()

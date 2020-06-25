@@ -105,6 +105,7 @@ int Character::GetY() const
 	return y;
 }
 
+
 int Character::GetWidth() const
 {
 	return width;

@@ -14,8 +14,7 @@ public:
 	int GetWidth() const;
 	int GetHeight() const;
 	void loseLife();
-	int getX(); 
-	int getY();
+
 private:
 	int lives = 5;
 	int x = 400;

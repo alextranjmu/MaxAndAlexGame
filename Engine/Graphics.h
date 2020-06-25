@@ -39,6 +39,7 @@ public:
 	}
 	void PutPixel( int x,int y,Color c );
 	~Graphics();
+	void static resize();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11Device>				pDevice;
@@ -54,12 +55,14 @@ private:
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Color*                                              pSysBuffer = nullptr;
 public:
-	int originalScreenWidth = 1120;
-	int originalScreenHeight = 630;
-	int myScreenWidth = 1920;
-	int myScreenHeight = 1080;
-	double widthRatio = 1920 / 1120;
-	double heightRatio = 1080 / 630;
-	  int ScreenWidth = int (originalScreenWidth * widthRatio);
-	 int ScreenHeight = int (originalScreenHeight * heightRatio);
+	static constexpr double originalScreenWidth = 1120;
+	static constexpr double originalScreenHeight = 630;
+	static constexpr double myScreenWidth = 1920;
+	static constexpr double myScreenHeight = 1080;
+	static constexpr double widthRatio = 1920.0 / 1120.0;
+	static constexpr double heightRatio = 1080.0 / 630.0;
+	 static constexpr double ScreenWidth1 =  originalScreenWidth * widthRatio;
+	 static constexpr double ScreenHeight1 = originalScreenHeight * heightRatio;
+	 static constexpr int ScreenWidth = (int)ScreenWidth1;
+	 static constexpr int ScreenHeight = (int)ScreenHeight1;
 };

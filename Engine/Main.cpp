@@ -1,6 +1,7 @@
 
 #include "MainWindow.h"
 #include "Game.h"
+#include "Graphics.h"
 #include "ChiliException.h"
 
 int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
