@@ -66,10 +66,17 @@ void Game::ComposeFrame()
 	}
 	else
 	{
-		
+		Drawer::DrawRectangle(gfx, 100, 100, 100 ,
+			150, 102, 154, 153);
 
-		draw.DrawRectangle(gfx, 100, 100, 100, 150, 102, 153, 153);
-		dude.Draw( gfx );
+		Drawer::DrawRectangle(gfx, 300, 300, 100,
+			150, 102, 154, 153);
+
+		Drawer::DrawRectangle(gfx, 700, 300, 100,
+			300, 102, 154, 153);
+
+		Drawer::DrawRectangle(gfx, 900, 150, 100,
+			200, 102, 154, 153);
 
 		
 	}

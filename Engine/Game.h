@@ -36,6 +36,7 @@ private:
 	Character dude;
 	Drawer draw;
 	Block block;
+	
 	static constexpr int nPoo = 1000;
 	bool isStarted = false;
 	/********************************/

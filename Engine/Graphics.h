@@ -57,12 +57,12 @@ private:
 public:
 	static constexpr double originalScreenWidth = 1120;
 	static constexpr double originalScreenHeight = 630;
-	static constexpr double myScreenWidth = 1920;
-	static constexpr double myScreenHeight = 1080;
-	static constexpr double widthRatio = 1920.0 / 1120.0;
-	static constexpr double heightRatio = 1080.0 / 630.0;
+	static constexpr double myScreenWidth = 1920.0;//1920.0;
+	static constexpr double myScreenHeight = 1080.0;//1080.0;
+	static constexpr double widthRatio = myScreenWidth / originalScreenWidth;
+	static constexpr double heightRatio = myScreenHeight / originalScreenHeight;
 	 static constexpr double ScreenWidth1 =  originalScreenWidth * widthRatio;
 	 static constexpr double ScreenHeight1 = originalScreenHeight * heightRatio;
-	 static constexpr int ScreenWidth = (int)ScreenWidth1;
-	 static constexpr int ScreenHeight = (int)ScreenHeight1;
+	 static constexpr int ScreenWidth = ScreenWidth1;
+	 static constexpr int ScreenHeight = ScreenHeight1;
 };
