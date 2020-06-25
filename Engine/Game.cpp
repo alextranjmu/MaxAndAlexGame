@@ -3,6 +3,7 @@
 #include "Game.h"
 #include <random>
 #include <windows.h>
+#include "Block.h"
 
 
 Game::Game( MainWindow& wnd )
@@ -64,9 +65,9 @@ void Game::ComposeFrame()
 	}
 	else
 	{
-		draw.DrawRectangle(gfx, 0, 0, 200, 100, 239, 245, 66);
-
 		
+
+		draw.DrawRectangle(gfx, 100, 100, 100, 150, 102, 153, 153);
 		dude.Draw( gfx );
 
 		

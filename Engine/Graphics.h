@@ -54,6 +54,12 @@ private:
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Color*                                              pSysBuffer = nullptr;
 public:
-	static constexpr int ScreenWidth = 1120;
-	static constexpr int ScreenHeight = 630;
+	int originalScreenWidth = 1120;
+	int originalScreenHeight = 630;
+	int myScreenWidth = 1920;
+	int myScreenHeight = 1080;
+	double widthRatio = 1920 / 1120;
+	double heightRatio = 1080 / 630;
+	  int ScreenWidth = int (originalScreenWidth * widthRatio);
+	 int ScreenHeight = int (originalScreenHeight * heightRatio);
 };

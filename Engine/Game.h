@@ -7,6 +7,7 @@
 #include "Drawer.h"
 #include <random>
 #include <Windows.h>
+#include "Block.h"
 //bika
 class Game
 {
@@ -34,6 +35,7 @@ private:
 	std::uniform_int_distribution<int> yDist;
 	Character dude;
 	Drawer draw;
+	Block block;
 	static constexpr int nPoo = 1000;
 	bool isStarted = false;
 	/********************************/
