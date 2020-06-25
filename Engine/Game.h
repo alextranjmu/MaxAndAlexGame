@@ -7,7 +7,7 @@
 #include "Drawer.h"
 #include <random>
 #include <Windows.h>
-
+//bika
 class Game
 {
 public:
