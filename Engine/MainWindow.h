@@ -44,7 +44,7 @@ class MainWindow : public HWNDKey
 public:
 	class Exception : public ChiliException
 	{
-	public:
+	public: 
 		using ChiliException::ChiliException;
 		virtual std::wstring GetFullMessage() const override { return GetNote() + L"\nAt: " + GetLocation(); }
 		virtual std::wstring GetExceptionType() const override { return L"Windows Exception"; }
