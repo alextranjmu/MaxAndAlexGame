@@ -21,12 +21,15 @@ namespace FramebufferShaders
 
 using Microsoft::WRL::ComPtr;
 
+
+
 Graphics::Graphics( HWNDKey& key )
 {
-	Graphics::resize();
+	
 
 	assert( key.hWnd != nullptr );
 
+	
 	//////////////////////////////////////////////////////
 	// create device and swap chain/get render target view
 	DXGI_SWAP_CHAIN_DESC sd = {};
@@ -243,6 +246,7 @@ void Graphics::resize()
 
 void Graphics::EndFrame()
 {
+	
 	HRESULT hr;
 
 	// lock and map the adapter memory for copying over the sysbuffer
@@ -292,12 +296,25 @@ void Graphics::EndFrame()
 
 void Graphics::BeginFrame()
 {
+	
 	// clear the sysbuffer
 	memset( pSysBuffer,0u,sizeof( Color ) * Graphics::ScreenHeight * Graphics::ScreenWidth );
 }
 
+void Graphics::CustomPutPixel(int timesSize, int widthRatio, int heightRatio, int x, int y, int r, int g, int b)
+{   
+	for (int X = x; X < timesSize; X++)
+	{
+		for (int Y = y; Y < timesSize; Y++)
+		{
+			//PutPixel()
+		}
+	}
+}
+
 void Graphics::PutPixel( int x,int y,Color c )
 {
+	
 	assert( x >= 0 );
 	assert( x < int( Graphics::ScreenWidth ) );
 	assert( y >= 0 );

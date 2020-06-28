@@ -31,6 +31,7 @@ class HWNDKey
 {
 	friend Graphics::Graphics( HWNDKey& );
 public:
+
 	HWNDKey( const HWNDKey& ) = delete;
 	HWNDKey& operator=( HWNDKey& ) = delete;
 protected:

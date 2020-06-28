@@ -5,10 +5,12 @@
 #include "ChiliException.h"
 #include "Colors.h"
 #include <Windows.h>
+
 //big bepis
 class Graphics
 {
 public:
+	
 	class Exception : public ChiliException
 	{
 	public:
@@ -33,6 +35,11 @@ public:
 	Graphics& operator=( const Graphics& ) = delete;
 	void EndFrame();
 	void BeginFrame();
+	
+
+	//draws from bottom left corner
+	void CustomPutPixel(int timesSize, int widthRatio, int heightRatio, int x, int y, int r, int g, int b);
+
 	void PutPixel( int x,int y,int r,int g,int b )
 	{
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
@@ -41,6 +48,7 @@ public:
 	~Graphics();
 	void static resize();
 private:
+
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;
 	Microsoft::WRL::ComPtr<ID3D11Device>				pDevice;
 	Microsoft::WRL::ComPtr<ID3D11DeviceContext>			pImmediateContext;
@@ -55,14 +63,15 @@ private:
 	D3D11_MAPPED_SUBRESOURCE							mappedSysBufferTexture;
 	Color*                                              pSysBuffer = nullptr;
 public:
-	static constexpr double originalScreenWidth = 1120;
-	static constexpr double originalScreenHeight = 630;
-	static constexpr double myScreenWidth = 1120.0;//1920.0;
-	static constexpr double myScreenHeight = 630.0;//1080.0;
-	static constexpr double widthRatio = myScreenWidth / originalScreenWidth;
-	static constexpr double heightRatio = myScreenHeight / originalScreenHeight;
-	 static constexpr double ScreenWidth1 =  originalScreenWidth * widthRatio;
-	 static constexpr double ScreenHeight1 = originalScreenHeight * heightRatio;
-	 static constexpr int ScreenWidth = ScreenWidth1;
-	 static constexpr int ScreenHeight = ScreenHeight1;
+	
+	//static constexpr double originalScreenWidth = 1120;
+	//static constexpr double originalScreenHeight = 630;
+	//static constexpr double myScreenWidth = 1120.0;//1920.0;
+	//static constexpr double myScreenHeight = 630.0;//1080.0;
+	//static constexpr double widthRatio = myScreenWidth / originalScreenWidth;
+	//static constexpr double heightRatio = myScreenHeight / originalScreenHeight;
+	// static constexpr double ScreenWidth1 =  originalScreenWidth * widthRatio;
+	// static constexpr double ScreenHeight1 = originalScreenHeight * heightRatio;
+	   static int Graphics::ScreenWidth;
+	   static int Graphics::ScreenHeight;
 };

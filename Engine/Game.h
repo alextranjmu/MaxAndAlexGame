@@ -3,7 +3,6 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Graphics.h"
-#include "Character.h"
 #include "Drawer.h"
 #include <random>
 #include <Windows.h>
@@ -33,7 +32,6 @@ private:
 	std::mt19937 rng;
 	std::uniform_int_distribution<int> xDist;
 	std::uniform_int_distribution<int> yDist;
-	Character dude;
 	Drawer draw;
 	Block block;
 	
