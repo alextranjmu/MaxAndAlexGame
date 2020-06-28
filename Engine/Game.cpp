@@ -16,12 +16,14 @@ Game::Game(MainWindow& wnd)
 	yDist( 0,570 ) 
 	
 {
+	
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	
 }
 
 void Game::Go()
 {
+	
 
 	gfx.BeginFrame();	
 	UpdateModel();
@@ -35,8 +37,7 @@ void Game::UpdateModel()
 	isStarted = true;
 	if( isStarted )
 	{
-		dude.Update( wnd.kbd );
-		dude.ClampToScreen();
+		
 
 	}
 	else
@@ -66,7 +67,9 @@ void Game::ComposeFrame()
 	}
 	else
 	{
-		Drawer::DrawRectangle(gfx, 100, 100, 100 ,
+		
+
+		/*Drawer::DrawRectangle(gfx, 100, 100, 100 ,
 			150, 102, 154, 153);
 
 		Drawer::DrawRectangle(gfx, 300, 300, 100,
@@ -76,7 +79,7 @@ void Game::ComposeFrame()
 			300, 102, 154, 153);
 
 		Drawer::DrawRectangle(gfx, 900, 150, 100,
-			200, 102, 154, 153);
+			200, 102, 154, 153);*/
 
 		
 	}

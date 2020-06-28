@@ -1,4 +1,3 @@
-#include "Character.h"
 #include "Graphics.h"
 #include "Block.h"
 #include "Drawer.h"
