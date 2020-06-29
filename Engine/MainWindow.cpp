@@ -6,19 +6,19 @@
 #include "Game.h"
 #include <assert.h>
 
-MainWindow::MainWindow( HINSTANCE hInst,wchar_t * pArgs )
+MainWindow::MainWindow(HINSTANCE hInst, wchar_t * pArgs)
 	:
-	args( pArgs ),
-	hInst( hInst )
+	args(pArgs),
+	hInst(hInst)
 {
 	// register window class
-	WNDCLASSEX wc = { sizeof( WNDCLASSEX ),CS_CLASSDC,_HandleMsgSetup,0,0,
+	WNDCLASSEX wc = { sizeof(WNDCLASSEX),CS_CLASSDC,_HandleMsgSetup,0,0,
 		hInst,nullptr,nullptr,nullptr,nullptr,
 		wndClassName,nullptr };
-	wc.hIconSm = (HICON)LoadImage( hInst,MAKEINTRESOURCE( IDI_APPICON ),IMAGE_ICON,16,16,0 );
-	wc.hIcon = (HICON)LoadImage( hInst,MAKEINTRESOURCE( IDI_APPICON ),IMAGE_ICON,32,32,0 );
-	wc.hCursor = LoadCursor( nullptr,IDC_ARROW );
-	RegisterClassEx( &wc );
+	wc.hIconSm = (HICON)LoadImage(hInst, MAKEINTRESOURCE(IDI_APPICON), IMAGE_ICON, 16, 16, 0);
+	wc.hIcon = (HICON)LoadImage(hInst, MAKEINTRESOURCE(IDI_APPICON), IMAGE_ICON, 32, 32, 0);
+	wc.hCursor = LoadCursor(nullptr, IDC_ARROW);
+	RegisterClassEx(&wc);
 
 	// create window & get hWnd
 	RECT wr;
@@ -26,15 +26,17 @@ MainWindow::MainWindow( HINSTANCE hInst,wchar_t * pArgs )
 	wr.right = Graphics::ScreenWidth + wr.left;
 	wr.top = 100;
 	wr.bottom = Graphics::ScreenHeight + wr.top;
-	AdjustWindowRect( &wr,WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,FALSE );
-	hWnd = CreateWindow( wndClassName,L"Chili DirectX Framework",
-		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
-		wr.left,wr.top,wr.right - wr.left,wr.bottom - wr.top,
+	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
+	hWnd = CreateWindow(wndClassName, L"Alex and Max's Game",
+		WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_MAXIMIZE
+| WS_SYSMENU | WS_SIZEBOX,
+		0 /*wr.left*/, 0/*wr.top*/,wr.right /*- wr.left*/,wr.bottom /*- wr.top*/,
 		nullptr,nullptr,hInst,this );
 
 	// throw exception if something went terribly wrong
 	if( hWnd == nullptr )
 	{
+		
 		throw Exception( _CRT_WIDE( __FILE__ ),__LINE__,
 			L"Failed to get valid window handle." );
 	}

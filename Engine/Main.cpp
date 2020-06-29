@@ -6,6 +6,8 @@
 
 int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
 {
+	//Graphics::GetDesktopResolution(Graphics::ScreenWidth, Graphics::ScreenHeight);
+
 	try
 	{
 		MainWindow wnd( hInst,pArgs );		

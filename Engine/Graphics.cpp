@@ -21,6 +21,8 @@ namespace FramebufferShaders
 
 using Microsoft::WRL::ComPtr;
 
+int Graphics::ScreenWidth = 1120;
+int Graphics::ScreenHeight = 630;
 
 
 Graphics::Graphics( HWNDKey& key )
@@ -238,11 +240,7 @@ Graphics::~Graphics()
 	if( pImmediateContext ) pImmediateContext->ClearState();
 }
 
-void Graphics::resize()
-{
-	//ScreenWidth = 1000;
-	//ScreenHeight = 1000;
-}
+
 
 void Graphics::EndFrame()
 {
