@@ -66,7 +66,7 @@ void Game::ComposeFrame()
 	}
 	else
 	{
-		
+		/*
 		gfx.PutPixel(100, 100, 102, 154, 153);
 		Drawer::DrawRectangle(gfx, 100, 100, 100 ,
 			150, 102, 154, 153);
@@ -79,6 +79,8 @@ void Game::ComposeFrame()
 
 		Drawer::DrawRectangle(gfx, 900, 150, 100,
 			200, 102, 154, 153);
+			*/
+		Drawer::DrawCop(gfx, 100, 100);
 
 		
 	}

@@ -2,6 +2,8 @@
 
 #include "Graphics.h"
 #include "Keyboard.h"
+#include "Pixel.h"
+#include "PPM.h"
 
 class Drawer
 {
@@ -10,4 +12,5 @@ public:
 	void DrawLine(int from, int to, int r, int g, int b);
 	void DrawTriangle(int x, int y, int height, int r, int g, int b);
 	void DrawBall(int diameter, int r, int g, int b);
+	static void DrawCop(Graphics& gfx, int x, int y);
 };

@@ -11,3 +11,18 @@ void Drawer::DrawRectangle(Graphics& gfx, int x, int y, int width, int height, i
 		}
 	}*/
 }
+
+void Drawer::DrawCop(Graphics& gfx, int x, int y)
+{
+	PPM *defaultFrame = new PPM("default_Pose.ppm");
+	/*for (int row = 0; row < defaultFrame->height; row++)
+	{
+		for (int col = 0; col < defaultFrame->width; col++)
+		{
+			Pixel p = (Pixel) *(defaultFrame->pixels + row*defaultFrame->width + col);
+			gfx.PutPixel(x + col, y + row, p.red, p.blue, p.green);
+		}
+	}*/
+	gfx.PutPixel(500, 500, 255, 255, 255);
+	delete defaultFrame;
+}

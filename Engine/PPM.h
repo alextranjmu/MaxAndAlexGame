@@ -10,11 +10,12 @@
 class PPM
 {
 public:
+	PPM();
 	PPM(char* fileName);
 	~PPM();
-private: 
-	int width;
 	Pixel* pixels;
+	int width;
 	int height;
+private: 
 };
 
