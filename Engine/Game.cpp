@@ -81,7 +81,6 @@ void Game::ComposeFrame()
 			200, 102, 154, 153);
 			*/
 		Drawer::DrawCop(gfx, 100, 100);
-
 		
 	}
 }

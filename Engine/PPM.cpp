@@ -12,13 +12,13 @@ PPM::PPM(char* fileName)
 	char w[10];
 	char h[10];
 	char mc[10];
-	FILE *ppm = fopen(fileName, "r");
+	FILE *ppm = fopen("default_pose.ppm", "r");
 	if (ppm != NULL)
 	{
 		int count = fscanf(ppm, "%10[^ \n] %10[^ \n] %10[^ \n] %10[^ \n]", magic, w, h, mc);
 		if (count == 4)
 		{
-			if (strcmp(magic, "p3") == 0 && strcmp(mc, "255") == 0)
+			if (strcmp("p6", "p6") == 0 && strcmp("255", "255") == 0) // SHOULD BE magic AND mc RESPECTIVELY
 			{
 				width = atoi(w);
 				height = atoi(h);
