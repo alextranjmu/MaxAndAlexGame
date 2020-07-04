@@ -71,7 +71,6 @@ void Character::Draw( Graphics& gfx ) const
 
 void Character::Update( const Keyboard & kbd )
 {
-	direction = NO_DIRECTION;
 	if( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
 		x += SPEED;
