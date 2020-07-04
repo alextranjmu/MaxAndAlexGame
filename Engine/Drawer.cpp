@@ -12,14 +12,13 @@ void Drawer::DrawRectangle(Graphics& gfx, int x, int y, int width, int height, i
 	}*/
 }
 
-void Drawer::DrawCop(Graphics& gfx, int x, int y)
+void Drawer::DrawPPM(Graphics& gfx, int x, int y, PPM *frame)
 {
-	PPM *defaultFrame = new PPM("default_Pose.ppm");
-	for (int row = 0; row < defaultFrame->height; row++)
+	for (int row = 0; row < frame->height; row++)
 	{
-		for (int col = 0; col < defaultFrame->width; col++)
+		for (int col = 0; col < frame->width; col++)
 		{
-			Pixel p = (Pixel) *(defaultFrame->pixels + row*defaultFrame->width + col);
+			Pixel p = (Pixel) *(frame->pixels + row*frame->width + col);
 			if (p.red == -1 && p.blue == -1 && p.green == -1)
 			{
 				// n word
@@ -27,6 +26,27 @@ void Drawer::DrawCop(Graphics& gfx, int x, int y)
 			else
 			{
 				gfx.PutPixel(x + col, y + row, p.red, p.green, p.blue);
+			}
+		}
+	}
+	gfx.PutPixel(500, 500, 255, 255, 255);
+	//delete defaultFrame;
+}
+
+void Drawer::DrawPPM_Horizontal_Flip(Graphics& gfx, int x, int y, PPM *frame)
+{
+	for (int row = 0; row < frame->height; row++)
+	{
+		for (int col = 0; col < frame->width; col++)
+		{
+			Pixel p = (Pixel) *(frame->pixels + row*frame->width + col);
+			if (p.red == -1 && p.blue == -1 && p.green == -1)
+			{
+				// n word
+			}
+			else
+			{
+				gfx.PutPixel(col - x, y + row, p.red, p.green, p.blue);
 			}
 		}
 	}

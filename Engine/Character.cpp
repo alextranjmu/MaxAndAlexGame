@@ -8,6 +8,7 @@ Character::Character()
 	runFrames[1] = new PPM("run_keyframes_2.ppm");
 	runFrames[2] = new PPM("run_keyframes_3.ppm");
 	runFrames[3] = new PPM("run_keyframes_4.ppm");
+	direction = NO_DIRECTION;
 }
 
 Character::~Character()
@@ -45,36 +46,66 @@ void Character::ClampToScreen()
 
 void Character::Draw( Graphics& gfx ) const
 {
-	for (int row = 0; row < defaultFrame->height; row++)
+	Drawer draw;
+	switch (direction)
 	{
-		for (int col = 0; col < defaultFrame->width; col++)
-		{
-			Pixel p = (Pixel) *(defaultFrame->pixels + row*width + col);
-			gfx.PutPixel(x + col, y + row, p.red, p.blue, p.green);
-		}
+	case NO_DIRECTION:
+		draw.DrawPPM(gfx, x, y, defaultFrame);
+		break;
+	case UP:
+		draw.DrawPPM(gfx, x, y, runFrames[current_run_frame]); // placeholder
+		break;
+	case DOWN:
+		draw.DrawPPM(gfx, x, y, runFrames[current_run_frame]); // placeholder
+		break;
+	case LEFT:
+		draw.DrawPPM_Horizontal_Flip(gfx, x, y, runFrames[current_run_frame]);
+		break;
+	case RIGHT:
+		draw.DrawPPM(gfx, x, y, runFrames[current_run_frame]);
+		break;
 	}
 }
 
 void Character::Update( const Keyboard & kbd )
 {
+	direction = NO_DIRECTION;
 	if( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
-		x += speed;
+		x += SPEED;
+		if (direction == RIGHT)
+		{
+			nextRunFrame();
+		}
+		else
+		{
+			direction = RIGHT;
+			current_run_frame = 0;
+		}
 	}
 	if( kbd.KeyIsPressed( VK_LEFT ) )
 	{
-		x -= speed;
+		x -= SPEED;
+		if (direction == LEFT)
+		{
+			nextRunFrame();
+		}
+		else
+		{
+			direction = LEFT;
+			current_run_frame = 0;
+		}
 	}
 	if( kbd.KeyIsPressed( VK_DOWN ) )
 	{
-		y += speed;
+		y += SPEED;
 	}
 	if( kbd.KeyIsPressed( VK_UP ) )
 	{
-		y -= speed*3;
+		y -= SPEED;
 	}
-	if (kbd.KeyIsPressed(VK_ACCEPT)) {
-
+	if (kbd.KeyIsPressed(VK_SPACE)) {
+		
 	}
 }
 
@@ -98,7 +129,16 @@ int Character::GetHeight() const
 	return height;
 }
 
-void Character::loseLife()
+
+// Helper functions
+void Character::nextRunFrame()
 {
-	lives--;
+	if (current_run_frame == RUN_FRAME_COUNT - 1)
+	{
+		current_run_frame = 0;
+	}
+	else
+	{
+		current_run_frame++;
+	}
 }

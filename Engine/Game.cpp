@@ -23,7 +23,7 @@ Game::Game(MainWindow& wnd)
 
 void Game::Go()
 {
-	
+	cop = Character();
 	gfx.BeginFrame();	
 	UpdateModel();
 	ComposeFrame();
@@ -80,7 +80,7 @@ void Game::ComposeFrame()
 		Drawer::DrawRectangle(gfx, 900, 150, 100,
 			200, 102, 154, 153);
 			*/
-		Drawer::DrawCop(gfx, 100, 100);
+		
 		
 	}
 }

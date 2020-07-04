@@ -7,6 +7,7 @@
 #include <random>
 #include <Windows.h>
 #include "Block.h"
+#include "Character.h"
 //bika
 class Game
 {
@@ -34,7 +35,7 @@ private:
 	std::uniform_int_distribution<int> yDist;
 	Drawer draw;
 	Block block;
-	
+	Character cop; // should be a subclass of character (and tbh a subclass of a new class - Player)
 	static constexpr int nPoo = 1000;
 	bool isStarted = false;
 	/********************************/
