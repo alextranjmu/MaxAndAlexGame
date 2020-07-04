@@ -20,11 +20,14 @@ PPM::PPM(char* fileName)
 		{
 			if (strcmp("p6", "p6") == 0 && strcmp("255", "255") == 0) // SHOULD BE magic AND mc RESPECTIVELY
 			{
-				width = atoi(w);
-				height = atoi(h);
+				width = atoi(w); // UNSAFE
+				height = atoi(h); // UNSAFE
 				freopen(fileName, "rb", ppm);
 				pixels = (Pixel*)malloc(height * width * sizeof(Pixel));
 				char buffer[3];
+				char temp_buffer[20];
+				fscanf(ppm, "%20[^\n]", temp_buffer);
+				fread(buffer, 1, 1, ppm);
 				for (int row = 0; row < height; row++)
 				{
 					for (int col = 0; col < width; col++)

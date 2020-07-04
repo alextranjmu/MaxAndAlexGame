@@ -2,9 +2,9 @@
 
 
 
-Pixel::Pixel(int r, int g, int b)
+Pixel::Pixel(char r, char g, char b)
 {
 	red = r;
-	blue = b;
 	green = g;
+	blue = b;
 }

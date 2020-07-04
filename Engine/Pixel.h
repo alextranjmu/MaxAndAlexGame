@@ -2,7 +2,7 @@
 class Pixel
 {
 public:
-	Pixel(int r, int g, int b);
+	Pixel(char r, char g, char b);
 	int red;
 	int blue;
 	int green;

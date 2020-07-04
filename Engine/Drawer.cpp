@@ -20,7 +20,14 @@ void Drawer::DrawCop(Graphics& gfx, int x, int y)
 		for (int col = 0; col < defaultFrame->width; col++)
 		{
 			Pixel p = (Pixel) *(defaultFrame->pixels + row*defaultFrame->width + col);
-			gfx.PutPixel(x + col, y + row, p.red, p.blue, p.green);
+			if (p.red == -1 && p.blue == -1 && p.green == -1)
+			{
+				// n word
+			}
+			else
+			{
+				gfx.PutPixel(x + col, y + row, p.red, p.green, p.blue);
+			}
 		}
 	}
 	gfx.PutPixel(500, 500, 255, 255, 255);
