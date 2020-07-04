@@ -23,7 +23,7 @@ Game::Game(MainWindow& wnd)
 
 void Game::Go()
 {
-	cop = Character();
+	cop = new Character();
 	gfx.BeginFrame();	
 	UpdateModel();
 	ComposeFrame();
@@ -36,8 +36,7 @@ void Game::UpdateModel()
 	isStarted = true;
 	if( isStarted )
 	{
-		
-
+		cop->Update(kbd);
 	}
 	else
 	{
@@ -80,7 +79,6 @@ void Game::ComposeFrame()
 		Drawer::DrawRectangle(gfx, 900, 150, 100,
 			200, 102, 154, 153);
 			*/
-		
-		
+		cop->Draw(gfx);
 	}
 }

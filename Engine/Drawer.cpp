@@ -29,7 +29,6 @@ void Drawer::DrawPPM(Graphics& gfx, int x, int y, PPM *frame)
 			}
 		}
 	}
-	gfx.PutPixel(500, 500, 255, 255, 255);
 	//delete defaultFrame;
 }
 
@@ -50,6 +49,5 @@ void Drawer::DrawPPM_Horizontal_Flip(Graphics& gfx, int x, int y, PPM *frame)
 			}
 		}
 	}
-	gfx.PutPixel(500, 500, 255, 255, 255);
 	//delete defaultFrame;
 }

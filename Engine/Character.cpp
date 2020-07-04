@@ -9,6 +9,8 @@ Character::Character()
 	runFrames[2] = new PPM("run_keyframes_3.ppm");
 	runFrames[3] = new PPM("run_keyframes_4.ppm");
 	direction = NO_DIRECTION;
+	x = 100;
+	y = 100;
 }
 
 Character::~Character()
