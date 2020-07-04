@@ -32,7 +32,7 @@ private:
 	int current_run_frame;
 	int x;
 	int y;
-	int direction;
+	int direction; // keeps resetting lole
 	static constexpr int width = 20;
 	static constexpr int height = 20;
 	PPM *runFrames[RUN_FRAME_COUNT];

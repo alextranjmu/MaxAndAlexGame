@@ -13,17 +13,16 @@ Game::Game(MainWindow& wnd)
 	gfx(wnd),
 	rng(rd()),
 	xDist( 0,770 ),
-	yDist( 0,570 ) 
+	yDist( 0,570 )
 	
 {
-	
+	cop = new Character();
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	
 }
 
 void Game::Go()
 {
-	cop = new Character();
 	gfx.BeginFrame();	
 	UpdateModel();
 	ComposeFrame();
@@ -36,7 +35,8 @@ void Game::UpdateModel()
 	isStarted = true;
 	if( isStarted )
 	{
-		cop->Update(kbd);
+		cop->Update(wnd.kbd);
+		cop->ClampToScreen();
 	}
 	else
 	{
