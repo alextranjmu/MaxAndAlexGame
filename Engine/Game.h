@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include "Block.h"
 #include "Character.h"
+#include "Obstacle.h"
 //bika
 class Game
 {
@@ -36,6 +37,7 @@ private:
 	Drawer draw;
 	Block block;
 	Character *cop; // should be a subclass of character (and tbh a subclass of a new class - Player)
+	Obstacle *ballBot;
 	static constexpr int nPoo = 1000;
 	bool isStarted = false;
 	/********************************/

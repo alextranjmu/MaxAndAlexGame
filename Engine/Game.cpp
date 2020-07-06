@@ -16,6 +16,7 @@ Game::Game(MainWindow& wnd)
 	yDist( 0,570 )
 	
 {
+	ballBot = new Obstacle(0,0);
 	cop = new Character();
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	
@@ -79,6 +80,17 @@ void Game::ComposeFrame()
 		Drawer::DrawRectangle(gfx, 900, 150, 100,
 			200, 102, 154, 153);
 			*/
+		/*for (int x = 0; x < Graphics::ScreenWidth; x++)
+		{
+			for (int y = 0; y < Graphics::ScreenHeight; y++)
+			{
+				gfx.PutPixel(x, y, 102, 154, 153);
+			}
+		}*/
+
+		PPM *map1 = new PPM("C:\\Users\\Anh Alexander Tran\\Documents\\map1.ppm");
+		draw.DrawPPM(gfx, 0, 0, map1);
 		cop->Draw(gfx);
+		ballBot->Draw(gfx);
 	}
 }

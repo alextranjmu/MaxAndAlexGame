@@ -12,7 +12,7 @@ PPM::PPM(char* fileName)
 	char w[10];
 	char h[10];
 	char mc[10];
-	FILE *ppm = fopen("default_pose.ppm", "r");
+	FILE *ppm = fopen(fileName, "r");
 	if (ppm != NULL)
 	{
 		int count = fscanf(ppm, "%10[^ \n] %10[^ \n] %10[^ \n] %10[^ \n]", magic, w, h, mc);
