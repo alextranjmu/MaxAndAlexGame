@@ -88,9 +88,9 @@ void Game::ComposeFrame()
 			}
 		}*/
 
-		PPM *map1 = new PPM("C:\\Users\\Anh Alexander Tran\\Documents\\map1.ppm");
+		PPM *map1 = new PPM("map1.ppm");
 		draw.DrawPPM(gfx, 0, 0, map1);
 		cop->Draw(gfx);
-		ballBot->Draw(gfx);
+		//ballBot->Draw(gfx);
 	}
 }

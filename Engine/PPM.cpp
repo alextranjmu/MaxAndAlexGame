@@ -27,6 +27,7 @@ PPM::PPM(char* fileName)
 				char buffer[3];
 				char temp_buffer[20];
 				fscanf(ppm, "%20[^\n]", temp_buffer);
+				
 				fread(buffer, 1, 1, ppm);
 				for (int row = 0; row < height; row++)
 				{
