@@ -4,7 +4,7 @@
 
 Obstacle::Obstacle(int xPos, int yPos)
 {
-	defaultFrame = new PPM("C:\\Users\\Anh Alexander Tran\\Documents\\ballRobot.ppm");
+	defaultFrame = new PPM("ballRobot.ppm");
 	//runFrames[0] = new PPM("robotflashing.ppm");
 
 
