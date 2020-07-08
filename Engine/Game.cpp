@@ -81,6 +81,13 @@ void Game::ComposeFrame()
 		Drawer::DrawRectangle(gfx, 900, 150, 100,
 			200, 102, 154, 153);
 			*/
+		for (int x = 0; x < Graphics::ScreenWidth; x++)
+		{
+			for (int y = 0; y < Graphics::ScreenHeight; y++)
+			{
+				gfx.PutPixel(x, y, 102, 154, 153);
+			}
+		}
 		ballBot->Draw(gfx);
 		cop->Draw(gfx);
 	}
