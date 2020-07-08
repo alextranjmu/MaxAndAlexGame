@@ -25,6 +25,19 @@ int Graphics::ScreenWidth = 1120;
 int Graphics::ScreenHeight = 630;
 
 
+void Graphics::drawSurface(int x, int y, const Surface & s)
+{
+	const int width = s.getWidth();
+	const int height = s.getHeight();
+	for (int sx = 0; sx < width; sx++)
+	{
+		for (int sy = 0; sy < width; sy++)
+		{
+			PutPixel(x + sx, y + sy, s.getPixel(sx, sy));
+		}
+	}
+}
+
 Graphics::Graphics( HWNDKey& key )
 {
 	
@@ -310,13 +323,13 @@ void Graphics::CustomPutPixel(int timesSize, int widthRatio, int heightRatio, in
 	}
 }
 
-void Graphics::PutPixel( int x,int y,Color c )
+void Graphics::PutPixel(int x, int y, Color c)
 {
-	
-	assert( x >= 0 );
-	assert( x < int( Graphics::ScreenWidth ) );
-	assert( y >= 0 );
-	assert( y < int( Graphics::ScreenHeight ) );
+
+	assert(x >= 0);
+	assert(x < int(Graphics::ScreenWidth));
+	assert(y >= 0);
+	assert(y < int(Graphics::ScreenHeight));
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 

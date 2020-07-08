@@ -5,12 +5,13 @@
 #include "ChiliException.h"
 #include "Colors.h"
 #include <Windows.h>
+#include "Surface.h"
 
 //big bepis
 class Graphics
 {
 public:
-	
+	void drawSurface(int x, int y, const Surface& s);
 	class Exception : public ChiliException
 	{
 	public:
@@ -44,7 +45,7 @@ public:
 	{
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
-	void PutPixel( int x,int y,Color c );
+	void PutPixel(int x, int y, Color c);
 	~Graphics();
 	void static GetDesktopResolution(int& horizontal, int& vertical)
 	{

@@ -1,6 +1,7 @@
 #include "Pixel.h"
 
-
+Pixel::Pixel()
+{ }
 
 Pixel::Pixel(char r, char g, char b)
 {
