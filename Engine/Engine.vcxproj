@@ -149,6 +149,7 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="PPM.h" />
     <ClInclude Include="Resource.h" />
