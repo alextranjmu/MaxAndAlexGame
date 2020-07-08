@@ -79,6 +79,11 @@ void Game::ComposeFrame()
 		Drawer::DrawRectangle(gfx, 900, 150, 100,
 			200, 102, 154, 153);
 			*/
+		Drawer draw;
+		PPM *file = new PPM("gunbot.ppm");
+		draw.DrawPPM(gfx, 300, 300, file);
+		PPM *file1 = new PPM("default_pose.ppm");
+		draw.DrawPPM(gfx, 500, 300, file1);
 		cop->Draw(gfx);
 	}
 }
