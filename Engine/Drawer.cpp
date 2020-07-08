@@ -25,7 +25,7 @@ void Drawer::DrawPPM(Graphics& gfx, int x, int y, PPM *frame)
 			}
 			else
 			{
-				gfx.PutPixel(x + col, y + row, p.red, p.green, p.blue);
+				gfx.PutPixel(x - col + frame->width, y + row, p.red, p.green, p.blue);
 			}
 		}
 	}
