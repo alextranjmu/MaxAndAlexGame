@@ -89,8 +89,8 @@ void Game::ComposeFrame()
 			}
 		}
 		Drawer draw;
-		//PPM *file = new PPM("ballRobot.ppm");
-		//draw.DrawPPM(gfx, 0, 0, file);
+		PPM *file = new PPM("ballRobot.ppm");
+		draw.DrawPPM(gfx, 0, 0, file);
 		ballBot->Draw(gfx);
 		cop->Draw(gfx);
 	}
