@@ -88,6 +88,9 @@ void Game::ComposeFrame()
 				gfx.PutPixel(x, y, 102, 154, 153);
 			}
 		}
+		Drawer draw;
+		PPM *file = new PPM("ballRobot.ppm");
+		draw.DrawPPM(gfx, 0, 0, file);
 		ballBot->Draw(gfx);
 		cop->Draw(gfx);
 	}
