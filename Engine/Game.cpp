@@ -85,7 +85,7 @@ void Game::ComposeFrame()
 		{
 			for (int y = 0; y < Graphics::ScreenHeight; y++)
 			{
-				gfx.PutPixel(x, y, 102, 154, 153);
+				gfx.PutPixel(x, y, 153, 102, 0);
 			}
 		}
 		Drawer draw;
