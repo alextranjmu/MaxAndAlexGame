@@ -80,9 +80,9 @@ void Game::ComposeFrame()
 			200, 102, 154, 153);
 			*/
 		Drawer draw;
-		PPM *file = new PPM("gunbot.ppm");
+		PPM *file = new PPM("C:\\Users\\Anh Alexander Tran\\Documents\\Beginner Tutorial 13 Code\\Beginner Tutorial 13 Code\\Engine\\gunrobot.ppm");
 		draw.DrawPPM(gfx, 300, 300, file);
-		PPM *file1 = new PPM("default_pose.ppm");
+		PPM *file1 = new PPM("default_pose1.ppm");
 		draw.DrawPPM(gfx, 500, 300, file1);
 		cop->Draw(gfx);
 	}
