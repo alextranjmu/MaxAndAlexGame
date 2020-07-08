@@ -166,6 +166,7 @@
     <ClCompile Include="MainClass.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="PPM.cpp" />
   </ItemGroup>

@@ -16,6 +16,8 @@ Game::Game(MainWindow& wnd)
 	yDist( 0,570 )
 	
 {
+	
+	ballBot = new Obstacle(500, 300);
 	cop = new Character();
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	
@@ -79,6 +81,7 @@ void Game::ComposeFrame()
 		Drawer::DrawRectangle(gfx, 900, 150, 100,
 			200, 102, 154, 153);
 			*/
+		ballBot->Draw(gfx);
 		cop->Draw(gfx);
 	}
 }
