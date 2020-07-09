@@ -31,9 +31,13 @@ void Graphics::drawSurface(int x, int y, const Surface & s)
 	const int height = s.getHeight();
 	for (int sx = 0; sx < width; sx++)
 	{
-		for (int sy = 0; sy < width; sy++)
+		for (int sy = 0; sy < height; sy++)
 		{
-			PutPixel(x + sx, y + sy, s.getPixel(sx, sy));
+			Pixel p = s.getPixel(sx, height - 1 - sy);
+			if (p.red != -1 || p.blue != -1 || p.green != -1)
+			{
+				PutPixel(x + sx, y + sy, p.red, p.green, p.blue);
+			}
 		}
 	}
 }

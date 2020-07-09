@@ -80,5 +80,7 @@ void Game::ComposeFrame()
 			200, 102, 154, 153);
 			*/
 		cop->Draw(gfx);
+		Surface *cop2 = new Surface("default_pose.bmp");
+		gfx.drawSurface(200, 200, *cop2);
 	}
 }

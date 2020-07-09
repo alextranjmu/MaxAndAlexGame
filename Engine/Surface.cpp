@@ -21,7 +21,7 @@ Surface::Surface(std::string fileName)
 	width = bmInfoHeader.biWidth;
 	height = bmInfoHeader.biHeight;
 
-	pPixels = new Color[width * height];
+	pPixels = new Pixel[width * height];
 
 	file.seekg(bmFileHeader.bfOffBits);
 	const int padding = (4 - (width * 3) % 4) % 4;
@@ -30,7 +30,7 @@ Surface::Surface(std::string fileName)
 	{
 		for (int x = 0; x < width; x++)
 		{
-			putPixel(x, y, Color(file.get(), file.get(), file.get()));
+			putPixel(x, y, Pixel(file.get(), file.get(), file.get()));
 		}
 		file.seekg(padding, std::ios::cur);
 	}
@@ -40,7 +40,7 @@ Surface::Surface(int width, int height)
 	:
 	width(width),
 	height(height),
-	pPixels( new Color[ width * height ])
+	pPixels( new Pixel[ width * height ])
 {
 }
 
@@ -55,12 +55,12 @@ Surface::Surface(const Surface& other)
 	}
 }
 
-void Surface::putPixel(int x, int y, Color p)
+void Surface::putPixel(int x, int y, Pixel p)
 {
 	pPixels[y * width + x] = p;
 }
 
-Color Surface::getPixel(int x, int y) const
+Pixel Surface::getPixel(int x, int y) const
 {
 	return pPixels[y * width + x];
 }
