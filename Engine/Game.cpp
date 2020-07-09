@@ -5,6 +5,7 @@
 #include <windows.h>
 #include "Block.h"
 #include "Graphics.h"
+#include "Surface.h"
 
 
 Game::Game(MainWindow& wnd)
@@ -79,6 +80,8 @@ void Game::ComposeFrame()
 		Drawer::DrawRectangle(gfx, 900, 150, 100,
 			200, 102, 154, 153);
 			*/
+		Surface file =  Surface("default_pose.bmp");
+		gfx.drawSurface(300,300, file);
 		cop->Draw(gfx);
 	}
 }
