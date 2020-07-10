@@ -8,6 +8,7 @@
 #include <Windows.h>
 #include "Block.h"
 #include "Character.h"
+#include "Surface.h"
 //bika
 class Game
 {
@@ -39,4 +40,7 @@ private:
 	static constexpr int nPoo = 1000;
 	bool isStarted = false;
 	/********************************/
+	Surface *map1;
+	Surface *rock;
+	Surface *pressenter;
 };
