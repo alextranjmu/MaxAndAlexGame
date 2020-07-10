@@ -16,6 +16,7 @@ Game::Game(MainWindow& wnd)
 	yDist( 0,570 )
 	
 {
+	frame_counter = 0;
 	cop = new Character();
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	rock = new Surface("fatrock24.bmp");
@@ -82,5 +83,6 @@ void Game::ComposeFrame()
 		}
 		//Surface *pressenter = new Surface("pressenter.bmp");
 		gfx.drawSurface(0, 0, *pressenter);
+		//draw.WriteNumber(gfx, 40, 5, ++frame_counter, Color(0, 0, 0));
 	}
 }
