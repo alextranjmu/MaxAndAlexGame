@@ -77,14 +77,7 @@ private:
 	Color*                                              pSysBuffer = nullptr;
 public:
 	
-	//static constexpr double originalScreenWidth = 1120;
-	//static constexpr double originalScreenHeight = 630;
-	//static constexpr double myScreenWidth = 1120.0;//1920.0;
-	//static constexpr double myScreenHeight = 630.0;//1080.0;
-	//static constexpr double widthRatio = myScreenWidth / originalScreenWidth;
-	//static constexpr double heightRatio = myScreenHeight / originalScreenHeight;
-	// static constexpr double ScreenWidth1 =  originalScreenWidth * widthRatio;
-	// static constexpr double ScreenHeight1 = originalScreenHeight * heightRatio;
+	
 	   static int Graphics::ScreenWidth;
 	   static int Graphics::ScreenHeight;
 };

@@ -32,7 +32,6 @@ void Game::Go()
 void Game::UpdateModel()
 {
 
-	isStarted = true;
 	if( isStarted )
 	{
 		cop->Update(wnd.kbd);
@@ -41,7 +40,7 @@ void Game::UpdateModel()
 	else
 	{
 
-		if( wnd.kbd.KeyIsPressed( VK_SPACE ) )
+		if( wnd.kbd.KeyIsPressed( VK_RETURN) )
 		{
 			isStarted = true;
 		}
@@ -53,34 +52,40 @@ void Game::DrawGameOver(int x, int y)
 
 }
 
-void Game::DrawTitleScreen(int x, int y) 
-{
 
-}
 
 void Game::ComposeFrame()
 {
-	if( !isStarted )
+	if( isStarted )
 	{
+		/*for (int x = 0; x < Graphics::ScreenWidth; x++) {
+			for (int y = 0; y < Graphics::ScreenHeight; y++) {
+				gfx.PutPixel(x, y, 255, 255, 255);
+			}
+		}*/
+		Surface *map1 = new Surface("map1.bmp");
+		gfx.drawSurface(0, 0, *map1);
+		cop->Draw(gfx);
+		Surface *rock = new Surface("fatrock24.bmp");
+		gfx.drawSurface(200, 200, *rock);
+		gfx.drawSurface(900, 300, *rock);
+		gfx.drawSurface(600, 50, *rock);
+
+		delete map1;
+		delete rock;
 	}
 	else
 	{
-		/*
-		gfx.PutPixel(100, 100, 102, 154, 153);
-		Drawer::DrawRectangle(gfx, 100, 100, 100 ,
-			150, 102, 154, 153);
+		for (int x = 0; x < Graphics::ScreenWidth; x++) {
+			for (int y = 0; y < Graphics::ScreenHeight; y++) {
+				gfx.PutPixel(x, y, 255, 255, 255);
+			}
+		}
+		Surface *pressenter = new Surface("pressenter.bmp");
+		gfx.drawSurface(0, 0, *pressenter);
 
-		Drawer::DrawRectangle(gfx, 300, 300, 100,
-			150, 102, 154, 153);
+		
+		delete pressenter;
 
-		Drawer::DrawRectangle(gfx, 700, 300, 100,
-			300, 102, 154, 153);
-
-		Drawer::DrawRectangle(gfx, 900, 150, 100,
-			200, 102, 154, 153);
-			*/
-		cop->Draw(gfx);
-		Surface *cop2 = new Surface("default_pose.bmp");
-		gfx.drawSurface(200, 200, *cop2);
 	}
 }
