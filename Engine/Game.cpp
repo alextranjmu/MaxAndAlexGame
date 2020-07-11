@@ -24,6 +24,7 @@ Game::Game(MainWindow& wnd)
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 	pressenter = new Surface("pressenter.bmp");
+	ballBot = new Surface("ballRobot24.bmp");
 }
 
 void Game::Go()
@@ -39,7 +40,7 @@ void Game::UpdateModel()
 
 	if( isStarted )
 	{
-		cop->Update(wnd.kbd);
+		cop->Update(wnd.kbd, 600, 800, 300, 550);
 		cop->ClampToScreen();
 	}
 	else
@@ -75,7 +76,7 @@ void Game::ComposeFrame()
 		gfx.drawSurface(200, 200, *rock);
 		gfx.drawSurface(900, 300, *rock);
 		gfx.drawSurface(600, 50, *rock);
-
+		gfx.drawSurface(600, 350, *ballBot);
 		time_between_frames = clock() - time_between_frames;
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, time_between_frames, Color(0, 0, 0));
 		time_between_frames = clock();

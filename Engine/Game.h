@@ -44,7 +44,7 @@ private:
 	Surface *map1;
 	Surface *rock;
 	Surface *pressenter;
-
+	Surface *ballBot;
 	int frame_counter;
 	clock_t time_between_frames;
 };

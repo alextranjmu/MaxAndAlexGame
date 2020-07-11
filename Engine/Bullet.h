@@ -2,5 +2,6 @@
 class Bullet {
 private:
 public:
-	Draw(int x, int y, )
+	Bullet(int diameter, int r, int g, int b);
+
 };

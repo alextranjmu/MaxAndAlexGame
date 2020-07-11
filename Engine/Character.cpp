@@ -25,24 +25,24 @@ Character::~Character()
 void Character::ClampToScreen()
 {
 	
-	const int right = x + width;
+	const int right = x;
 	if( x < 0 )
 	{
 		x = 0;
 	}
-	else if( right >= Graphics::ScreenWidth )
+	else if( right > Graphics::ScreenWidth )
 	{
-		x = (Graphics::ScreenWidth - 1) - width;
+		x = (Graphics::ScreenWidth);
 	}
 
-	const int bottom = y + height;
+	const int bottom = y;
 	if( y < 0 )
 	{
 		y = 0;
 	}
-	else if( bottom >= Graphics::ScreenHeight )
+	else if( bottom > Graphics::ScreenHeight )
 	{
-		y = (Graphics::ScreenHeight - 1) - height;
+		y = (Graphics::ScreenHeight);
 	}
 }
 
@@ -69,14 +69,16 @@ void Character::Draw( Graphics& gfx ) const
 	}
 }
 
-void Character::Update( const Keyboard & kbd )
+void Character::Update( const Keyboard & kbd, int x1, int x2, int y1, int y2)
 {
 	if( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
 		x += SPEED;
 		if (direction == RIGHT)
 		{
+			collisionUpdatexdown(x1, x2, y1, y2);
 			nextRunFrame();
+
 		}
 		else
 		{
@@ -89,6 +91,7 @@ void Character::Update( const Keyboard & kbd )
 		x -= SPEED;
 		if (direction == LEFT)
 		{
+			collisionUpdatexup(x1, x2, y1, y2);
 			nextRunFrame();
 		}
 		else
@@ -99,11 +102,16 @@ void Character::Update( const Keyboard & kbd )
 	}
 	if( kbd.KeyIsPressed( VK_DOWN ) )
 	{
+
 		y += SPEED;
+		collisionUpdateydown(x1, x2, y1, y2);
+
 	}
 	if( kbd.KeyIsPressed( VK_UP ) )
 	{
 		y -= SPEED;
+		collisionUpdateyup(x1, x2, y1, y2);
+
 	}
 	if (kbd.KeyIsPressed(VK_SPACE)) {
 		
@@ -141,5 +149,38 @@ void Character::nextRunFrame()
 	else
 	{
 		current_run_frame++;
+	}
+}
+
+void Character::collisionUpdatexup(int x1, int x2, int y1, int y2)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		x += SPEED;
+	}
+}
+
+void Character::collisionUpdatexdown(int x1, int x2, int y1, int y2)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		x -= SPEED;
+	}
+}
+
+
+void Character::collisionUpdateyup(int x1, int x2, int y1, int y2)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		y += SPEED;
+	}
+}
+
+void Character::collisionUpdateydown(int x1, int x2, int y1, int y2)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		y -= SPEED;
 	}
 }
