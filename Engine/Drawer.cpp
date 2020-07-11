@@ -51,3 +51,174 @@ void Drawer::DrawPPM_Horizontal_Flip(Graphics& gfx, int x, int y, PPM *frame)
 	}
 	//delete defaultFrame;
 }
+
+void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c)
+{
+	int current_x = x;
+	for (int num = number; num > 0; num = num / 10)
+	{
+		switch (num % 10) // current digit
+		{
+		case 0:
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y, c);
+			gfx.PutPixel(current_x - 2, y + 1, c);
+			gfx.PutPixel(current_x - 2, y - 1, c);
+			gfx.PutPixel(current_x, y + 2, c);
+			gfx.PutPixel(current_x + 1, y + 2, c);
+			gfx.PutPixel(current_x - 1, y + 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			break;
+		case 1:
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
+			break;
+		case 2:
+			gfx.PutPixel(current_x - 2, y + 2, c);
+			gfx.PutPixel(current_x - 1, y + 2, c);
+			gfx.PutPixel(current_x, y + 2, c);
+			gfx.PutPixel(current_x + 1, y + 2, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y, c);
+			gfx.PutPixel(current_x - 1, y, c);
+			gfx.PutPixel(current_x, y, c);
+			gfx.PutPixel(current_x + 1, y, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x - 2, y + 1, c);
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			break;
+		case 3:
+			gfx.PutPixel(current_x - 2, y + 2, c);
+			gfx.PutPixel(current_x - 1, y + 2, c);
+			gfx.PutPixel(current_x, y + 2, c);
+			gfx.PutPixel(current_x + 1, y + 2, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x - 2, y, c);
+			gfx.PutPixel(current_x - 1, y, c);
+			gfx.PutPixel(current_x, y, c);
+			gfx.PutPixel(current_x + 1, y, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			break;
+		case 4:
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			gfx.PutPixel(current_x - 2, y - 1, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y, c);
+			gfx.PutPixel(current_x - 1, y, c);
+			gfx.PutPixel(current_x, y, c);
+			gfx.PutPixel(current_x + 1, y, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
+			break;
+		case 5:
+			gfx.PutPixel(current_x - 2, y + 2, c);
+			gfx.PutPixel(current_x - 1, y + 2, c);
+			gfx.PutPixel(current_x, y + 2, c);
+			gfx.PutPixel(current_x + 1, y + 2, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x - 2, y, c);
+			gfx.PutPixel(current_x - 1, y, c);
+			gfx.PutPixel(current_x, y, c);
+			gfx.PutPixel(current_x + 1, y, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x - 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			break;
+		case 6:
+			gfx.PutPixel(current_x - 2, y + 2, c);
+			gfx.PutPixel(current_x - 1, y + 2, c);
+			gfx.PutPixel(current_x, y + 2, c);
+			gfx.PutPixel(current_x + 1, y + 2, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
+			gfx.PutPixel(current_x - 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x - 2, y, c);
+			gfx.PutPixel(current_x - 1, y, c);
+			gfx.PutPixel(current_x, y, c);
+			gfx.PutPixel(current_x + 1, y, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x - 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			break;
+		case 7:
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
+			break;
+		case 8:
+			gfx.PutPixel(current_x - 2, y + 2, c);
+			gfx.PutPixel(current_x - 1, y + 2, c);
+			gfx.PutPixel(current_x, y + 2, c);
+			gfx.PutPixel(current_x + 1, y + 2, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
+			gfx.PutPixel(current_x - 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x - 2, y, c);
+			gfx.PutPixel(current_x - 1, y, c);
+			gfx.PutPixel(current_x, y, c);
+			gfx.PutPixel(current_x + 1, y, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x - 2, y - 1, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			break;
+		case 9:
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			gfx.PutPixel(current_x - 2, y - 1, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y, c);
+			gfx.PutPixel(current_x - 1, y, c);
+			gfx.PutPixel(current_x, y, c);
+			gfx.PutPixel(current_x + 1, y, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
+			break;
+		}
+		current_x -= 7;
+	}
+}

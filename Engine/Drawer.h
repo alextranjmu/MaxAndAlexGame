@@ -4,6 +4,7 @@
 #include "Keyboard.h"
 #include "Pixel.h"
 #include "PPM.h"
+#include "Colors.h"
 
 class Drawer
 {
@@ -14,4 +15,5 @@ public:
 	void DrawBall(int diameter, int r, int g, int b);
 	void DrawPPM(Graphics& gfx, int x, int y, PPM *frame); // should probably rename
 	void DrawPPM_Horizontal_Flip(Graphics& gfx, int x, int y, PPM *frame);
+	void WriteNumber(Graphics& gfx, int x, int y, int number, Color c);
 };

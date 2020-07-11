@@ -16,11 +16,13 @@ Game::Game(MainWindow& wnd)
 	yDist( 0,570 )
 	
 {
+	frame_counter = 0;
+	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
+
 	cop = new Character();
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
-	ballBot = new Surface("ballRobot24.bmp");
 	pressenter = new Surface("pressenter.bmp");
 }
 
@@ -74,7 +76,10 @@ void Game::ComposeFrame()
 		gfx.drawSurface(900, 300, *rock);
 		gfx.drawSurface(600, 50, *rock);
 
-		gfx.drawSurface(500, 300, *ballBot);
+		time_between_frames = clock() - time_between_frames;
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, time_between_frames, Color(0, 0, 0));
+		time_between_frames = clock();
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 	}
 	else
 	{
@@ -85,5 +90,10 @@ void Game::ComposeFrame()
 		}
 		//Surface *pressenter = new Surface("pressenter.bmp");
 		gfx.drawSurface(0, 0, *pressenter);
+
+		time_between_frames = clock() - time_between_frames;
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, time_between_frames, Color(0, 0, 0));
+		time_between_frames = clock();
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 	}
 }
