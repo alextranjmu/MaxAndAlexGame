@@ -73,6 +73,7 @@ void Game::ComposeFrame()
 		gfx.drawSurface(200, 200, *rock);
 		gfx.drawSurface(900, 300, *rock);
 		gfx.drawSurface(600, 50, *rock);
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, ++frame_counter, Color(0, 0, 0));
 	}
 	else
 	{
@@ -83,6 +84,6 @@ void Game::ComposeFrame()
 		}
 		//Surface *pressenter = new Surface("pressenter.bmp");
 		gfx.drawSurface(0, 0, *pressenter);
-		//draw.WriteNumber(gfx, 40, 5, ++frame_counter, Color(0, 0, 0));
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, ++frame_counter, Color(0, 0, 0));
 	}
 }

@@ -52,7 +52,7 @@ void Drawer::DrawPPM_Horizontal_Flip(Graphics& gfx, int x, int y, PPM *frame)
 	//delete defaultFrame;
 }
 
-void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c) // BAD FUNCTION, fix b4 using
+void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c)
 {
 	int current_x = x;
 	for (int num = number; num > 0; num = num / 10)
@@ -86,13 +86,13 @@ void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c) // B
 			gfx.PutPixel(current_x, y + 2, c);
 			gfx.PutPixel(current_x + 1, y + 2, c);
 			gfx.PutPixel(current_x + 2, y + 2, c);
-			gfx.PutPixel(current_x - 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
 			gfx.PutPixel(current_x - 2, y, c);
 			gfx.PutPixel(current_x - 1, y, c);
 			gfx.PutPixel(current_x, y, c);
 			gfx.PutPixel(current_x + 1, y, c);
 			gfx.PutPixel(current_x + 2, y, c);
-			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y + 1, c);
 			gfx.PutPixel(current_x - 2, y - 2, c);
 			gfx.PutPixel(current_x - 1, y - 2, c);
 			gfx.PutPixel(current_x, y - 2, c);
@@ -111,7 +111,7 @@ void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c) // B
 			gfx.PutPixel(current_x, y, c);
 			gfx.PutPixel(current_x + 1, y, c);
 			gfx.PutPixel(current_x + 2, y, c);
-			gfx.PutPixel(current_x - 2, y - 1, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
 			gfx.PutPixel(current_x - 2, y - 2, c);
 			gfx.PutPixel(current_x - 1, y - 2, c);
 			gfx.PutPixel(current_x, y - 2, c);
@@ -119,18 +119,17 @@ void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c) // B
 			gfx.PutPixel(current_x + 2, y - 2, c);
 			break;
 		case 4:
-			gfx.PutPixel(current_x - 2, y + 2, c);
-			gfx.PutPixel(current_x + 2, y + 2, c);
-			gfx.PutPixel(current_x - 2, y + 1, c);
-			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			gfx.PutPixel(current_x - 2, y - 1, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
 			gfx.PutPixel(current_x - 2, y, c);
 			gfx.PutPixel(current_x - 1, y, c);
 			gfx.PutPixel(current_x, y, c);
 			gfx.PutPixel(current_x + 1, y, c);
 			gfx.PutPixel(current_x + 2, y, c);
-			gfx.PutPixel(current_x + 2, y - 1, c);
-			gfx.PutPixel(current_x - 2, y - 2, c);
-			gfx.PutPixel(current_x + 2, y - 2, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
 			break;
 		case 5:
 			gfx.PutPixel(current_x - 2, y + 2, c);
@@ -144,7 +143,7 @@ void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c) // B
 			gfx.PutPixel(current_x, y, c);
 			gfx.PutPixel(current_x + 1, y, c);
 			gfx.PutPixel(current_x + 2, y, c);
-			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y - 1, c);
 			gfx.PutPixel(current_x - 2, y - 2, c);
 			gfx.PutPixel(current_x - 1, y - 2, c);
 			gfx.PutPixel(current_x, y - 2, c);
@@ -158,13 +157,13 @@ void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c) // B
 			gfx.PutPixel(current_x + 1, y + 2, c);
 			gfx.PutPixel(current_x + 2, y + 2, c);
 			gfx.PutPixel(current_x - 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
 			gfx.PutPixel(current_x - 2, y, c);
 			gfx.PutPixel(current_x - 1, y, c);
 			gfx.PutPixel(current_x, y, c);
 			gfx.PutPixel(current_x + 1, y, c);
 			gfx.PutPixel(current_x + 2, y, c);
 			gfx.PutPixel(current_x - 2, y - 1, c);
-			gfx.PutPixel(current_x + 2, y - 1, c);
 			gfx.PutPixel(current_x - 2, y - 2, c);
 			gfx.PutPixel(current_x - 1, y - 2, c);
 			gfx.PutPixel(current_x, y - 2, c);
@@ -172,15 +171,15 @@ void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c) // B
 			gfx.PutPixel(current_x + 2, y - 2, c);
 			break;
 		case 7:
-			gfx.PutPixel(current_x - 2, y + 2, c);
-			gfx.PutPixel(current_x - 1, y + 2, c);
-			gfx.PutPixel(current_x, y + 2, c);
-			gfx.PutPixel(current_x + 1, y + 2, c);
-			gfx.PutPixel(current_x + 2, y + 2, c);
-			gfx.PutPixel(current_x + 2, y + 1, c);
-			gfx.PutPixel(current_x + 2, y, c);
-			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
 			gfx.PutPixel(current_x + 2, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
+			gfx.PutPixel(current_x + 2, y, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
 			break;
 		case 8:
 			gfx.PutPixel(current_x - 2, y + 2, c);
@@ -204,20 +203,20 @@ void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c) // B
 			gfx.PutPixel(current_x + 2, y - 2, c);
 			break;
 		case 9:
-			gfx.PutPixel(current_x - 2, y + 2, c);
-			gfx.PutPixel(current_x - 1, y + 2, c);
-			gfx.PutPixel(current_x, y + 2, c);
-			gfx.PutPixel(current_x + 1, y + 2, c);
-			gfx.PutPixel(current_x + 2, y + 2, c);
-			gfx.PutPixel(current_x - 2, y + 1, c);
-			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x - 2, y - 2, c);
+			gfx.PutPixel(current_x - 1, y - 2, c);
+			gfx.PutPixel(current_x, y - 2, c);
+			gfx.PutPixel(current_x + 1, y - 2, c);
+			gfx.PutPixel(current_x + 2, y - 2, c);
+			gfx.PutPixel(current_x - 2, y - 1, c);
+			gfx.PutPixel(current_x + 2, y - 1, c);
 			gfx.PutPixel(current_x - 2, y, c);
 			gfx.PutPixel(current_x - 1, y, c);
 			gfx.PutPixel(current_x, y, c);
 			gfx.PutPixel(current_x + 1, y, c);
 			gfx.PutPixel(current_x + 2, y, c);
-			gfx.PutPixel(current_x + 2, y - 1, c);
-			gfx.PutPixel(current_x + 2, y - 2, c);
+			gfx.PutPixel(current_x + 2, y + 1, c);
+			gfx.PutPixel(current_x + 2, y + 2, c);
 			break;
 		}
 		current_x -= 7;
