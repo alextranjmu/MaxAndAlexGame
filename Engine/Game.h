@@ -43,4 +43,5 @@ private:
 	Surface *map1;
 	Surface *rock;
 	Surface *pressenter;
+	Surface *ballBot;
 };

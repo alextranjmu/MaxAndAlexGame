@@ -20,6 +20,7 @@ Game::Game(MainWindow& wnd)
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
+	ballBot = new Surface("ballRobot24.bmp");
 	pressenter = new Surface("pressenter.bmp");
 }
 
@@ -72,6 +73,8 @@ void Game::ComposeFrame()
 		gfx.drawSurface(200, 200, *rock);
 		gfx.drawSurface(900, 300, *rock);
 		gfx.drawSurface(600, 50, *rock);
+
+		gfx.drawSurface(500, 300, *ballBot);
 	}
 	else
 	{
