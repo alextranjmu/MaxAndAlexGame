@@ -17,6 +17,8 @@ Game::Game(MainWindow& wnd)
 	
 {
 	frame_counter = 0;
+	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
+
 	cop = new Character();
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	rock = new Surface("fatrock24.bmp");
@@ -73,7 +75,11 @@ void Game::ComposeFrame()
 		gfx.drawSurface(200, 200, *rock);
 		gfx.drawSurface(900, 300, *rock);
 		gfx.drawSurface(600, 50, *rock);
-		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, ++frame_counter, Color(0, 0, 0));
+
+		time_between_frames = clock() - time_between_frames;
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, time_between_frames, Color(0, 0, 0));
+		time_between_frames = clock();
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 	}
 	else
 	{
@@ -84,6 +90,10 @@ void Game::ComposeFrame()
 		}
 		//Surface *pressenter = new Surface("pressenter.bmp");
 		gfx.drawSurface(0, 0, *pressenter);
-		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, ++frame_counter, Color(0, 0, 0));
+
+		time_between_frames = clock() - time_between_frames;
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, time_between_frames, Color(0, 0, 0));
+		time_between_frames = clock();
+		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 	}
 }

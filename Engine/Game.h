@@ -9,6 +9,7 @@
 #include "Block.h"
 #include "Character.h"
 #include "Surface.h"
+#include <time.h>
 //bika
 class Game
 {
@@ -45,4 +46,5 @@ private:
 	Surface *pressenter;
 
 	int frame_counter;
+	clock_t time_between_frames;
 };
