@@ -10,6 +10,7 @@
 #include "Character.h"
 #include "Surface.h"
 #include <time.h>
+#include "Bullet.h"
 //bika
 class Game
 {
@@ -47,4 +48,6 @@ private:
 	Surface *ballBot;
 	int frame_counter;
 	clock_t time_between_frames;
+	Bullet *bigredbullet;
+
 };

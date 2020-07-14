@@ -1,7 +1,16 @@
 #pragma once
+#include "Graphics.h"
+#include "Surface.h"
 class Bullet {
-private:
 public:
-	Bullet(int diameter, int r, int g, int b);
+	Bullet(int X, int Y, std::string fileName);
+	void Draw(Graphics &gfx);
+	void Accelerate(int direction, int speed);
+	Surface *s;
+	int x;
+	int y;
+	int SPEED;
+
+
 
 };

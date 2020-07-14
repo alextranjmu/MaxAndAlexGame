@@ -30,9 +30,9 @@ void Character::ClampToScreen()
 	{
 		x = 0;
 	}
-	else if( right > Graphics::ScreenWidth )
+	else if( right > Graphics::ScreenWidth - 100 )
 	{
-		x = (Graphics::ScreenWidth);
+		x = (Graphics::ScreenWidth - 100);
 	}
 
 	const int bottom = y;
@@ -40,9 +40,9 @@ void Character::ClampToScreen()
 	{
 		y = 0;
 	}
-	else if( bottom > Graphics::ScreenHeight )
+	else if( bottom > Graphics::ScreenHeight-100 )
 	{
-		y = (Graphics::ScreenHeight);
+		y = (Graphics::ScreenHeight-100);
 	}
 }
 
