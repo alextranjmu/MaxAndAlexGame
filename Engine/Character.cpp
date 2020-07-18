@@ -40,9 +40,9 @@ void Character::ClampToScreen()
 	{
 		y = 0;
 	}
-	else if( bottom > Graphics::ScreenHeight-100 )
+	else if( bottom > Graphics::ScreenHeight-50 )
 	{
-		y = (Graphics::ScreenHeight-100);
+		y = (Graphics::ScreenHeight-50);
 	}
 }
 

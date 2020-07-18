@@ -11,6 +11,7 @@
 #include "Surface.h"
 #include <time.h>
 #include "Bullet.h"
+#include "Enemy.h"
 //bika
 class Game
 {
@@ -21,6 +22,7 @@ public:
 	void Go();
 private:
 	void ComposeFrame();
+	bool nextBool(double probability);
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
@@ -49,5 +51,15 @@ private:
 	int frame_counter;
 	clock_t time_between_frames;
 	Bullet *bigredbullet;
+	boolean bigredbullet_bool;
+	boolean lazer_bullet1;
+	boolean lazer_bullet2;
+	Enemy *gunbot;
+	Enemy *lazerbot;
+	Bullet *lazer1; 	
+	Bullet *lazer2;
+	Bullet *lazer3;
+
+
 
 };
