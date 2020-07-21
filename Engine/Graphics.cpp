@@ -254,7 +254,8 @@ Graphics::~Graphics()
 		pSysBuffer = nullptr;
 	}
 	// clear the state of the device context before destruction
-	if( pImmediateContext ) pImmediateContext->ClearState();
+	if( pImmediateContext ) 
+		pImmediateContext->ClearState();
 }
 
 

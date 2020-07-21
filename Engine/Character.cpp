@@ -3,28 +3,28 @@
 
 Character::Character()
 {
-	defaultFrame = new PPM("default_pose.ppm");
-	runFrames[0] = new PPM("run_keyframes_1.ppm");
-	runFrames[1] = new PPM("run_keyframes_2.ppm");
-	runFrames[2] = new PPM("run_keyframes_3.ppm");
-	runFrames[3] = new PPM("run_keyframes_4.ppm");
 	direction = NO_DIRECTION;
 	x = 100;
 	y = 100;
+	width = 20;
+	height = 20;
+}
+
+Character::Character(int x2, int y2, char* spritesheet, int ssrows, int sscols)
+{
+	direction = NO_DIRECTION;
+	x = x2;
+	y = y2;
+	sprites = new SpriteSheet(spritesheet, ssrows, sscols);
 }
 
 Character::~Character()
 {
-	for (int i = 0; i < 4; i++)
-	{
-		delete runFrames[i];
-	}
-	delete defaultFrame;
+	delete sprites;
 }
 
 void Character::ClampToScreen()
 {
-	
 	const int right = x + width;
 	if( x < 0 )
 	{
@@ -48,25 +48,7 @@ void Character::ClampToScreen()
 
 void Character::Draw( Graphics& gfx ) const
 {
-	Drawer draw;
-	switch (direction)
-	{
-	case NO_DIRECTION:
-		draw.DrawPPM(gfx, x, y, defaultFrame);
-		break;
-	case UP:
-		draw.DrawPPM(gfx, x, y, runFrames[current_run_frame]); // placeholder
-		break;
-	case DOWN:
-		draw.DrawPPM(gfx, x, y, runFrames[current_run_frame]); // placeholder
-		break;
-	case LEFT:
-		draw.DrawPPM_Horizontal_Flip(gfx, x, y, runFrames[current_run_frame]);
-		break;
-	case RIGHT:
-		draw.DrawPPM(gfx, x, y, runFrames[current_run_frame]);
-		break;
-	}
+
 }
 
 void Character::Update( const Keyboard & kbd )
@@ -74,28 +56,10 @@ void Character::Update( const Keyboard & kbd )
 	if( kbd.KeyIsPressed( VK_RIGHT ) )
 	{
 		x += SPEED;
-		if (direction == RIGHT)
-		{
-			nextRunFrame();
-		}
-		else
-		{
-			direction = RIGHT;
-			current_run_frame = 0;
-		}
 	}
 	if( kbd.KeyIsPressed( VK_LEFT ) )
 	{
 		x -= SPEED;
-		if (direction == LEFT)
-		{
-			nextRunFrame();
-		}
-		else
-		{
-			direction = LEFT;
-			current_run_frame = 0;
-		}
 	}
 	if( kbd.KeyIsPressed( VK_DOWN ) )
 	{
@@ -128,18 +92,4 @@ int Character::GetWidth() const
 int Character::GetHeight() const
 {
 	return height;
-}
-
-
-// Helper functions
-void Character::nextRunFrame()
-{
-	if (current_run_frame == RUN_FRAME_COUNT - 1)
-	{
-		current_run_frame = 0;
-	}
-	else
-	{
-		current_run_frame++;
-	}
 }

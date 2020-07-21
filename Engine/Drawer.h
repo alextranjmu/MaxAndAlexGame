@@ -5,6 +5,7 @@
 #include "Pixel.h"
 #include "PPM.h"
 #include "Colors.h"
+#include "SpriteSheet.h"
 
 class Drawer
 {
