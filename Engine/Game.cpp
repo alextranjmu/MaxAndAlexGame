@@ -82,7 +82,7 @@ void Game::UpdateModel()
 
 	if (!bigredbullet_bool)
 	{
-		if (nextBool(0.00005))
+		if (nextBool(0.05))
 		{
 			bigredbullet_bool = true;
 		}
@@ -146,7 +146,7 @@ void Game::UpdateModel()
 		if (nextBool(1))
 		{
 			vec_degree = GetDegree(gunbot->x, gunbot->y, cop->GetX() + 50, cop->GetY() + 50);
-			gunbot_vec = new Vector(vec_degree, 5);
+			gunbot_vec = new Vector(vec_degree, 15);
 			gun_bullet->x = gunbot->x;
 			gun_bullet->y = gunbot->y;
 			gun_bullet_bool = true;
