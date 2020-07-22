@@ -83,6 +83,11 @@ void Wizard::Draw(Graphics& gfx)
 	}
 }
 
+int * Wizard::getFrames()
+{
+	return current_animation->getFrames();
+}
+
 Wizard::~Wizard()
 {
 	delete walk_cycle;

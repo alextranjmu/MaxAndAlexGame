@@ -9,7 +9,6 @@ Animation::Animation(int cancelable_start_frame, int frame_skips, int num_frames
 	this->frame_skips = frame_skips;
 	this->num_frames = num_frames;
 	this->frames = frames;
-	
 	cur_frame_skip = 0;
 	current_frame = 0;
 }
@@ -19,7 +18,7 @@ Animation::Animation(int cancelable_start_frame, int frame_skips, int start_fram
 	this->cancelable_start_frame = cancelable_start_frame;
 	this->frame_skips = frame_skips;
 	this->num_frames = 1 + end_frame - start_frame;
-	frames = (int*)malloc(sizeof(int) * num_frames);
+	this->frames = (int*)malloc(sizeof(int) * num_frames);
 	for (int i = 0; i <= num_frames; i++)
 	{
 		*(frames + i) = start_frame + i;
@@ -30,8 +29,7 @@ Animation::Animation(int cancelable_start_frame, int frame_skips, int start_fram
 
 Animation::~Animation()
 {
-	//free(frames);
-	//frames = nullptr;
+
 }
 	
 void Animation::nextFrame()

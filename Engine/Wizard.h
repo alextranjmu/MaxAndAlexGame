@@ -10,6 +10,11 @@ public:
 	~Wizard();
 	void Update(const Keyboard & kbd);
 	void Draw(Graphics &gfx);
+
+
+
+
+	int * getFrames();
 private:
 	Animation *current_animation;
 	Animation *idle_animation;
