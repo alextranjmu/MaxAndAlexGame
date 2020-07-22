@@ -27,6 +27,7 @@ public:
 	void Move();
 	void AImove();
 	void randomMove();
+	void clamp_screen();
 	void clamp_screen_lazer();
 	void Shoot(botname name);
 	

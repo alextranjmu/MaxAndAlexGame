@@ -12,6 +12,8 @@
 #include <time.h>
 #include "Bullet.h"
 #include "Enemy.h"
+#include "Point.h"
+#include "Vector.h"
 //bika
 class Game
 {
@@ -24,6 +26,10 @@ private:
 	void ComposeFrame();
 	bool nextBool(double probability);
 	void UpdateModel();
+	void UpdateLazer1();
+	void UpdateLazer2();
+	double GetDegree(double a1, double a2, double b1, double b2);
+	
 	/********************************/
 	/*  User Functions              */
 	void DrawGameOver( int x,int y );
@@ -48,18 +54,32 @@ private:
 	Surface *rock;
 	Surface *pressenter;
 	Surface *ballBot;
+	Surface *itsover;
 	int frame_counter;
 	clock_t time_between_frames;
 	Bullet *bigredbullet;
 	boolean bigredbullet_bool;
 	boolean lazer_bullet1;
 	boolean lazer_bullet2;
+	boolean gun_bullet_bool;
+	boolean game_over;
+
 	Enemy *gunbot;
 	Enemy *lazerbot;
+
 	Bullet *lazer1; 	
 	Bullet *lazer2;
-	Bullet *lazer3;
+	Bullet *gun_bullet;
 
+	Point *gun_direction;
+	Point *destination;
+	Point *startingPoint;
+	Point *midpoint;
 
-
+	Vector *gunbot_vec;
+	double slope;
+	double c;
+	double vec_degree;
+	int distance;
+	int times_to_divide;
 };

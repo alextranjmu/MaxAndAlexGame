@@ -10,7 +10,7 @@ Character::Character()
 	runFrames[3] = new PPM("run_keyframes_4.ppm");
 	direction = NO_DIRECTION;
 	x = 100;
-	y = 100;
+	y = 500;
 }
 
 Character::~Character()
@@ -40,9 +40,9 @@ void Character::ClampToScreen()
 	{
 		y = 0;
 	}
-	else if( bottom > Graphics::ScreenHeight-50 )
+	else if( bottom > Graphics::ScreenHeight-100 )
 	{
-		y = (Graphics::ScreenHeight-50);
+		y = (Graphics::ScreenHeight-100);
 	}
 }
 

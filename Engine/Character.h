@@ -28,7 +28,7 @@ private:
 	static int const LEFT = 3;
 	static int const RIGHT = 4;
 
-    static int const SPEED = 4;
+    static int const SPEED = 10;
 
 	int current_run_frame;
 	int x;

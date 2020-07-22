@@ -55,6 +55,33 @@ void Enemy::randomMove()
 	}
 }
 
+void Enemy::clamp_screen()
+{
+	const int right = x;
+	if (x < 0)
+	{
+		direction = RIGHT;
+		x = 0;
+	}
+	else if (right >(Graphics::ScreenWidth / 3) * 2)
+	{
+		direction = LEFT;
+		x = ((Graphics::ScreenWidth / 3) * 2);
+	}
+
+	const int bottom = y;
+	if (y < 0)
+	{
+		direction = DOWN;
+		y = 0;
+	}
+	else if (bottom > Graphics::ScreenHeight - 100)
+	{
+		direction = UP;
+		y = (Graphics::ScreenHeight - 100);
+	}
+}
+
 void Enemy::clamp_screen_lazer()
 {
 	const int right = x;

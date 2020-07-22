@@ -18,6 +18,8 @@ void Bullet::DrawReverse(Graphics &gfx)
 	
 }
 
+
+
 void Bullet::Accelerate(int direction, int speed)
 {
 	SPEED = speed;
