@@ -58,7 +58,7 @@ private:
 	int frame_counter;
 	clock_t time_between_frames;
 	Bullet *bigredbullet;
-	boolean bigredbullet_bool;
+	boolean beam1_bool;
 	boolean lazer_bullet1;
 	boolean lazer_bullet2;
 	boolean gun_bullet_bool;
@@ -75,6 +75,9 @@ private:
 	Point *destination;
 	Point *startingPoint;
 	Point *midpoint;
+
+	int beam1_height;
+	int beam1_width;
 
 	Vector *gunbot_vec;
 	double slope;

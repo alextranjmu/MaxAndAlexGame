@@ -29,7 +29,7 @@ Game::Game(MainWindow& wnd)
 	ballBot = new Surface("ballRobot24.bmp");
 	bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
 	itsover = new Surface("pressenter.bmp");
-	bigredbullet_bool = false;
+	beam1_bool = false;
 	lazer_bullet1 = false;
 	lazer_bullet2 = false;
 	gunbot = new Enemy(LEFT, 600, 300,5, "gunbot.bmp");
@@ -38,6 +38,8 @@ Game::Game(MainWindow& wnd)
 	lazer2 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");
 	gun_bullet = new Bullet(0, 0, "bigredbullet24.bmp");
 	game_over = false;
+	beam1_width = 47;
+	beam1_height = 0;
 
 	
 
@@ -68,23 +70,29 @@ void Game::UpdateModel()
 		}
 	}
 
-	if (bigredbullet_bool)
+	if (beam1_bool)
 	{
-		bigredbullet->Accelerate(2, 10);
-		if (bigredbullet->y == 0)
+		beam1_height -= 30;
+		//bigredbullet->Accelerate(2, 10);
+		//if (bigredbullet->y == 0)
+		//{
+		//	bigredbullet->x = 735;
+		//	bigredbullet->y = 400;
+		//	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
+		//	beam1_bool = false;
+		//}
+		if (beam1_height <= 0)
 		{
-			bigredbullet->x = 735;
-			bigredbullet->y = 400;
-			//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
-			bigredbullet_bool = false;
+			beam1_height = 450;
+			beam1_bool = false;
 		}
 	}
 
-	if (!bigredbullet_bool)
+	if (!beam1_bool)
 	{
 		if (nextBool(0.05))
 		{
-			bigredbullet_bool = true;
+			beam1_bool = true;
 		}
 	}
 
@@ -159,6 +167,7 @@ void Game::UpdateModel()
 	
 	UpdateLazer1();
 
+
 	gunbot->randomMove();
 	gunbot->clamp_screen();
 
@@ -191,9 +200,27 @@ void Game::ComposeFrame()
 		gfx.drawSurface(600, 350, *ballBot);
 
 
-		if (bigredbullet_bool)
+		if (beam1_bool)
 		{
-			bigredbullet->Draw(gfx);
+			int tempX = 730 + beam1_width / 6;
+			int x = 730;
+			for (; x < beam1_width + 730; x++)
+			{
+				for (int y = 450; y > 450 - beam1_height; y--)
+				{
+					gfx.PutPixel(x, y, 222, 34, 34);
+				}
+			}
+			/*tempX += beam1_width / 6;
+			for (int x = 730; x < beam1_width + 730; x++)
+			{
+				for (int y = 450; y > 450 - beam1_height; y--)
+				{
+					gfx.PutPixel(x, y, 222, 34, 34);
+				}
+			}*/
+
+
 		}
 
 		time_between_frames = clock() - time_between_frames;
@@ -214,12 +241,13 @@ void Game::ComposeFrame()
 		
 		if (gun_bullet_bool)
 		{
+			
 			gun_bullet->Draw(gfx);
 		}
 
 		if (game_over)
 		{
-			gfx.drawSurface(0, 0, *pressenter);
+			//gfx.drawSurface(0, 0, *pressenter);
 
 		}
 	}
