@@ -84,7 +84,7 @@ private:
 
 	int beam1_height;
 	int beam1_width;
-	 int int_array[6] = { 6,7,8,9,10,11 };
+	//int int_array[6] = { 6,7,8,9,10,11 };
 
 	Vector *gunbot_vec;
 	double slope;

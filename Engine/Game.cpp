@@ -42,7 +42,7 @@ Game::Game(MainWindow& wnd)
 	beam1_height = 0;
 	 
 	wiz_sheet = new SpriteSheet("Wizard.bmp", 4, 3);
-	wiz_anime = new Animation(-1, 3, 6, int_array);
+	wiz_anime = new Animation(-1, 3, 6, 11);
 
 
 	
