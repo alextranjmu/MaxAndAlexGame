@@ -54,7 +54,7 @@ void Animation::nextFrame()
 
 int Animation::getCurrentFrame()
 {
-	return current_frame;
+	return frames[current_frame];
 }
 	
 bool Animation::isCancelable()

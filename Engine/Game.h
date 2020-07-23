@@ -14,6 +14,8 @@
 #include "Enemy.h"
 #include "Point.h"
 #include "Vector.h"
+#include "SpriteSheet.h"
+#include "Animation.h"
 //bika
 class Game
 {
@@ -76,8 +78,13 @@ private:
 	Point *startingPoint;
 	Point *midpoint;
 
+	SpriteSheet *wiz_sheet; //= new SpriteSheet("Wizard.bmp", 4, 3);
+	Animation *wiz_anime;//= new Animation(-1, 3, 0, 5);
+
+
 	int beam1_height;
 	int beam1_width;
+	 int int_array[6] = { 6,7,8,9,10,11 };
 
 	Vector *gunbot_vec;
 	double slope;

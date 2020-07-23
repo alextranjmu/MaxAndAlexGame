@@ -40,6 +40,10 @@ Game::Game(MainWindow& wnd)
 	game_over = false;
 	beam1_width = 47;
 	beam1_height = 0;
+	 
+	wiz_sheet = new SpriteSheet("Wizard.bmp", 4, 3);
+	wiz_anime = new Animation(-1, 3, 6, int_array);
+
 
 	
 
@@ -138,7 +142,7 @@ void Game::UpdateModel()
 		}
 	}
 
-	if (gun_bullet_bool)
+	/*if (gun_bullet_bool)
 	{
 		gun_bullet->x += round(gunbot_vec->getX());
 		gun_bullet->y += round(gunbot_vec->getY());
@@ -159,9 +163,9 @@ void Game::UpdateModel()
 			gun_bullet->y = gunbot->y;
 			gun_bullet_bool = true;
 		}
-	}
+	}*/
 
-
+	
 
 	
 	
@@ -266,7 +270,10 @@ void Game::ComposeFrame()
 		time_between_frames = clock();
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 	}
-	
+
+	wiz_sheet->drawFrame(gfx, wiz_anime->getCurrentFrame(), 100, 100);
+	wiz_anime->nextFrame();
+
 
 }
 
