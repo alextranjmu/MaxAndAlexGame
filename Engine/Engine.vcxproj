@@ -156,6 +156,7 @@
     <ClInclude Include="Point.h" />
     <ClInclude Include="PPM.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
@@ -177,6 +178,7 @@
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="PPM.cpp" />
+    <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Vector.cpp" />
   </ItemGroup>
