@@ -8,7 +8,7 @@ class Wizard :
 public:
 	Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols);
 	~Wizard();
-	void Update(const Keyboard & kbd);
+	void Update(const Keyboard & kbd, int x1, int x2, int y1, int y2);
 	void Draw(Graphics &gfx);
 
 private:

@@ -17,13 +17,14 @@ Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols)
 	current_animation = idle_animation;
 }
 
-void Wizard::Update(const Keyboard & kbd)
+void Wizard::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2)
 {
 	if (current_animation->isCancelable())
 	{	
 		bool noKeyPressed = true;
 		if (kbd.KeyIsPressed(VK_RIGHT))
 		{
+			collisionUpdatexdown(x1, x2, y1, y2);
 			direction = RIGHT;
 			noKeyPressed = false;
 			x += SPEED;
@@ -32,6 +33,7 @@ void Wizard::Update(const Keyboard & kbd)
 		}
 		if (kbd.KeyIsPressed(VK_LEFT))
 		{
+			collisionUpdatexup(x1, x2, y1, y2);
 			direction = LEFT;
 			noKeyPressed = false;
 			x -= SPEED;
@@ -40,6 +42,7 @@ void Wizard::Update(const Keyboard & kbd)
 		}
 		if (kbd.KeyIsPressed(VK_DOWN))
 		{
+			collisionUpdatexdown(x1, x2, y1, y2);
 			noKeyPressed = false;
 			y += SPEED;
 			setAnimation(walk_cycle);
@@ -47,6 +50,7 @@ void Wizard::Update(const Keyboard & kbd)
 		}
 		if (kbd.KeyIsPressed(VK_UP))
 		{
+			collisionUpdatexup(x1, x2, y1, y2);
 			noKeyPressed = false;
 			y -= SPEED;
 			setAnimation(walk_cycle);

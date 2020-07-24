@@ -13,7 +13,7 @@ public:
 	~Character();
 	void ClampToScreen();
 	void Draw(Graphics& gfx) const;
-	void Update(const Keyboard& kbd);
+	void Update(const Keyboard& kbd, int x1, int x2, int y1, int y2);
 	int GetX() const;
 	int GetY() const;
 	int GetWidth() const;
