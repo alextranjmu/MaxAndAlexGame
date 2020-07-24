@@ -25,24 +25,25 @@ Character::~Character()
 
 void Character::ClampToScreen()
 {
-	const int right = x + width;
+
+	const int right = x;
 	if (x < 0)
 	{
 		x = 0;
 	}
-	else if (right >= Graphics::ScreenWidth)
+	else if (right > Graphics::ScreenWidth - 100)
 	{
-		x = (Graphics::ScreenWidth - 1) - width;
+		x = (Graphics::ScreenWidth - 100);
 	}
 
-	const int bottom = y + height;
+	const int bottom = y;
 	if (y < 0)
 	{
 		y = 0;
 	}
-	else if (bottom >= Graphics::ScreenHeight)
+	else if (bottom > Graphics::ScreenHeight - 100)
 	{
-		y = (Graphics::ScreenHeight - 1) - height;
+		y = (Graphics::ScreenHeight - 100);
 	}
 }
 
