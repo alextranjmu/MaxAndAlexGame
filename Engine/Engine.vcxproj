@@ -159,6 +159,7 @@
     <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="Vector.h" />
+    <ClInclude Include="Wizard.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
@@ -181,6 +182,7 @@
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="Vector.cpp" />
+    <ClCompile Include="Wizard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">

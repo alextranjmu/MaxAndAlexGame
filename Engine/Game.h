@@ -16,6 +16,7 @@
 #include "Vector.h"
 #include "SpriteSheet.h"
 #include "Animation.h"
+#include "Wizard.h"
 //bika
 class Game
 {
@@ -48,7 +49,7 @@ private:
 	std::uniform_int_distribution<int> yDist;
 	Drawer draw;
 	Block block;
-	Character *cop; // should be a subclass of character (and tbh a subclass of a new class - Player)
+	Wizard *wizard; // should be a subclass of character (and tbh a subclass of a new class - Player)
 	static constexpr int nPoo = 1000;
 	bool isStarted = false;
 	/********************************/

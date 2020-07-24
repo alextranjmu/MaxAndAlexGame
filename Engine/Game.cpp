@@ -21,7 +21,7 @@ Game::Game(MainWindow& wnd)
 	frame_counter = 0;
 	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
 
-	cop = new Character();
+	wizard = new Wizard(100, 100, "Wizard.bmp", 4, 3);
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
@@ -62,8 +62,8 @@ void Game::UpdateModel()
 
 	if( isStarted)
 	{
-		cop->Update(wnd.kbd, 600, 800, 300, 550);
-		cop->ClampToScreen();
+		wizard->Update(wnd.kbd);
+		wizard->ClampToScreen();
 	}
 	else
 	{
@@ -194,7 +194,7 @@ void Game::ComposeFrame()
 	{
 
 		gfx.drawSurface(0, 0, *map1);
-		cop->Draw(gfx);
+		wizard->Draw(gfx);
 		gunbot->Draw(gfx);
 		lazerbot->Draw(gfx);
 
@@ -284,10 +284,11 @@ bool Game::nextBool(double probability)
 
 void Game::UpdateLazer1()
 {
-	int copx = cop->GetX() + 100;
-	int copy1 = cop->GetY();
-	int copy2 = cop->GetY() + 100;
-	if ( copx > lazer1->x && ((copy1 < lazer1->y && copy2 > lazer1->y) || (copy1 < (lazer1->y + lazer1->s->getHeight()) && copy2 >(lazer1->y + lazer1->s->getHeight()))))
+	int copx = wizard->GetX() + 100;
+	int copy1 = wizard->GetY();
+	int copy2 = wizard->GetY() + 100;
+	if ( copx > lazer1->x && ((copy1 < lazer1->y && copy2 > lazer1->y) || (copy1 < (lazer1->y + lazer1->s->getHeight()) 
+		&& copy2 >(lazer1->y + lazer1->s->getHeight()))))
 	{
 		game_over = true;
 	}
@@ -295,9 +296,9 @@ void Game::UpdateLazer1()
 
 void Game::UpdateLazer2()
 {
-	int copx = cop->GetX();
-	int copy1 = cop->GetY();
-	int copy2 = cop->GetY() + 100;
+	int copx = wizard->GetX();
+	int copy1 = wizard->GetY();
+	int copy2 = wizard->GetY() + 100;
 	if (copx < (lazer2->x + lazer2->s->getWidth()) && ((copy1 < lazer2->y && copy2 > lazer2->y) || (copy1 < (lazer2->y + lazer2->s->getHeight()) && copy2 >(lazer2->y + lazer2->s->getHeight()))))
 	{
 		game_over = true;
