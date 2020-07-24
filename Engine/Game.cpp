@@ -45,7 +45,8 @@ Game::Game(MainWindow& wnd)
 	wiz_anime = new Animation(-1, 3, 6, 11);
 
 
-	
+	beach_sheet = new SpriteSheet("beach.bmp", 5, 1);
+	beach_anime = new Animation(-1, 3, 0, 4);
 
 }
 
@@ -193,7 +194,8 @@ void Game::ComposeFrame()
 	if (isStarted)
 	{
 
-		gfx.drawSurface(0, 0, *map1);
+		beach_sheet->drawFrame(gfx, beach_anime->getCurrentFrame(), 0, 0);
+		beach_anime->nextFrame();
 		cop->Draw(gfx);
 		gunbot->Draw(gfx);
 		lazerbot->Draw(gfx);

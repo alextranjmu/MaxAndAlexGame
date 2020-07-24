@@ -81,6 +81,8 @@ private:
 	SpriteSheet *wiz_sheet; //= new SpriteSheet("Wizard.bmp", 4, 3);
 	Animation *wiz_anime;//= new Animation(-1, 3, 0, 5);
 
+	SpriteSheet *beach_sheet;
+	Animation *beach_anime;
 
 	int beam1_height;
 	int beam1_width;
