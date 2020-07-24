@@ -62,7 +62,7 @@ void Game::UpdateModel()
 
 	if( isStarted)
 	{
-		wizard->Update(wnd.kbd);
+		wizard->Update(wnd.kbd, 600, 800, 300, 550);
 		wizard->ClampToScreen();
 	}
 	else
