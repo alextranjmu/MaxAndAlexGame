@@ -37,6 +37,7 @@ Game::Game(MainWindow& wnd)
 	lazer1 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");
 	lazer2 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");
 	gun_bullet = new Bullet(0, 0, "bigredbullet24.bmp");
+	gunbot_vec = new Vector(vec_degree, 15);
 	game_over = false;
 	beam1_width = 47;
 	beam1_height = 0;
@@ -142,7 +143,7 @@ void Game::UpdateModel()
 		}
 	}
 
-	/*if (gun_bullet_bool)
+	if (gun_bullet_bool)
 	{
 		gun_bullet->x += round(gunbot_vec->getX());
 		gun_bullet->y += round(gunbot_vec->getY());
@@ -163,7 +164,7 @@ void Game::UpdateModel()
 			gun_bullet->y = gunbot->y;
 			gun_bullet_bool = true;
 		}
-	}*/
+	}
 
 	
 
