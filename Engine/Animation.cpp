@@ -1,8 +1,5 @@
 #include "Animation.h"
 
-
-Animation::Animation(){}
-
 Animation::Animation(int cancelable_start_frame, int frame_skips, int num_frames, int * frames)
 {
 	this->cancelable_start_frame = cancelable_start_frame;
@@ -18,7 +15,7 @@ Animation::Animation(int cancelable_start_frame, int frame_skips, int start_fram
 	this->cancelable_start_frame = cancelable_start_frame;
 	this->frame_skips = frame_skips;
 	this->num_frames = 1 + end_frame - start_frame;
-	this->frames = (int*)calloc(1, sizeof(int) * num_frames);
+	this->frames = (int*)malloc(sizeof(int) * num_frames);
 	for (int i = 0; i <= num_frames; i++)
 	{
 		*(frames + i) = start_frame + i;
@@ -30,6 +27,7 @@ Animation::Animation(int cancelable_start_frame, int frame_skips, int start_fram
 Animation::~Animation()
 {
 	free(frames);
+	frames = nullptr;
 }
 	
 void Animation::nextFrame()

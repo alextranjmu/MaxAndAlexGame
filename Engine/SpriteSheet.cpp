@@ -33,6 +33,7 @@ SpriteSheet::SpriteSheet(std::string fileName, int rows, int columns)
 SpriteSheet::~SpriteSheet()
 {
 	free(frames);
+	frames = nullptr;
 }
 
 void SpriteSheet::drawFrame(Graphics & gfx, int frame_num, int x, int y)

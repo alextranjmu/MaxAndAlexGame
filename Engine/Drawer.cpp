@@ -29,7 +29,6 @@ void Drawer::DrawPPM(Graphics& gfx, int x, int y, PPM *frame)
 			}
 		}
 	}
-	//delete defaultFrame;
 }
 
 void Drawer::DrawPPM_Horizontal_Flip(Graphics& gfx, int x, int y, PPM *frame)
@@ -49,7 +48,6 @@ void Drawer::DrawPPM_Horizontal_Flip(Graphics& gfx, int x, int y, PPM *frame)
 			}
 		}
 	}
-	//delete defaultFrame;
 }
 
 void Drawer::WriteNumber(Graphics & gfx, int x, int y, int number, Color c)

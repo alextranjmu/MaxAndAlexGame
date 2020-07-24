@@ -67,4 +67,5 @@ PPM::PPM(char* fileName)
 PPM::~PPM()
 {
 	free(pixels);
+	pixels = nullptr;
 }
