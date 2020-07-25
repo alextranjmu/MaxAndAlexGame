@@ -101,11 +101,12 @@ void Game::UpdateModel()
 		//}
 		if (beam1_height <= 0)
 		{
-			beam1_height = 450;
+			beam1_height = 0;
 			beam1_speed = 0;
 			beam1_hold += 1;
-			if (beam1_hold == 100)
+			if (beam1_hold == 200)
 			{
+				beam1_height = 450;
 				beam1_hold = 0;
 				beam1_bool = false;
 			}
@@ -116,7 +117,7 @@ void Game::UpdateModel()
 	{
 		if (nextBool(0.05))
 		{
-			beam1_speed = 30;
+			beam1_speed = 50;
 			beam1_bool = true;
 		}
 	}
@@ -245,19 +246,12 @@ void Game::ComposeFrame()
 			int x = 730;
 			for (; x < beam1_width + 730; x++)
 			{
-				for (int y = 450; y > 450 - beam1_height; y--)
+				for (int y = 450; y > beam1_height; y--)
 				{
 					gfx.PutPixel(x, y, 222, 34, 34);
 				}
 			}
-			/*tempX += beam1_width / 6;
-			for (int x = 730; x < beam1_width + 730; x++)
-			{
-				for (int y = 450; y > 450 - beam1_height; y--)
-				{
-					gfx.PutPixel(x, y, 222, 34, 34);
-				}
-			}*/
+			
 
 
 		}
