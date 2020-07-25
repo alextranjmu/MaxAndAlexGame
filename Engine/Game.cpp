@@ -37,15 +37,29 @@ Game::Game(MainWindow& wnd)
 	lazer1 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");
 	lazer2 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");
 	gun_bullet = new Bullet(0, 0, "bigredbullet24.bmp");
+	gunbot_vec = new Vector(0, 15);
 	game_over = false;
+
 	beam1_width = 47;
 	beam1_height = 0;
+	beam1_hold = 0;
+	beam1_speed = 30;
 	 
 	wiz_sheet = new SpriteSheet("Wizard.bmp", 4, 3);
 	wiz_anime = new Animation(-1, 3, 6, 11);
 
+	beach_sheet = new SpriteSheet("beach.bmp", 5, 1);
+	beach_anime = new Animation(-1, 8, 0, 4);
 
-	
+	tree_sheet = new SpriteSheet("palmtree.bmp", 2, 2);
+	tree_anime = new Animation(-1, 8, 0, 3);
+
+	rock_sheet = new SpriteSheet("rock.bmp", 1, 1);
+	rock_anime = new Animation(-1, 0, 0, 0);
+
+	flipped_palm_tree_sheet = new SpriteSheet("flipped_palm_tree.bmp", 2, 2);
+	flipped_palm_tree_anime = new Animation(-1, 8, 0, 3);
+
 
 }
 
@@ -63,7 +77,7 @@ void Game::UpdateModel()
 	if( isStarted)
 	{
 		wizard->Update(wnd.kbd, 600, 800, 300, 550);
-		wizard->ClampToScreen();
+		wizard->ClampToScreen(wiz_sheet->Width(), wiz_sheet->Height());
 	}
 	else
 	{
@@ -76,7 +90,7 @@ void Game::UpdateModel()
 
 	if (beam1_bool)
 	{
-		beam1_height -= 30;
+		beam1_height -= beam1_speed;
 		//bigredbullet->Accelerate(2, 10);
 		//if (bigredbullet->y == 0)
 		//{
@@ -88,7 +102,13 @@ void Game::UpdateModel()
 		if (beam1_height <= 0)
 		{
 			beam1_height = 450;
-			beam1_bool = false;
+			beam1_speed = 0;
+			beam1_hold += 1;
+			if (beam1_hold == 100)
+			{
+				beam1_hold = 0;
+				beam1_bool = false;
+			}
 		}
 	}
 
@@ -96,6 +116,7 @@ void Game::UpdateModel()
 	{
 		if (nextBool(0.05))
 		{
+			beam1_speed = 30;
 			beam1_bool = true;
 		}
 	}
@@ -142,13 +163,14 @@ void Game::UpdateModel()
 		}
 	}
 
-	/*if (gun_bullet_bool)
+	if (gun_bullet_bool)
 	{
 		gun_bullet->x += round(gunbot_vec->getX());
 		gun_bullet->y += round(gunbot_vec->getY());
 
 		if (gun_bullet->x < 100 || gun_bullet->y < 100 || gun_bullet->x > Graphics::ScreenWidth - 100 || gun_bullet->y > Graphics::ScreenHeight - 100)
 		{
+
 			gun_bullet_bool = false;
 		}
 	}
@@ -157,13 +179,13 @@ void Game::UpdateModel()
 	{
 		if (nextBool(1))
 		{
-			vec_degree = GetDegree(gunbot->x, gunbot->y, cop->GetX() + 50, cop->GetY() + 50);
+			vec_degree = GetDegree(gunbot->x, gunbot->y, wizard->GetX() + 50, wizard->GetY() + 50);
 			gunbot_vec = new Vector(vec_degree, 15);
 			gun_bullet->x = gunbot->x;
 			gun_bullet->y = gunbot->y;
 			gun_bullet_bool = true;
 		}
-	}*/
+	}
 
 	
 
@@ -192,15 +214,28 @@ void Game::ComposeFrame()
 {
 	if (isStarted)
 	{
+		beach_sheet->drawFrame(gfx, beach_anime->getCurrentFrame(), 0, 0);
+		beach_anime->nextFrame();
 
-		gfx.drawSurface(0, 0, *map1);
+		tree_sheet->drawFrame(gfx, tree_anime->getCurrentFrame(), 48, 300);
+		tree_anime->nextFrame();
+
+		flipped_palm_tree_sheet->drawFrame(gfx, flipped_palm_tree_anime->getCurrentFrame(), 100, 350);
+		flipped_palm_tree_anime->nextFrame();
+
+		tree_sheet->drawFrame(gfx, tree_anime->getCurrentFrame(), 50, 400);
+		tree_anime->nextFrame();
+
+		
+		
+
 		wizard->Draw(gfx);
 		gunbot->Draw(gfx);
+
 		lazerbot->Draw(gfx);
 
-		gfx.drawSurface(200, 200, *rock);
-		gfx.drawSurface(900, 300, *rock);
-		gfx.drawSurface(600, 50, *rock);
+		
+
 		gfx.drawSurface(600, 350, *ballBot);
 
 
@@ -248,6 +283,8 @@ void Game::ComposeFrame()
 			
 			gun_bullet->Draw(gfx);
 		}
+		rock_sheet->drawFrame(gfx, 0, 400, 400);
+
 
 		if (game_over)
 		{
@@ -271,8 +308,8 @@ void Game::ComposeFrame()
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 	}
 
-	wiz_sheet->drawFrame(gfx, wiz_anime->getCurrentFrame(), 100, 100);
-	wiz_anime->nextFrame();
+	/*wiz_sheet->drawFrame(gfx, wiz_anime->getCurrentFrame(), 100, 100);
+	wiz_anime->nextFrame();*/
 
 
 }

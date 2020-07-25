@@ -23,7 +23,7 @@ Character::~Character()
 	delete sprites;
 }
 
-void Character::ClampToScreen()
+void Character::ClampToScreen(int width, int height)
 {
 
 	const int right = x;
@@ -31,9 +31,9 @@ void Character::ClampToScreen()
 	{
 		x = 0;
 	}
-	else if (right > Graphics::ScreenWidth - 100)
+	else if (right > Graphics::ScreenWidth - width)
 	{
-		x = (Graphics::ScreenWidth - 100);
+		x = (Graphics::ScreenWidth - width);
 	}
 
 	const int bottom = y;
@@ -41,9 +41,9 @@ void Character::ClampToScreen()
 	{
 		y = 0;
 	}
-	else if (bottom > Graphics::ScreenHeight - 100)
+	else if (bottom > Graphics::ScreenHeight - height - 10)
 	{
-		y = (Graphics::ScreenHeight - 100);
+		y = (Graphics::ScreenHeight - height - 10);
 	}
 }
 

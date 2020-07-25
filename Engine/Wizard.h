@@ -17,7 +17,7 @@ private:
 	Animation *walk_cycle;
 	Animation *spin_attack;
 	void setAnimation(Animation *anime);
-	int x;
-	int y;
+	/*int x;
+	int y;*/
 };
 

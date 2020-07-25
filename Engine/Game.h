@@ -82,9 +82,22 @@ private:
 	SpriteSheet *wiz_sheet; //= new SpriteSheet("Wizard.bmp", 4, 3);
 	Animation *wiz_anime;//= new Animation(-1, 3, 0, 5);
 
+	SpriteSheet *beach_sheet;
+	Animation *beach_anime;
+
+	SpriteSheet *tree_sheet;
+	Animation *tree_anime;
+
+	SpriteSheet *rock_sheet;
+	Animation *rock_anime;
+
+	SpriteSheet *flipped_palm_tree_sheet;
+	Animation *flipped_palm_tree_anime;
 
 	int beam1_height;
 	int beam1_width;
+	int beam1_hold;
+	int beam1_speed;
 	//int int_array[6] = { 6,7,8,9,10,11 };
 
 	Vector *gunbot_vec;

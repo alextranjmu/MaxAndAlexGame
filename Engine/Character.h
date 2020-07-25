@@ -11,7 +11,7 @@ public:
 	Character();
 	Character(int x2, int y2, char* spritesheet, int ssrows, int sscols);
 	~Character();
-	void ClampToScreen();
+	void ClampToScreen(int width, int height);
 	void Draw(Graphics& gfx) const;
 	void Update(const Keyboard& kbd, int x1, int x2, int y1, int y2);
 	int GetX() const;

@@ -73,3 +73,13 @@ void SpriteSheet::drawFrameHorizontalFlip(Graphics & gfx, int frame_num, int x, 
 		}
 	}
 }
+
+int SpriteSheet::Width()
+{
+	return frame_width;
+}
+
+int SpriteSheet::Height()
+{
+	return frame_height;
+}

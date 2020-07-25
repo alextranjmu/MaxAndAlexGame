@@ -11,6 +11,8 @@ public:
 	~SpriteSheet();
 	void drawFrame(Graphics& gfx, int frame_num, int x, int y);
 	void drawFrameHorizontalFlip(Graphics& gfx, int frame_num, int x, int y);
+	int Width();
+	int Height();
 private:
 	int num_frames;
 	int frame_width;
