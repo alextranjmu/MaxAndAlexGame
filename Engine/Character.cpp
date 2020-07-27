@@ -54,7 +54,7 @@ void Character::Draw(Graphics& gfx) const
 
 void Character::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2)
 {
-	if (kbd.KeyIsPressed(VK_RIGHT))
+	/*if (kbd.KeyIsPressed(VK_RIGHT))
 	{
 		collisionUpdatexdown(x1, x2, y1, y2);
 		x += SPEED;
@@ -73,7 +73,7 @@ void Character::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2)
 	{
 		collisionUpdatexup(x1, x2, y1, y2);
 		y -= SPEED;
-	}
+	}*/
 	if (kbd.KeyIsPressed(VK_SPACE)) {
 
 	}
@@ -100,35 +100,4 @@ int Character::GetHeight() const
 }
 
 
-void Character::collisionUpdatexup(int x1, int x2, int y1, int y2)
-{
-	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
-	{
-		x += SPEED;
-	}
-}
 
-void Character::collisionUpdatexdown(int x1, int x2, int y1, int y2)
-{
-	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
-	{
-		x -= SPEED;
-	}
-}
-
-
-void Character::collisionUpdateyup(int x1, int x2, int y1, int y2)
-{
-	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
-	{
-		y += SPEED;
-	}
-}
-
-void Character::collisionUpdateydown(int x1, int x2, int y1, int y2)
-{
-	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
-	{
-		y -= SPEED;
-	}
-}

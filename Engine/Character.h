@@ -26,6 +26,8 @@ protected:
 	static int const LEFT = 3;
 	static int const RIGHT = 4;
 
+	int lives = 100;
+
 	int SPEED = 4;
 
 	int width;
@@ -36,9 +38,6 @@ protected:
 	int direction;
 
 	SpriteSheet *sprites;
-	void collisionUpdatexup(int x1, int x2, int y1, int y2);
-	void collisionUpdatexdown(int x1, int x2, int y1, int y2);
-	void collisionUpdateyup(int x1, int x2, int y1, int y2);
-	void collisionUpdateydown(int x1, int x2, int y1, int y2);
+	
 
 };

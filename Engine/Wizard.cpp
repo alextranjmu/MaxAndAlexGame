@@ -17,42 +17,47 @@ Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols)
 	current_animation = idle_animation;
 }
 
-void Wizard::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2)
+void Wizard::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2, int wiz_width, int wiz_height)
 {
 	if (current_animation->isCancelable())
 	{	
 		bool noKeyPressed = true;
 		if (kbd.KeyIsPressed(VK_RIGHT))
 		{
-			collisionUpdatexdown(x1, x2, y1, y2);
 			direction = RIGHT;
 			noKeyPressed = false;
 			x += SPEED;
+			collisionUpdatexdown(x1, x2, y1, y2, wiz_width, wiz_height);
+
 			setAnimation(walk_cycle);
 			current_animation->nextFrame();
 		}
 		if (kbd.KeyIsPressed(VK_LEFT))
 		{
-			collisionUpdatexup(x1, x2, y1, y2);
+			collisionUpdatexup(x1, x2, y1, y2, wiz_width, wiz_height);
 			direction = LEFT;
 			noKeyPressed = false;
 			x -= SPEED;
+			collisionUpdatexup(x1, x2, y1, y2, wiz_width, wiz_height);
+
 			setAnimation(walk_cycle);
 			current_animation->nextFrame();
 		}
 		if (kbd.KeyIsPressed(VK_DOWN))
 		{
-			collisionUpdatexdown(x1, x2, y1, y2);
 			noKeyPressed = false;
 			y += SPEED;
+			collisionUpdateydown(x1, x2, y1, y2, wiz_width, wiz_height);
+
 			setAnimation(walk_cycle);
 			current_animation->nextFrame();
 		}
 		if (kbd.KeyIsPressed(VK_UP))
 		{
-			collisionUpdatexup(x1, x2, y1, y2);
 			noKeyPressed = false;
 			y -= SPEED;
+			collisionUpdateyup(x1, x2, y1, y2, wiz_width, wiz_height);
+
 			setAnimation(walk_cycle);
 			current_animation->nextFrame();
 		}
@@ -64,6 +69,7 @@ void Wizard::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2)
 			//direction = NO_DIRECTION;
 			setAnimation(idle_animation);
 		}
+
 	}
 	else
 	{
@@ -100,5 +106,38 @@ void Wizard::setAnimation(Animation * anime)
 	{
 		current_animation->reset(); // sets previous animation to frame zero so it doesn't start in the middle when used again
 		current_animation = anime;
+	}
+}
+
+void Wizard::collisionUpdatexup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		x += SPEED;
+	}
+}
+
+void Wizard::collisionUpdatexdown(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		x -= SPEED;
+	}
+}
+
+
+void Wizard::collisionUpdateyup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		y += SPEED;
+	}
+}
+
+void Wizard::collisionUpdateydown(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		y -= SPEED;
 	}
 }

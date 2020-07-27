@@ -50,6 +50,7 @@ private:
 	Drawer draw;
 	Block block;
 	Wizard *wizard; // should be a subclass of character (and tbh a subclass of a new class - Player)
+	Wizard *shot_wiz;
 	static constexpr int nPoo = 1000;
 	bool isStarted = false;
 	/********************************/
@@ -66,6 +67,7 @@ private:
 	boolean lazer_bullet2;
 	boolean gun_bullet_bool;
 	boolean game_over;
+	boolean wiz_shot_at_bool;
 
 	Enemy *gunbot;
 	Enemy *lazerbot;
@@ -93,6 +95,12 @@ private:
 
 	SpriteSheet *flipped_palm_tree_sheet;
 	Animation *flipped_palm_tree_anime;
+
+	SpriteSheet *white_wiz_sheet;
+	Animation *white_wiz_anime;
+
+	SpriteSheet *turret_sheet;
+	Animation *turret_anime;
 
 	int beam1_height;
 	int beam1_width;

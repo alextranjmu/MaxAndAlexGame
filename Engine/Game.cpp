@@ -22,6 +22,7 @@ Game::Game(MainWindow& wnd)
 	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
 
 	wizard = new Wizard(100, 100, "Wizard.bmp", 4, 3);
+	shot_wiz = new Wizard(100, 100, "Wiz_shot.bmp", 4, 3);
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
@@ -39,6 +40,7 @@ Game::Game(MainWindow& wnd)
 	gun_bullet = new Bullet(0, 0, "bigredbullet24.bmp");
 	gunbot_vec = new Vector(0, 15);
 	game_over = false;
+	wiz_shot_at_bool = false;
 
 	beam1_width = 47;
 	beam1_height = 0;
@@ -47,6 +49,9 @@ Game::Game(MainWindow& wnd)
 	 
 	wiz_sheet = new SpriteSheet("Wizard.bmp", 4, 3);
 	wiz_anime = new Animation(-1, 3, 6, 11);
+
+	white_wiz_sheet = new SpriteSheet("Wiz_shot.bmp", 4, 3);
+	white_wiz_anime = new Animation(-1, 3, 6, 11);
 
 	beach_sheet = new SpriteSheet("beach.bmp", 5, 1);
 	beach_anime = new Animation(-1, 8, 0, 4);
@@ -59,6 +64,9 @@ Game::Game(MainWindow& wnd)
 
 	flipped_palm_tree_sheet = new SpriteSheet("flipped_palm_tree.bmp", 2, 2);
 	flipped_palm_tree_anime = new Animation(-1, 8, 0, 3);
+
+	turret_sheet = new SpriteSheet("turret.bmp", 4, 2);
+	turret_anime = new Animation(-1, 8, 0, 7);
 
 
 }
@@ -76,8 +84,10 @@ void Game::UpdateModel()
 
 	if( isStarted)
 	{
-		wizard->Update(wnd.kbd, 600, 800, 300, 550);
+		wizard->Update(wnd.kbd, 600, 800, 300, 550, wiz_sheet->Width(), wiz_sheet->Height());
 		wizard->ClampToScreen(wiz_sheet->Width(), wiz_sheet->Height());
+		shot_wiz->Update(wnd.kbd, 600, 800, 300, 550, wiz_sheet->Width(), wiz_sheet->Height());
+		shot_wiz->ClampToScreen(wiz_sheet->Width(), wiz_sheet->Height());
 	}
 	else
 	{
@@ -188,7 +198,57 @@ void Game::UpdateModel()
 		}
 	}
 
+	//COLLISION CHUNGUS
+	int wiz_x = wizard->GetX();
+	int wiz_y = wizard->GetY();
+	int bullet_x = gun_bullet->x;
+	int bullet_y = gun_bullet->y;
+	int lazer1_x = lazer1->x;
+	int lazer1_y = lazer1->y;
+	int lazer2_x = lazer2->x;
+	int lazer2_y = lazer2->y;
+	wiz_shot_at_bool = false;
 	
+
+
+
+	if ((wiz_x < bullet_x + gun_bullet->s->getWidth()) && (wiz_y < bullet_y + gun_bullet->s->getHeight())
+		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y < bullet_y + gun_bullet->s->getHeight()))
+		&& ((wiz_x < bullet_x + gun_bullet->s->getWidth()) && (wiz_y + wiz_sheet->Height() > bullet_y))
+		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y + wiz_sheet->Height() > bullet_y))
+		)
+	{
+		wiz_shot_at_bool = true;
+	}
+
+	if ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y < lazer1_y + lazer1->s->getHeight())
+		&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y < lazer1_y + lazer1->s->getHeight()))
+		&& ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer1_y))
+		&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y + wiz_sheet->Height() > lazer1_y))
+		)
+	{
+		wiz_shot_at_bool = true;
+	}
+
+	if ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y < lazer2_y + lazer1->s->getHeight())
+		&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y < lazer2_y + lazer1->s->getHeight()))
+		&& ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer2_y))
+		&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y + wiz_sheet->Height() > lazer2_y))
+		)
+	{
+		wiz_shot_at_bool = true;
+	}
+
+	if (((wiz_x < 730 + beam1_width && wiz_x > 730) || (wiz_x + wiz_sheet->Width() > 730 && wiz_x + wiz_sheet->Width() < 730 + beam1_width) 
+		|| (wiz_x +wiz_sheet->Width()/2 < 730 + beam1_width && wiz_x + wiz_sheet->Width() / 2 > 730))
+		&& beam1_height < wiz_y)
+	{
+		wiz_shot_at_bool = true;
+	}
+
+	//collision with the big boy robot
+	int ballbot_x = 600;
+	int ballbot_y = 350;
 
 	
 	
@@ -231,6 +291,7 @@ void Game::ComposeFrame()
 		
 
 		wizard->Draw(gfx);
+		
 		gunbot->Draw(gfx);
 
 		lazerbot->Draw(gfx);
@@ -302,8 +363,11 @@ void Game::ComposeFrame()
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 	}
 
-	/*wiz_sheet->drawFrame(gfx, wiz_anime->getCurrentFrame(), 100, 100);
-	wiz_anime->nextFrame();*/
+	if (wiz_shot_at_bool)
+	{
+
+		shot_wiz->Draw(gfx);
+	}
 
 
 }
@@ -321,18 +385,20 @@ void Game::UpdateLazer1()
 	if ( copx > lazer1->x && ((copy1 < lazer1->y && copy2 > lazer1->y) || (copy1 < (lazer1->y + lazer1->s->getHeight()) 
 		&& copy2 >(lazer1->y + lazer1->s->getHeight()))))
 	{
-		game_over = true;
+	//	wiz_shot_at_bool = true;
 	}
 }
 
+
 void Game::UpdateLazer2()
+
 {
 	int copx = wizard->GetX();
 	int copy1 = wizard->GetY();
 	int copy2 = wizard->GetY() + 100;
 	if (copx < (lazer2->x + lazer2->s->getWidth()) && ((copy1 < lazer2->y && copy2 > lazer2->y) || (copy1 < (lazer2->y + lazer2->s->getHeight()) && copy2 >(lazer2->y + lazer2->s->getHeight()))))
 	{
-		game_over = true;
+	//	wiz_shot_at_bool = true;
 	}
 }
 
