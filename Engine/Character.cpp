@@ -4,8 +4,8 @@
 Character::Character()
 {
 	direction = NO_DIRECTION;
-	x = 100;
-	y = 100;
+	x = 200;
+	y = 200;
 	width = 20;
 	height = 20;
 }
@@ -52,32 +52,7 @@ void Character::Draw(Graphics& gfx) const
 
 }
 
-void Character::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2)
-{
-	/*if (kbd.KeyIsPressed(VK_RIGHT))
-	{
-		collisionUpdatexdown(x1, x2, y1, y2);
-		x += SPEED;
-	}
-	if (kbd.KeyIsPressed(VK_LEFT))
-	{
-		collisionUpdatexup(x1, x2, y1, y2);
-		x -= SPEED;
-	}
-	if (kbd.KeyIsPressed(VK_DOWN))
-	{
-		collisionUpdatexdown(x1, x2, y1, y2);
-		y += SPEED;
-	}
-	if (kbd.KeyIsPressed(VK_UP))
-	{
-		collisionUpdatexup(x1, x2, y1, y2);
-		y -= SPEED;
-	}*/
-	if (kbd.KeyIsPressed(VK_SPACE)) {
 
-	}
-}
 
 int Character::GetX() const
 {

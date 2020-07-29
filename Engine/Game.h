@@ -17,6 +17,10 @@
 #include "SpriteSheet.h"
 #include "Animation.h"
 #include "Wizard.h"
+#include <vector>
+#include "Obstacle.h"
+using std::vector;
+
 //bika
 class Game
 {
@@ -51,6 +55,9 @@ private:
 	Block block;
 	Wizard *wizard; // should be a subclass of character (and tbh a subclass of a new class - Player)
 	Wizard *shot_wiz;
+
+	Obstacle *ballBot_obstacle;
+	Obstacle *beach;
 	static constexpr int nPoo = 1000;
 	bool isStarted = false;
 	/********************************/
@@ -109,6 +116,11 @@ private:
 	//int int_array[6] = { 6,7,8,9,10,11 };
 
 	Vector *gunbot_vec;
+
+	vector<Wizard*> characters;
+	vector<Enemy*> enemies;
+	vector<Obstacle*> obstacles;
+
 	double slope;
 	double c;
 	double vec_degree;

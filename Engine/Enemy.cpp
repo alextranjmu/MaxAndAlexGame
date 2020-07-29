@@ -29,7 +29,7 @@ void Enemy::AImove()
 
 }
 
-void Enemy::randomMove()
+void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height)
 {
 
 	if (nextBool(0.01))
@@ -40,16 +40,28 @@ void Enemy::randomMove()
 	{
 	case LEFT:
 		x -= speed;
-		break;
+		for (int i = 0; i < obstacles.size(); i++)
+		{
+			collisionUpdatexup(obstacles[i]->x1, obstacles[i]->x2, obstacles[i]->y1, obstacles[i]->y2, enemy_width, enemy_height);
+		}		break;
 	case RIGHT:
 		x += speed;
-		break;
+		for (int i = 0; i < obstacles.size(); i++)
+		{
+			collisionUpdatexdown(obstacles[i]->x1, obstacles[i]->x2, obstacles[i]->y1, obstacles[i]->y2, enemy_width, enemy_height);
+		}		break;
 	case UP:
 		y -= speed;
-		break;
+		for (int i = 0; i < obstacles.size(); i++)
+		{
+			collisionUpdateyup(obstacles[i]->x1, obstacles[i]->x2, obstacles[i]->y1, obstacles[i]->y2, enemy_width, enemy_height);
+		}		break;
 	case DOWN:
 		y += speed;
-		break;
+		for (int i = 0; i < obstacles.size(); i++)
+		{
+			collisionUpdateydown(obstacles[i]->x1, obstacles[i]->x2, obstacles[i]->y1, obstacles[i]->y2, enemy_width, enemy_height);
+		}		break;
 	case NO_DIRECTION:
 		break;
 	}
@@ -129,3 +141,35 @@ bool Enemy::nextBool(double probability)
 }
 
 
+void Enemy::collisionUpdatexup(int x1, int x2, int y1, int y2, int enemy_width, int enemy_height)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		x += speed;
+	}
+}
+
+void Enemy::collisionUpdatexdown(int x1, int x2, int y1, int y2, int enemy_width, int enemy_height)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		x -= speed;
+	}
+}
+
+
+void Enemy::collisionUpdateyup(int x1, int x2, int y1, int y2, int enemy_width, int enemy_height)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		y += speed;
+	}
+}
+
+void Enemy::collisionUpdateydown(int x1, int x2, int y1, int y2, int enemy_width, int enemy_height)
+{
+	if ((x) > x1 && (x) < x2 && (y) > y1 && (y) < y2)
+	{
+		y -= speed;
+	}
+}

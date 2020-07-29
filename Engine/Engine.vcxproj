@@ -152,6 +152,7 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PPM.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="MainClass.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="PPM.cpp" />

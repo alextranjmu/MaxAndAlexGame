@@ -1,5 +1,7 @@
 #include "Wizard.h"
 #include "Keyboard.h"
+#include "Obstacle.h"
+
 
 
 
@@ -17,7 +19,7 @@ Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols)
 	current_animation = idle_animation;
 }
 
-void Wizard::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2, int wiz_width, int wiz_height)
+void Wizard::Update(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height)
 {
 	if (current_animation->isCancelable())
 	{	
@@ -27,18 +29,23 @@ void Wizard::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2, int wi
 			direction = RIGHT;
 			noKeyPressed = false;
 			x += SPEED;
-			collisionUpdatexdown(x1, x2, y1, y2, wiz_width, wiz_height);
+			for (int i = 0; i < obstacles.size(); i++) 
+			{
+				collisionUpdatexdown(obstacles[i]->x1, obstacles[i]->x2, obstacles[i]->y1, obstacles[i]->y2, wiz_width, wiz_height);
+			}
 
 			setAnimation(walk_cycle);
 			current_animation->nextFrame();
 		}
 		if (kbd.KeyIsPressed(VK_LEFT))
 		{
-			collisionUpdatexup(x1, x2, y1, y2, wiz_width, wiz_height);
 			direction = LEFT;
 			noKeyPressed = false;
 			x -= SPEED;
-			collisionUpdatexup(x1, x2, y1, y2, wiz_width, wiz_height);
+			for (int i = 0; i < obstacles.size(); i++)
+			{
+				collisionUpdatexup(obstacles[i]->x1, obstacles[i]->x2, obstacles[i]->y1, obstacles[i]->y2, wiz_width, wiz_height);
+			}
 
 			setAnimation(walk_cycle);
 			current_animation->nextFrame();
@@ -47,8 +54,10 @@ void Wizard::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2, int wi
 		{
 			noKeyPressed = false;
 			y += SPEED;
-			collisionUpdateydown(x1, x2, y1, y2, wiz_width, wiz_height);
-
+			for (int i = 0; i < obstacles.size(); i++)
+			{
+				collisionUpdateydown(obstacles[i]->x1, obstacles[i]->x2, obstacles[i]->y1, obstacles[i]->y2, wiz_width, wiz_height);
+			}
 			setAnimation(walk_cycle);
 			current_animation->nextFrame();
 		}
@@ -56,8 +65,10 @@ void Wizard::Update(const Keyboard & kbd, int x1, int x2, int y1, int y2, int wi
 		{
 			noKeyPressed = false;
 			y -= SPEED;
-			collisionUpdateyup(x1, x2, y1, y2, wiz_width, wiz_height);
-
+			for (int i = 0; i < obstacles.size(); i++)
+			{
+				collisionUpdateyup(obstacles[i]->x1, obstacles[i]->x2, obstacles[i]->y1, obstacles[i]->y2, wiz_width, wiz_height);
+			}
 			setAnimation(walk_cycle);
 			current_animation->nextFrame();
 		}

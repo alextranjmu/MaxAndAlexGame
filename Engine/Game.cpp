@@ -8,6 +8,7 @@
 #include <cmath>
 #include <vector>
 
+
 Game::Game(MainWindow& wnd)
 	:
 	wnd(wnd),
@@ -21,13 +22,15 @@ Game::Game(MainWindow& wnd)
 	frame_counter = 0;
 	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
 
-	wizard = new Wizard(100, 100, "Wizard.bmp", 4, 3);
-	shot_wiz = new Wizard(100, 100, "Wiz_shot.bmp", 4, 3);
+	wizard = new Wizard(200, 200, "Wizard.bmp", 4, 3);
+	shot_wiz = new Wizard(200, 200, "Wiz_shot.bmp", 4, 3);
 	std::uniform_int_distribution<int> vDist(-1, 1);
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 	pressenter = new Surface("pressenter.bmp");
 	ballBot = new Surface("ballRobot24.bmp");
+	ballBot_obstacle = new Obstacle(600, 800, 350, 500);
+	beach = new Obstacle(0, 1120, 0, 100);
 	bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
 	itsover = new Surface("pressenter.bmp");
 	beam1_bool = false;
@@ -67,8 +70,19 @@ Game::Game(MainWindow& wnd)
 
 	turret_sheet = new SpriteSheet("turret.bmp", 4, 2);
 	turret_anime = new Animation(-1, 8, 0, 7);
+	vector<int> vec;
+	vec.push_back(1);
+	vec.push_back(2);
 
-
+	
+	//THEM LISTS FOR YOU MAX
+	characters.push_back(wizard);
+	characters.push_back(shot_wiz);
+	enemies.push_back(gunbot);
+	enemies.push_back(lazerbot);
+	obstacles.push_back(ballBot_obstacle);
+	obstacles.push_back(beach);
+	
 }
 
 void Game::Go()
@@ -84,10 +98,18 @@ void Game::UpdateModel()
 
 	if( isStarted)
 	{
-		wizard->Update(wnd.kbd, 600, 800, 300, 550, wiz_sheet->Width(), wiz_sheet->Height());
-		wizard->ClampToScreen(wiz_sheet->Width(), wiz_sheet->Height());
-		shot_wiz->Update(wnd.kbd, 600, 800, 300, 550, wiz_sheet->Width(), wiz_sheet->Height());
-		shot_wiz->ClampToScreen(wiz_sheet->Width(), wiz_sheet->Height());
+		for (int i = 0; i < characters.size(); i++)
+		{
+
+			characters[i]->Update(wnd.kbd, obstacles, wiz_sheet->Width(), wiz_sheet->Height());
+			characters[i]->ClampToScreen(wiz_sheet->Width(), wiz_sheet->Height());
+		}
+		for (int i = 0; i < enemies.size(); i++)
+		{
+			enemies[i]->randomMove(obstacles, 0,0);
+		}
+		
+
 	}
 	else
 	{
@@ -252,15 +274,11 @@ void Game::UpdateModel()
 
 	
 	
-	UpdateLazer1();
-
-
-	gunbot->randomMove();
+	
+	
+	
 	gunbot->clamp_screen();
-
-
-	lazerbot->randomMove();
-	lazerbot->clamp_screen_lazer();
+	lazerbot->clamp_screen();
 	
 }
 
@@ -268,6 +286,8 @@ void Game::DrawGameOver(int x, int y)
 {
 	gfx.drawSurface(0, 0, *itsover);
 }
+
+
 
 
 
@@ -377,30 +397,7 @@ bool Game::nextBool(double probability)
 	return rand() <  probability * ((double)RAND_MAX + 1.0);
 }
 
-void Game::UpdateLazer1()
-{
-	int copx = wizard->GetX() + 100;
-	int copy1 = wizard->GetY();
-	int copy2 = wizard->GetY() + 100;
-	if ( copx > lazer1->x && ((copy1 < lazer1->y && copy2 > lazer1->y) || (copy1 < (lazer1->y + lazer1->s->getHeight()) 
-		&& copy2 >(lazer1->y + lazer1->s->getHeight()))))
-	{
-	//	wiz_shot_at_bool = true;
-	}
-}
 
-
-void Game::UpdateLazer2()
-
-{
-	int copx = wizard->GetX();
-	int copy1 = wizard->GetY();
-	int copy2 = wizard->GetY() + 100;
-	if (copx < (lazer2->x + lazer2->s->getWidth()) && ((copy1 < lazer2->y && copy2 > lazer2->y) || (copy1 < (lazer2->y + lazer2->s->getHeight()) && copy2 >(lazer2->y + lazer2->s->getHeight()))))
-	{
-	//	wiz_shot_at_bool = true;
-	}
-}
 
 double Game::GetDegree(double a1, double a2, double b1, double b2)
 {
@@ -414,3 +411,4 @@ double Game::GetDegree(double a1, double a2, double b1, double b2)
 	}*/
 	return theta  ;
 }
+
