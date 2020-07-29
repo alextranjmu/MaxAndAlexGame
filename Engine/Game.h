@@ -19,6 +19,7 @@
 #include "Wizard.h"
 #include <vector>
 #include "Obstacle.h"
+#include "TitleScreen.h"
 using std::vector;
 
 //bika
@@ -120,6 +121,7 @@ private:
 	vector<Wizard*> characters;
 	vector<Enemy*> enemies;
 	vector<Obstacle*> obstacles;
+	vector<Bullet*> bullets;
 
 	double slope;
 	double c;

@@ -19,7 +19,7 @@ Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols)
 	current_animation = idle_animation;
 }
 
-void Wizard::Update(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height)
+void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height)
 {
 	if (current_animation->isCancelable())
 	{	

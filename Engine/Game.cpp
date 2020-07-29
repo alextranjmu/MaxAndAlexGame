@@ -45,6 +45,7 @@ Game::Game(MainWindow& wnd)
 	game_over = false;
 	wiz_shot_at_bool = false;
 
+
 	beam1_width = 47;
 	beam1_height = 0;
 	beam1_hold = 0;
@@ -101,7 +102,7 @@ void Game::UpdateModel()
 		for (int i = 0; i < characters.size(); i++)
 		{
 
-			characters[i]->Update(wnd.kbd, obstacles, wiz_sheet->Width(), wiz_sheet->Height());
+			characters[i]->Move(wnd.kbd, obstacles, wiz_sheet->Width(), wiz_sheet->Height());
 			characters[i]->ClampToScreen(wiz_sheet->Width(), wiz_sheet->Height());
 		}
 		for (int i = 0; i < enemies.size(); i++)
