@@ -21,7 +21,7 @@ Game::Game(MainWindow& wnd)
 {
 	frame_counter = 0;
 	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
-
+	//window = wnd.hWnd;
 	wizard = new Wizard(200, 200, "Wizard.bmp", 4, 3);
 	shot_wiz = new Wizard(200, 200, "Wiz_shot.bmp", 4, 3);
 	std::uniform_int_distribution<int> vDist(-1, 1);
@@ -44,6 +44,7 @@ Game::Game(MainWindow& wnd)
 	gunbot_vec = new Vector(0, 15);
 	game_over = false;
 	wiz_shot_at_bool = false;
+	intro_screen = new TitleScreen(0, 0, "titlescreen.bmp");
 
 
 	beam1_width = 47;
@@ -110,15 +111,15 @@ void Game::UpdateModel()
 			enemies[i]->randomMove(obstacles, 0,0);
 		}
 		
-
+		
 	}
 	else
 	{
-
-		if( wnd.kbd.KeyIsPressed( VK_RETURN) )
-		{
-			isStarted = true;
-		}
+		GetCursorPos(&cursor_point);
+		ScreenToClient(wnd.hWnd, &cursor_point);
+		intro_screen->Change_difficulty(cursor_point.x, cursor_point.y, isStarted);
+		//if( wnd.kbd.KeyIsPressed( WM_LBUTTONDOWN) )
+		
 	}
 
 	if (beam1_bool)
@@ -312,14 +313,17 @@ void Game::ComposeFrame()
 		
 
 		wizard->Draw(gfx);
-		
+		if (wiz_shot_at_bool)
+		{
+			shot_wiz->Draw(gfx);
+		}
 		gunbot->Draw(gfx);
 
 		lazerbot->Draw(gfx);
 
 		
 
-		gfx.drawSurface(600, 350, *ballBot);
+		gfx.drawSurface(600, 300, *ballBot);
 
 
 		if (beam1_bool)
@@ -375,8 +379,7 @@ void Game::ComposeFrame()
 				gfx.PutPixel(x, y, 255, 255, 255);
 			}
 		}
-		//Surface *pressenter = new Surface("pressenter.bmp");
-		gfx.drawSurface(0, 0, *pressenter);
+		intro_screen->Draw(gfx);
 
 		time_between_frames = clock() - time_between_frames;
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, time_between_frames, Color(0, 0, 0));
@@ -384,12 +387,8 @@ void Game::ComposeFrame()
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 	}
 
-	if (wiz_shot_at_bool)
-	{
-
-		shot_wiz->Draw(gfx);
-	}
-
+	
+	
 
 }
 

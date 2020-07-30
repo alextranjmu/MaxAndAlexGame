@@ -36,7 +36,7 @@ public:
 	HWNDKey& operator=( HWNDKey& ) = delete;
 protected:
 	HWNDKey() = default;
-protected:
+public:
 	HWND hWnd = nullptr;
 };
 

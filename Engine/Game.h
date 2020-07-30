@@ -123,6 +123,9 @@ private:
 	vector<Obstacle*> obstacles;
 	vector<Bullet*> bullets;
 
+	TitleScreen *intro_screen;
+	POINT cursor_point;
+	HWND window;
 	double slope;
 	double c;
 	double vec_degree;
