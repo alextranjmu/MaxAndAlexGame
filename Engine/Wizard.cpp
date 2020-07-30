@@ -17,6 +17,7 @@ Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols)
 	spin_attack = new Animation(-1, 3, 6, 11);
 
 	current_animation = idle_animation;
+	lives = 100;
 }
 
 void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height)

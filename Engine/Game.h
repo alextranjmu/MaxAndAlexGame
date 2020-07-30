@@ -20,6 +20,7 @@
 #include <vector>
 #include "Obstacle.h"
 #include "TitleScreen.h"
+#include "LifeBar.h"
 using std::vector;
 
 //bika
@@ -124,6 +125,7 @@ private:
 	vector<Bullet*> bullets;
 
 	TitleScreen *intro_screen;
+	LifeBar *wiz_life_bar;
 	POINT cursor_point;
 	HWND window;
 	double slope;

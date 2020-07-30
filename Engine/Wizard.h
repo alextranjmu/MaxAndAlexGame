@@ -8,6 +8,7 @@ class Wizard :
 	public Character
 {
 public:
+	double lives;
 	Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols);
 	~Wizard();
 	void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height);

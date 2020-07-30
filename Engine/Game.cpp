@@ -45,7 +45,7 @@ Game::Game(MainWindow& wnd)
 	game_over = false;
 	wiz_shot_at_bool = false;
 	intro_screen = new TitleScreen(0, 0, "titlescreen.bmp");
-
+	wiz_life_bar = new LifeBar(wizard->GetX(), wizard->GetY(), wizard->lives, 15);
 
 	beam1_width = 47;
 	beam1_height = 0;
@@ -110,6 +110,9 @@ void Game::UpdateModel()
 		{
 			enemies[i]->randomMove(obstacles, 0,0);
 		}
+		wiz_life_bar->width = round(wizard->lives);
+		wiz_life_bar->x = wizard->GetX();
+		wiz_life_bar->y = wizard->GetY();
 		
 		
 	}
@@ -242,6 +245,7 @@ void Game::UpdateModel()
 		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y + wiz_sheet->Height() > bullet_y))
 		)
 	{
+		wizard->lives -= 0.1;
 		wiz_shot_at_bool = true;
 	}
 
@@ -251,6 +255,7 @@ void Game::UpdateModel()
 		&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y + wiz_sheet->Height() > lazer1_y))
 		)
 	{
+		wizard->lives -= 0.1;
 		wiz_shot_at_bool = true;
 	}
 
@@ -260,6 +265,7 @@ void Game::UpdateModel()
 		&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y + wiz_sheet->Height() > lazer2_y))
 		)
 	{
+		wizard->lives -= 0.1;
 		wiz_shot_at_bool = true;
 	}
 
@@ -267,6 +273,7 @@ void Game::UpdateModel()
 		|| (wiz_x +wiz_sheet->Width()/2 < 730 + beam1_width && wiz_x + wiz_sheet->Width() / 2 > 730))
 		&& beam1_height < wiz_y)
 	{
+		wizard->lives -= 1;
 		wiz_shot_at_bool = true;
 	}
 
@@ -297,6 +304,7 @@ void Game::ComposeFrame()
 {
 	if (isStarted)
 	{
+
 		beach_sheet->drawFrame(gfx, beach_anime->getCurrentFrame(), 0, 0);
 		beach_anime->nextFrame();
 
@@ -366,11 +374,8 @@ void Game::ComposeFrame()
 		rock_sheet->drawFrame(gfx, 0, 400, 400);
 
 
-		if (game_over)
-		{
-			//gfx.drawSurface(0, 0, *pressenter);
+		wiz_life_bar->Draw(gfx);
 
-		}
 	}
 	else 
 	{
