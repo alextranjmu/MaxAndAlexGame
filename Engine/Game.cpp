@@ -98,7 +98,10 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-
+	if (wnd.kbd.KeyIsPressed(VK_RIGHT))
+	{
+		exit(EXIT_SUCCESS);
+	}
 	if( isStarted)
 	{
 		for (int i = 0; i < characters.size(); i++)
@@ -290,8 +293,8 @@ void Game::UpdateModel()
 	
 	
 	
-	gunbot->clamp_screen();
-	lazerbot->clamp_screen();
+	gunbot->clamp_screen(100, 100, 100, 150);
+	lazerbot->clamp_screen(100, 100, 100, 100);
 	
 }
 

@@ -132,59 +132,35 @@ void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_
 }
 
 //the parameters are screen size
+//right is distance from right side
+//bottom is distance from bottom
 void Enemy::clamp_screen(int left, int right, int top, int bottom)
 {
-	const int right = x;
-	if (x < 0)
+	const int x_clone = x;
+	if (x < left)
 	{
 		direction = RIGHT;
-		x = 0;
+		x = left;
 	}
-	else if (right >(Graphics::ScreenWidth / 3) * 2)
+	else if (x_clone >Graphics::ScreenWidth - right)
 	{
 		direction = LEFT;
-		x = ((Graphics::ScreenWidth / 3) * 2);
+		x = Graphics::ScreenWidth - right;
 	}
 
-	const int bottom = y;
-	if (y < 0)
+	const int y_clone = y;
+	if (y < top)
 	{
 		direction = DOWN;
-		y = 0;
+		y = top;
 	}
-	else if (bottom > Graphics::ScreenHeight - 100)
+	else if (y_clone > Graphics::ScreenHeight - bottom)
 	{
 		direction = UP;
-		y = (Graphics::ScreenHeight - 100);
+		y = (Graphics::ScreenHeight - bottom);
 	}
 }
 
-void Enemy::clamp_screen_lazer()
-{
-	const int right = x;
-	if (x < Graphics::ScreenWidth / 3)
-	{
-		direction = RIGHT;
-		x = Graphics::ScreenWidth / 3;
-	}
-	else if (right > (Graphics::ScreenWidth / 3) * 2)
-	{
-		direction = LEFT;
-		x = ((Graphics::ScreenWidth / 3) * 2);
-	}
-
-	const int bottom = y;
-	if (y < 0)
-	{
-		direction = DOWN;
-		y = 0;
-	}
-	else if (bottom > Graphics::ScreenHeight - 100)
-	{
-		direction = UP;
-		y = (Graphics::ScreenHeight - 100);
-	}
-}
 
 
 
