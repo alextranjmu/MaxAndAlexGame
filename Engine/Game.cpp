@@ -36,8 +36,9 @@ Game::Game(MainWindow& wnd)
 	beam1_bool = false;
 	lazer_bullet1 = false;
 	lazer_bullet2 = false;
-	gunbot = new Enemy(LEFT, 600, 300,5, "gunbot.bmp");
-	lazerbot = new Enemy(LEFT, 400, 300,2, "lazerbot.bmp");
+	gunbot = new Enemy(LEFT, 600, 300,5, "gunbot.bmp", 4, 2);
+	gunbot_legs = new Enemy(LEFT, 600, 300, 5, "gunbot_legs.bmp", 3, 1);
+	lazerbot = new Enemy(LEFT, 400, 300,2, "lazerbot.bmp", 3, 1);
 	lazer1 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");
 	lazer2 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");
 	gun_bullet = new Bullet(0, 0, "bigredbullet24.bmp");
@@ -110,6 +111,8 @@ void Game::UpdateModel()
 		{
 			enemies[i]->randomMove(obstacles, 0,0);
 		}
+		gunbot_legs->x = gunbot->x;
+		gunbot_legs->y = gunbot->y;
 		wiz_life_bar->width = round(wizard->lives);
 		wiz_life_bar->x = wizard->GetX();
 		wiz_life_bar->y = wizard->GetY();
@@ -195,7 +198,7 @@ void Game::UpdateModel()
 	{
 		if (nextBool(0.05))
 		{
-			lazer2->x = lazerbot->x + lazerbot->s->getWidth();
+			lazer2->x = lazerbot->x + lazerbot->sheet->Width();
 			lazer2->y = lazerbot->y + 20;
 			lazer_bullet2 = true;
 		}
@@ -203,8 +206,8 @@ void Game::UpdateModel()
 
 	if (gun_bullet_bool)
 	{
-		gun_bullet->x += round(gunbot_vec->getX());
-		gun_bullet->y += round(gunbot_vec->getY());
+		gun_bullet->x += round(gunbot->attack_vector->getX());
+		gun_bullet->y += round(gunbot->attack_vector->getY());
 
 		if (gun_bullet->x < 100 || gun_bullet->y < 100 || gun_bullet->x > Graphics::ScreenWidth - 100 || gun_bullet->y > Graphics::ScreenHeight - 100)
 		{
@@ -217,8 +220,9 @@ void Game::UpdateModel()
 	{
 		if (nextBool(1))
 		{
-			vec_degree = GetDegree(gunbot->x, gunbot->y, wizard->GetX() + 50, wizard->GetY() + 50);
-			gunbot_vec = new Vector(vec_degree, 15);
+			gunbot->attack_degree = GetDegree(gunbot->x, gunbot->y, wizard->GetX() + 50, wizard->GetY() + 50);
+			gunbot->attack_vector = new Vector(gunbot->attack_degree, 15);
+			
 			gun_bullet->x = gunbot->x;
 			gun_bullet->y = gunbot->y;
 			gun_bullet_bool = true;
@@ -325,9 +329,8 @@ void Game::ComposeFrame()
 		{
 			shot_wiz->Draw(gfx);
 		}
-		gunbot->Draw(gfx);
 
-		lazerbot->Draw(gfx);
+	//	lazerbot->Draw(gfx);
 
 		
 
@@ -393,7 +396,9 @@ void Game::ComposeFrame()
 	}
 
 	
-	
+	gunbot->DrawTurret(gfx);
+	gunbot_legs->Draw_gunbot_Legs(gfx);
+
 
 }
 

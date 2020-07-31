@@ -80,6 +80,7 @@ private:
 
 	Enemy *gunbot;
 	Enemy *lazerbot;
+	Enemy *gunbot_legs;
 
 	Bullet *lazer1; 	
 	Bullet *lazer2;

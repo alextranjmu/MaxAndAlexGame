@@ -2,32 +2,96 @@
 #include "Graphics.h"
 #include "Surface.h"
 #include <random>
+# define M_PI           3.14159265358979323846  /* pi */
 
 
-Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName)
+
+Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols)
 {
-	s = new Surface(fileName);
+	sheet = new SpriteSheet(fileName, rows, cols);
+	anime = new Animation(-1, 8, 0, 2);
 	this->x = x;
 	this->y = y;
 	this->speed = speed;
 	direction = LEFT;
 }
 
-void Enemy::Update(int x1, int x2, int y1, int y2)
+
+void Enemy::DrawTurret(Graphics & gfx)
 {
-	
+	//sheet->drawFrame(gfx, 0, x, y);
+	//sheet->drawFrame(gfx, 3, x, y);
+	if (attack_degree < 0)
+	{
+		//attack_degree *= -1;
+	}
+	if (attack_degree > 0 && attack_degree < M_PI / 6)
+	{
+		sheet->drawFrame(gfx, 0, x, y);
+	}
+	else if (attack_degree > M_PI / 6 && attack_degree < M_PI / 3)
+	{
+		sheet->drawFrame(gfx, 7, x, y);
+	}
+	else if (attack_degree > M_PI / 3 && attack_degree < 2 * M_PI / 3)
+	{
+		sheet->drawFrame(gfx, 6, x, y);
+	}
+	else if (attack_degree > 2 * M_PI / 3 && attack_degree < 5 * M_PI / 6)
+	{
+		sheet->drawFrame(gfx, 5, x, y);
+	}
+	else if (attack_degree < 0 && attack_degree >(-1) * M_PI / 6)
+	{
+		sheet->drawFrame(gfx, 0, x, y);
+	}
+	else if (attack_degree < (-1) * M_PI / 6 && attack_degree >(-1) * M_PI / 3)
+	{
+		sheet->drawFrame(gfx, 1, x, y);
+	}
+	else if (attack_degree < (-1) * M_PI / 3 && attack_degree >(-1) * 2 * M_PI / 3)
+	{
+		sheet->drawFrame(gfx, 2, x, y);
+	}
+	else if (attack_degree < (-1) * 2 * M_PI / 3 && attack_degree >(-1) * 5 * M_PI / 6)
+	{
+		sheet->drawFrame(gfx, 3, x, y);
+	}
+	else
+	{
+		sheet->drawFrame(gfx, 4, x, y);
+
+	}
 }
 
 void Enemy::Draw(Graphics & gfx)
 {
-	gfx.drawSurface(x, y, *s);
+	if (is_shooting_left_missile)
+	{
+		sheet->drawFrame(gfx, 2, x, y);
+	}
+	else if (is_shooting_right_missile)
+	{
+		sheet->drawFrame(gfx, 3, x, y);
+	}
+	else if (is_shooting_left_missile && is_shooting_right_missile)
+	{
+		sheet->drawFrame(gfx, 1, x, y);
+	}
+	else
+	{
+		sheet->drawFrame(gfx, 0, x, y);
+	}
+	
 }
 
-
-void Enemy::AImove()
+void Enemy::Draw_gunbot_Legs(Graphics & gfx)
 {
-
+	sheet->drawFrame(gfx, anime->getCurrentFrame(), x, y);
+	anime->nextFrame();
 }
+
+
 
 void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height)
 {
@@ -121,18 +185,7 @@ void Enemy::clamp_screen_lazer()
 	}
 }
 
-void Enemy::Shoot(botname name)
-{
-	switch (name)
-	{
-	case GUNBOT:
 
-		break;
-	case LAZERBOT:
-
-		break;
-	}
-}
 
 
 bool Enemy::nextBool(double probability)
