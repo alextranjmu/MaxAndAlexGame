@@ -39,8 +39,8 @@ public:
 	void Draw(Graphics &gfx);
 	void Draw_gunbot_Legs(Graphics &gfx);
 	void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height);
-		void clamp_screen();
-	void clamp_screen_lazer();
+	void Enemy::clamp_screen(int left, int right, int top, int bottom)
+		void clamp_screen_lazer();
 	
 	bool nextBool(double probability);
 	void Enemy::collisionUpdatexup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);

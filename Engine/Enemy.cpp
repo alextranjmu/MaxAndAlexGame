@@ -131,7 +131,8 @@ void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_
 	}
 }
 
-void Enemy::clamp_screen()
+//the parameters are screen size
+void Enemy::clamp_screen(int left, int right, int top, int bottom)
 {
 	const int right = x;
 	if (x < 0)
