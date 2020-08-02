@@ -22,7 +22,7 @@ enum Direction
 class Enemy
 {
 public:
-	Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols);
+	Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols, int width, int height);
 	bool is_shooting_left_missile = false;
 	bool is_shooting_right_missile = false;
 	Vector *attack_vector;
@@ -30,6 +30,8 @@ public:
 	int x;
 	int y;
 	int speed;
+	int width;
+	int height;
 	SpriteSheet *sheet;
 	Animation *anime;
 	Direction direction;

@@ -17,6 +17,9 @@ public:
 	int GetY() const;
 	int GetWidth() const;
 	int GetHeight() const;
+	int lives = 100;
+
+	
 
 protected:
 	static int const NO_DIRECTION = 0; //need to update so that UP/DOWN and LEfT/RIGHT aren't mutually exclusive
@@ -25,7 +28,6 @@ protected:
 	static int const LEFT = 3;
 	static int const RIGHT = 4;
 
-	int lives = 100;
 
 	int SPEED = 4;
 

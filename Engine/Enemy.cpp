@@ -6,25 +6,23 @@
 
 
 
-Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols)
+Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols, int width, int height)
 {
 	sheet = new SpriteSheet(fileName, rows, cols);
 	anime = new Animation(-1, 8, 0, 2);
 	this->x = x;
 	this->y = y;
+	this->width = width;
+	this->height = height;
 	this->speed = speed;
 	direction = LEFT;
+
 }
 
 
 void Enemy::DrawTurret(Graphics & gfx)
 {
-	//sheet->drawFrame(gfx, 0, x, y);
-	//sheet->drawFrame(gfx, 3, x, y);
-	if (attack_degree < 0)
-	{
-		//attack_degree *= -1;
-	}
+	
 	if (attack_degree > 0 && attack_degree < M_PI / 6)
 	{
 		sheet->drawFrame(gfx, 0, x, y);

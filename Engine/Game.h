@@ -31,7 +31,10 @@ public:
 	Game( class MainWindow& wnd );
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
-	void Go();
+	void Go(boolean &is_retarted);
+	void Restart();
+	void Replay();
+
 private:
 	void ComposeFrame();
 	bool nextBool(double probability);
@@ -62,7 +65,10 @@ private:
 	Obstacle *ballBot_obstacle;
 	Obstacle *beach;
 	static constexpr int nPoo = 1000;
-	bool isStarted = false;
+	boolean isStarted;
+	boolean game_over;
+	boolean isRe_started;
+	boolean is_Replay;
 	/********************************/
 	Surface *map1;
 	Surface *rock;
@@ -76,7 +82,6 @@ private:
 	boolean lazer_bullet1;
 	boolean lazer_bullet2;
 	boolean gun_bullet_bool;
-	boolean game_over;
 	boolean wiz_shot_at_bool;
 
 	Enemy *gunbot;

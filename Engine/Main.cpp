@@ -4,6 +4,7 @@
 #include "Graphics.h"
 #include "ChiliException.h"
 
+boolean is_restarted = false;
 int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
 {
 	//Graphics::GetDesktopResolution(Graphics::ScreenWidth, Graphics::ScreenHeight);
@@ -16,7 +17,7 @@ int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
 			Game theGame( wnd );
 			while( wnd.ProcessMessage() )
 			{
-				theGame.Go();
+				theGame.Go(is_restarted);
 			}
 		}
 		catch( const ChiliException& e )
