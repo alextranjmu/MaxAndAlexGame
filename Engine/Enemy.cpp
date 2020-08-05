@@ -13,7 +13,7 @@ Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName)
 	direction = LEFT;
 }
 
-void Enemy::Update(int x1, int x2, int y1, int y2)
+void Enemy::update(int x1, int x2, int y1, int y2)
 {
 	
 }
@@ -27,6 +27,10 @@ void Enemy::Draw(Graphics & gfx)
 void Enemy::AImove()
 {
 
+}
+
+void Enemy::shoot()
+{
 }
 
 void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height)
@@ -120,20 +124,6 @@ void Enemy::clamp_screen_lazer()
 		y = (Graphics::ScreenHeight - 100);
 	}
 }
-
-void Enemy::Shoot(botname name)
-{
-	switch (name)
-	{
-	case GUNBOT:
-
-		break;
-	case LAZERBOT:
-
-		break;
-	}
-}
-
 
 bool Enemy::nextBool(double probability)
 {

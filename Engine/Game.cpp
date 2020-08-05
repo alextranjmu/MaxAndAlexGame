@@ -28,9 +28,7 @@ Game::Game(MainWindow& wnd)
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 	pressenter = new Surface("pressenter.bmp");
-	ballBot = new Surface("ballRobot24.bmp");
-	ballBot_obstacle = new Obstacle(600, 800, 350, 500);
-	beach = new Obstacle(0, 1120, 0, 100);
+	ballBot_obstacle = new Obstacle(600, 800, 350, 500, "ballRobot24.bmp", 1, 1);
 	bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
 	itsover = new Surface("pressenter.bmp");
 	beam1_bool = false;
@@ -71,9 +69,6 @@ Game::Game(MainWindow& wnd)
 
 	turret_sheet = new SpriteSheet("turret.bmp", 4, 2);
 	turret_anime = new Animation(-1, 8, 0, 7);
-	vector<int> vec;
-	vec.push_back(1);
-	vec.push_back(2);
 
 	
 	//THEM LISTS FOR YOU MAX
@@ -82,7 +77,6 @@ Game::Game(MainWindow& wnd)
 	enemies.push_back(gunbot);
 	enemies.push_back(lazerbot);
 	obstacles.push_back(ballBot_obstacle);
-	obstacles.push_back(beach);
 	
 }
 
@@ -101,7 +95,6 @@ void Game::UpdateModel()
 	{
 		for (int i = 0; i < characters.size(); i++)
 		{
-
 			characters[i]->Move(wnd.kbd, obstacles, wiz_sheet->Width(), wiz_sheet->Height());
 			characters[i]->ClampToScreen(wiz_sheet->Width(), wiz_sheet->Height());
 		}
@@ -319,7 +312,7 @@ void Game::ComposeFrame()
 
 		
 
-		gfx.drawSurface(600, 350, *ballBot);
+		ballBot_obstacle->Draw(gfx);
 
 
 		if (beam1_bool)

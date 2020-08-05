@@ -55,6 +55,19 @@ void SpriteSheet::drawFrame(Graphics & gfx, int frame_num, int x, int y)
 	}
 }
 
+void SpriteSheet::drawFrame(Graphics & gfx, int frame_num, int x, int y, int degrees)
+{
+	// REQURIRES:
+	//	- a defined center on which to rotate the drawing (not all frames are centered, but that could be the solution too)
+	//	- all frames to default to facing the same direction (preferrably right)
+	//	- some trig (sin, cos, tan) to have it point in the intended direction (toward the player, probably) consitently
+}
+
+void SpriteSheet::drawFrame(Graphics & gfx, int frame_num, int x, int y, double radians)
+{
+	// see comment in above function
+}
+
 void SpriteSheet::drawFrameHorizontalFlip(Graphics & gfx, int frame_num, int x, int y)
 {
 	for (int row = 0; row < frame_height; row++)
