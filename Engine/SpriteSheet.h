@@ -13,7 +13,7 @@ public:
 	void drawFrame(Graphics& gfx, int frame_num, int x, int y);
 	void drawFrame(Graphics& gfx, int frame_num, int x, int y, int degrees);
 	void drawFrame(Graphics& gfx, int frame_num, int x, int y, double radians);
-	void drawFrameHorizontalFlip(Graphics& gfx, int frame_num, int x, int y)
+	void drawFrameHorizontalFlip(Graphics& gfx, int frame_num, int x, int y);
 	int Width();
 	int Height();
 private:

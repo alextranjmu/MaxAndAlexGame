@@ -117,14 +117,6 @@ void Game::UpdateModel()
 	if (beam1_bool)
 	{
 		beam1_height -= beam1_speed;
-		//bigredbullet->Accelerate(2, 10);
-		//if (bigredbullet->y == 0)
-		//{
-		//	bigredbullet->x = 735;
-		//	bigredbullet->y = 400;
-		//	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
-		//	beam1_bool = false;
-		//}
 		if (beam1_height <= 0)
 		{
 			beam1_height = 0;
@@ -163,7 +155,7 @@ void Game::UpdateModel()
 		lazer1->Accelerate(3, 3);
 		if (lazer1->x < 70)
 		{
-			lazer1->x = lazerbot->x - lazer1->s->getWidth();
+			lazer1->x = lazerbot->x - lazer1->sprites->Width();
 			lazer1->y = lazerbot->y + 20;
 			lazer_bullet1 = false;
 		}
@@ -228,27 +220,27 @@ void Game::UpdateModel()
 
 
 
-	if ((wiz_x < bullet_x + gun_bullet->s->getWidth()) && (wiz_y < bullet_y + gun_bullet->s->getHeight())
-		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y < bullet_y + gun_bullet->s->getHeight()))
-		&& ((wiz_x < bullet_x + gun_bullet->s->getWidth()) && (wiz_y + wiz_sheet->Height() > bullet_y))
+	if ((wiz_x < bullet_x + gun_bullet->sprites->Width()) && (wiz_y < bullet_y + gun_bullet->sprites->Height())
+		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y < bullet_y + gun_bullet->sprites->Height()))
+		&& ((wiz_x < bullet_x + gun_bullet->sprites->Width()) && (wiz_y + wiz_sheet->Height() > bullet_y))
 		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y + wiz_sheet->Height() > bullet_y))
 		)
 	{
 		wiz_shot_at_bool = true;
 	}
 
-	if ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y < lazer1_y + lazer1->s->getHeight())
-		&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y < lazer1_y + lazer1->s->getHeight()))
-		&& ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer1_y))
+	if((wiz_x < lazer1_x + lazer1->sprites->Width()) && (wiz_y < lazer1_y + lazer1->sprites->Height())
+		&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y < lazer1_y + lazer1->sprites->Height()))
+		&& ((wiz_x < lazer1_x + lazer1->sprites->Width()) && (wiz_y + wiz_sheet->Height() > lazer1_y))
 		&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y + wiz_sheet->Height() > lazer1_y))
 		)
 	{
 		wiz_shot_at_bool = true;
 	}
 
-	if ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y < lazer2_y + lazer1->s->getHeight())
-		&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y < lazer2_y + lazer1->s->getHeight()))
-		&& ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer2_y))
+	if ((wiz_x < lazer2_x + lazer1->sprites->Width()) && (wiz_y < lazer2_y + lazer1->sprites->Height())
+		&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y < lazer2_y + lazer1->sprites->Height()))
+		&& ((wiz_x < lazer2_x + lazer1->sprites->Width()) && (wiz_y + wiz_sheet->Height() > lazer2_y))
 		&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y + wiz_sheet->Height() > lazer2_y))
 		)
 	{
@@ -262,9 +254,6 @@ void Game::UpdateModel()
 		wiz_shot_at_bool = true;
 	}
 
-	//collision with the big boy robot
-	int ballbot_x = 600;
-	int ballbot_y = 350;
 
 	
 	
