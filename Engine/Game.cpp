@@ -386,7 +386,7 @@ bool Game::nextBool(double probability)
 
 
 
-double Game::GetDegree(double a1, double a2, double b1, double b2)
+double Game::GetDegree(int a1, int a2, int b1, int b2)
 {
 	static const double TWOPI = 6.2831853071795865;
 	static const double RAD2DEG = 57.2957795130823209;
