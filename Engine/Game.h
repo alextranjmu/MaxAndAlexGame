@@ -5,7 +5,7 @@
 #include "Graphics.h"
 #include "Drawer.h"
 #include <random>
-#include <Windows.h>
+#include <windows.h>
 #include "Block.h"
 #include "Character.h"
 #include "Surface.h"
@@ -20,28 +20,38 @@
 #include <vector>
 #include "Obstacle.h"
 #include "TitleScreen.h"
+#include "LifeBar.h"
+#include "Keyboard.h"
+#include <iostream>
+#pragma comment(lib,"winmm")
+
+using namespace::std;
 using std::vector;
 
 //bika
 class Game
 {
 public:
-	Game( class MainWindow& wnd );
-	Game( const Game& ) = delete;
-	Game& operator=( const Game& ) = delete;
+	Game(class MainWindow& wnd);
+	Game(const Game&) = delete;
+	Game& operator=(const Game&) = delete;
 	void Go();
+	void Restart();
+	void Replay();
+	void Update_when_paused();
+
 private:
 	void ComposeFrame();
 	bool nextBool(double probability);
 	void UpdateModel();
 	void UpdateLazer1();
 	void UpdateLazer2();
-	double GetDegree(double a1, double a2, double b1, double b2);
-	
+	double GetDegree(int a1, int a2, int b1, int b2);
+
 	/********************************/
 	/*  User Functions              */
-	void DrawGameOver( int x,int y );
-	void DrawTitleScreen( int x,int y );
+	void DrawGameOver(int x, int y);
+	void DrawTitleScreen(int x, int y);
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -60,7 +70,12 @@ private:
 	Obstacle *ballBot_obstacle;
 	Obstacle *beach;
 	static constexpr int nPoo = 1000;
-	bool isStarted = false;
+	boolean game_won;
+	boolean isStarted;
+	boolean game_over;
+	boolean isRe_started;
+	boolean is_Replay;
+	boolean paused;
 	/********************************/
 	Surface *map1;
 	Surface *rock;
@@ -74,13 +89,16 @@ private:
 	boolean lazer_bullet1;
 	boolean lazer_bullet2;
 	boolean gun_bullet_bool;
-	boolean game_over;
 	boolean wiz_shot_at_bool;
+
 
 	Enemy *gunbot;
 	Enemy *lazerbot;
+	Enemy *gunbot_legs;
+	Enemy *lazerbot_legs;
+	Enemy *slug;
 
-	Bullet *lazer1; 	
+	Bullet *lazer1;
 	Bullet *lazer2;
 	Bullet *gun_bullet;
 
@@ -110,6 +128,9 @@ private:
 	SpriteSheet *turret_sheet;
 	Animation *turret_anime;
 
+	SpriteSheet *explosion_sheet;
+	Animation *explosion_anime;
+
 	int beam1_height;
 	int beam1_width;
 	int beam1_hold;
@@ -123,6 +144,17 @@ private:
 	vector<Obstacle*> obstacles;
 	vector<Bullet*> bullets;
 
+	TitleScreen *intro_screen;
+	TitleScreen *end_screen;
+	TitleScreen *end_screen_win;
+	TitleScreen *pause_screen;
+
+	LifeBar *wiz_life_bar;
+	LifeBar *gunbot_life_bar;
+	LifeBar *lazerbot_life_bar;
+
+	POINT cursor_point;
+	HWND window;
 	double slope;
 	double c;
 	double vec_degree;
