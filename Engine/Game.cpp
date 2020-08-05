@@ -70,6 +70,10 @@ Game::Game(MainWindow& wnd)
 	turret_sheet = new SpriteSheet("turret.bmp", 4, 2);
 	turret_anime = new Animation(-1, 8, 0, 7);
 
+	intro_screen = new TitleScreen(0, 0, "titlescreen.bmp", 6, 1);
+	end_screen = new TitleScreen(0, 0, "end_screen.bmp", 2, 2);
+	end_screen_win = new TitleScreen(0, 0, "end_screen_win.bmp", 2, 2);
+	pause_screen = new TitleScreen(0, 0, "pause_screen.bmp", 2, 2);
 	
 	//THEM LISTS FOR YOU MAX
 	characters.push_back(wizard);
