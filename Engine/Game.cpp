@@ -395,3 +395,116 @@ double Game::GetDegree(double a1, double a2, double b1, double b2)
 	return theta  ;
 }
 
+//DONT LOOK INSIDE THIS FUNCTION 
+void Game::Restart()
+{
+	paused = false;
+	isRe_started = false;
+	is_Replay = false;
+	isStarted = false;
+	game_over = false;
+	frame_counter = 0;
+	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
+								   //window = wnd.hWnd;
+	wizard = new Wizard(200, 200, "Wizard.bmp", 4, 3);
+	shot_wiz = new Wizard(200, 200, "Wiz_shot.bmp", 4, 3);
+
+	std::uniform_int_distribution<int> vDist(-1, 1);
+
+	rock = new Surface("fatrock24.bmp");
+	map1 = new Surface("map1.bmp");
+
+	ballBot = new Surface("ballRobot24.bmp");
+	ballBot_obstacle = new Obstacle(600, 800, 350, 500);
+
+	beach = new Obstacle(0, 1120, 0, 100);
+
+	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
+	//itsover = new Surface("pressenter.bmp");
+
+	beam1_bool = false;
+
+	lazer_bullet1 = false;
+
+	lazer_bullet2 = false;
+
+	gunbot = new Enemy(LEFT, 600, 300, 1, "gunbot.bmp", 4, 2, 55, 55, 10);
+	gunbot_legs = new Enemy(LEFT, 600, 300, 1, "gunbot_legs.bmp", 3, 1, 55, 55, 100);
+
+	lazerbot = new Enemy(LEFT, 400, 300, 2, "lazerbot.bmp", 2, 2, 0, 0, 10);
+	lazerbot_legs = new Enemy(LEFT, 400, 300, 2, "lazerbot_legs.bmp", 2, 1, 0, 0, 10);
+
+	slug = new Enemy(LEFT, 500, 200, 1, "slug.bmp", 5, 1, 0, 0, 10);
+	slug->chase_vector = new Vector(0, 5);
+
+
+	lazer1 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");//left missile
+	lazer2 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");//right missile
+
+	gun_bullet = new Bullet(0, 0, "bigredbullet24.bmp");//red ball
+	gunbot->attack_vector = new Vector(0, 15);
+
+	game_over = false;
+
+	wiz_shot_at_bool = false;
+
+	intro_screen = new TitleScreen(0, 0, "titlescreen.bmp", 6, 1);
+	end_screen = new TitleScreen(0, 0, "end_screen.bmp", 2, 2);
+	end_screen_win = new TitleScreen(0, 0, "end_screen_win.bmp", 2, 2);
+
+	wiz_life_bar = new LifeBar(wizard->GetX(), wizard->GetY(), wizard->lives, 15);
+
+	beam1_width = 47;
+	beam1_height = 0;
+	beam1_hold = 0;
+	beam1_speed = 30;
+
+	wiz_sheet = new SpriteSheet("Wizard.bmp", 4, 3);
+	wiz_anime = new Animation(-1, 3, 6, 11);
+
+	white_wiz_sheet = new SpriteSheet("Wiz_shot.bmp", 4, 3);
+	white_wiz_anime = new Animation(-1, 3, 6, 11);
+
+	beach_sheet = new SpriteSheet("beach.bmp", 5, 1);
+	beach_anime = new Animation(-1, 8, 0, 4);
+
+	tree_sheet = new SpriteSheet("palmtree.bmp", 2, 2);
+	tree_anime = new Animation(-1, 8, 0, 3);
+
+	rock_sheet = new SpriteSheet("rock.bmp", 1, 1);
+	rock_anime = new Animation(-1, 0, 0, 0);
+
+	flipped_palm_tree_sheet = new SpriteSheet("flipped_palm_tree.bmp", 2, 2);
+	flipped_palm_tree_anime = new Animation(-1, 8, 0, 3);
+
+	turret_sheet = new SpriteSheet("turret.bmp", 4, 2);
+	turret_anime = new Animation(-1, 8, 0, 7);
+
+	explosion_sheet = new SpriteSheet("explosion.bmp", 4, 3);
+	explosion_anime = new Animation(-1, 8, 0, 11);
+
+
+
+	//THEM LISTS FOR YOU MAX
+	characters.push_back(wizard);
+	characters.push_back(shot_wiz);
+
+	enemies.push_back(gunbot);
+	enemies.push_back(lazerbot);
+
+
+	obstacles.push_back(ballBot_obstacle);
+	obstacles.push_back(beach);
+}
+
+void Game::Replay()
+{
+	Restart();
+	isStarted = true;
+}
+
+void Game::Update_when_paused()
+{
+	pause_screen->pause_screen_select(cursor_point.x, cursor_point.y, paused, isRe_started);
+}
+
