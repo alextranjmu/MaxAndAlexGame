@@ -90,6 +90,35 @@ void TitleScreen::end_screen_select(int cursor_x, int cursor_y, Character &chara
 	}
 }
 
+void TitleScreen::pause_screen_select(int cursor_x, int cursor_y, boolean & is_paused,boolean & isRe_started)
+{
+	if (cursor_y > 179 + 30 && cursor_y < 280 + 30)
+	{
+		pause = resume;
+		if (GetKeyState(VK_LBUTTON) & 0x8000)
+		{
+
+			is_paused = false;
+		}
+	}
+	else if (cursor_y > 280 + 30 && cursor_y < 354 + 30)
+	{
+		pause = menu_pause;
+		if (GetKeyState(VK_LBUTTON) & 0x8000)
+		{
+			isRe_started = true;
+		}
+	}
+	else if (cursor_y > 354 + 30 && cursor_y < 455 + 30)
+	{
+		pause = quit_pause;
+		if (GetKeyState(VK_LBUTTON) & 0x8000)
+		{
+			exit(EXIT_SUCCESS);
+		}
+	}
+}
+
 void TitleScreen::Draw_Intro(Graphics& gfx)
 {
 	switch (difficulty)
@@ -123,6 +152,25 @@ void TitleScreen::Draw_End(Graphics & gfx)
 	switch (over_button)
 	{
 	case replay:
+		sheet->drawFrame(gfx, 1, x, y);
+		break;
+	case menu:
+		sheet->drawFrame(gfx, 2, x, y);
+		break;
+	case quit:
+		sheet->drawFrame(gfx, 3, x, y);
+		break;
+	default:
+		sheet->drawFrame(gfx, 0, x, y);
+		break;
+	}
+}
+
+void TitleScreen::Draw_Pause(Graphics & gfx)
+{
+	switch (pause)
+	{
+	case resume:
 		sheet->drawFrame(gfx, 1, x, y);
 		break;
 	case menu:

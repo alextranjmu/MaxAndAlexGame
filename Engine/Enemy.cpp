@@ -6,19 +6,26 @@
 
 
 
-Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols, int width, int height)
+Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols, int width, int height, int lives)
 {
 	sheet = new SpriteSheet(fileName, rows, cols);
-	anime = new Animation(-1, 8, 0, 2);
+	anime = new Animation(-1, 8, 0, rows*cols - 1);
 	this->x = x;
 	this->y = y;
 	this->width = width;
 	this->height = height;
 	this->speed = speed;
 	direction = LEFT;
+	this->lives = lives;
 
 }
 
+
+void Enemy::Draw(Graphics & gfx)
+{
+	sheet->drawFrame(gfx, anime->getCurrentFrame(), x, y);
+	anime->nextFrame();
+}
 
 void Enemy::DrawTurret(Graphics & gfx)
 {
@@ -62,7 +69,7 @@ void Enemy::DrawTurret(Graphics & gfx)
 	}
 }
 
-void Enemy::Draw(Graphics & gfx)
+void Enemy::Draw_lazer_bot(Graphics & gfx)
 {
 	if (is_shooting_left_missile)
 	{
@@ -83,7 +90,8 @@ void Enemy::Draw(Graphics & gfx)
 	
 }
 
-void Enemy::Draw_gunbot_Legs(Graphics & gfx)
+
+void Enemy::Draw_legs(Graphics & gfx)
 {
 	sheet->drawFrame(gfx, anime->getCurrentFrame(), x, y);
 	anime->nextFrame();
@@ -127,6 +135,18 @@ void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_
 	case NO_DIRECTION:
 		break;
 	}
+}
+
+void Enemy::MoveTowardsCharacter()
+{
+	
+
+	x += round(chase_vector->getX());
+	y += round(chase_vector->getY());
+	chase_vector->setX(0);
+	chase_vector->setY(0);
+	/*	gun_bullet->x += round(gunbot->attack_vector->getX());
+	gun_bullet->y += round(gunbot->attack_vector->getY());*/
 }
 
 //the parameters are screen size

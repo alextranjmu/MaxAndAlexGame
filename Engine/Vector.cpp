@@ -2,6 +2,8 @@
 
 Vector::Vector(double heading, double magnitude)
 {
+	setX(0);
+	setY(0);
 	setMagnitude(magnitude);
 	setHeading(heading);
 }
