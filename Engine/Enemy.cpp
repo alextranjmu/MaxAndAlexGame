@@ -139,6 +139,24 @@ void Enemy::clamp_screen(int left, int right, int top, int bottom)
 	}
 }
 
+void Enemy::shoot()
+{
+
+}
+
+double Enemy::GetDegree(int a1, int a2, int b1, int b2)
+{
+	static const double TWOPI = 6.2831853071795865;
+	static const double RAD2DEG = 57.2957795130823209;
+	double theta = atan2(b2 - a2, b1 - a1);
+
+	/*if (theta < 0.0)
+	{
+	theta += TWOPI;
+	}*/
+	return theta;
+}
+
 
 
 

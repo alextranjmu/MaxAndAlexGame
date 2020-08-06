@@ -28,9 +28,7 @@ public:
 	bool death = false;
 	bool exploded = false;
 	int explode_max_frame_count = 3;
-	Vector *attack_vector;
 	Vector *chase_vector;
-	double attack_degree;
 	double chase_degree;
 	int x;
 	int y;
@@ -44,18 +42,21 @@ public:
 	Direction direction;
 	void Update(int x1, int x2, int y1, int y2);
 	
-	virtual void Enemy::Draw(Graphics & gfx);
-	void Enemy::Draw_lazer_bot(Graphics & gfx);
-	void Enemy::Draw_legs(Graphics & gfx);
-	void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height);
-	void Enemy::MoveTowardsCharacter();
-	void Enemy::clamp_screen(int left, int right, int top, int bottom);
+	virtual void Draw(Graphics & gfx);
+	void Draw_lazer_bot(Graphics & gfx);
+	void Draw_legs(Graphics & gfx);
+	void randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height);
+	void MoveTowardsCharacter();
+	void clamp_screen(int left, int right, int top, int bottom);
+	virtual void shoot();
+
+	double GetDegree(int a1, int a2, int b1, int b2);
 	
 	bool nextBool(double probability);
-	void Enemy::collisionUpdatexup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
-	void Enemy::collisionUpdatexdown(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
-	void Enemy::collisionUpdateyup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
-	void Enemy::collisionUpdateydown(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
+	void collisionUpdatexup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
+	void collisionUpdatexdown(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
+	void collisionUpdateyup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
+	void collisionUpdateydown(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
 
 
 };

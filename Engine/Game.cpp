@@ -198,33 +198,33 @@ void Game::UpdateModel()
 			}
 		}
 
-		if (gun_bullet_bool)
-		{
-			gun_bullet->x += round(gunbot->attack_vector->getX());
-			gun_bullet->y += round(gunbot->attack_vector->getY());
+		//if (gun_bullet_bool)
+		//{
+		//	gun_bullet->x += round(gunbot->attack_vector->getX());
+		//	gun_bullet->y += round(gunbot->attack_vector->getY());
 
-			if (gun_bullet->x < 100 || gun_bullet->y < 100 || gun_bullet->x > Graphics::ScreenWidth - 100 || gun_bullet->y > Graphics::ScreenHeight - 100)
-			{
+		//	if (gun_bullet->x < 100 || gun_bullet->y < 100 || gun_bullet->x > Graphics::ScreenWidth - 100 || gun_bullet->y > Graphics::ScreenHeight - 100)
+		//	{
 
-				gun_bullet_bool = false;
-			}
-		}
+		//		gun_bullet_bool = false;
+		//	}
+		//}
 
-		if (!gun_bullet_bool)
-		{
-			if (nextBool(1))
-			{
-				gunbot->attack_degree = GetDegree(gunbot->x, gunbot->y, wizard->GetX() , wizard->GetY() );
+		//if (!gun_bullet_bool)
+		//{
+		//	if (nextBool(1))
+		//	{
+		//		gunbot->attack_degree = GetDegree(gunbot->x, gunbot->y, wizard->GetX() , wizard->GetY() );
 
-				gun_bullet->x = gunbot->x;
-				gun_bullet->y = gunbot->y;
-				//reposition bullet to match turret
-				gun_bullet->reposition_gun_bullet(gunbot->attack_degree, gunbot->width, gunbot->height);
-				gunbot->attack_degree = GetDegree(gun_bullet->x, gun_bullet->y, wizard->GetX() , wizard->GetY() );
-				gunbot->attack_vector = new Vector(gunbot->attack_degree, 15);
-				gun_bullet_bool = true;
-			}
-		}
+		//		gun_bullet->x = gunbot->x;
+		//		gun_bullet->y = gunbot->y;
+		//		//reposition bullet to match turret
+		//		gun_bullet->reposition_gun_bullet(gunbot->attack_degree, gunbot->width, gunbot->height);
+		//		gunbot->attack_degree = GetDegree(gun_bullet->x, gun_bullet->y, wizard->GetX() , wizard->GetY() );
+		//		gunbot->attack_vector = new Vector(gunbot->attack_degree, 15);
+		//		gun_bullet_bool = true;
+		//	}
+		//}
 
 		//ALL IF STATEMENTS DOWN HERE ARE COLLISIONS
 		int wiz_x = wizard->GetX();
@@ -500,7 +500,7 @@ void Game::Restart()
 	lazer2 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");//right missile
 
 	gun_bullet = new Bullet(0, 0, "bigredbullet24.bmp");//red ball
-	gunbot->attack_vector = new Vector(0, 15);
+	
 
 	game_over = false;
 
