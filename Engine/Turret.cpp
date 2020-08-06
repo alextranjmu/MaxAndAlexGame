@@ -2,9 +2,10 @@
 # define M_PI           3.14159265358979323846  /* pi */
 
 
-Turret::Turret(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols, int width, int height, int lives)
+Turret::Turret(Direction direction, int x, int y, int speed, std::string fileName, std::string bullet_file, int rows, int cols, int width, int height, int lives)
 	: Enemy(direction, x, y, speed, fileName, rows, cols, width, height, lives)
 {
+	bullet = new Bullet(x, y, bullet_file, 1, 1);
 
 }
 void Turret::Draw(Graphics &gfx)
@@ -48,14 +49,14 @@ void Turret::Draw(Graphics &gfx)
 	}
 }
 
-void Turret::Update_bullet()
+void Turret::Update_bullet(Character &character)
 {
 	if (is_shooting)
 	{
-		gun_bullet->x += round(attack_vector->getX());
-		gun_bullet->y += round(attack_vector->getY());
+		bullet->x += round(attack_vector->getX());
+		bullet->y += round(attack_vector->getY());
 
-		if (gun_bullet->x < 100 || gun_bullet->y < 100 || gun_bullet->x > Graphics::ScreenWidth - 100 || gun_bullet->y > Graphics::ScreenHeight - 100)
+		if (bullet->x < 100 || bullet->y < 100 || bullet->x > Graphics::ScreenWidth - 100 || bullet->y > Graphics::ScreenHeight - 100)
 		{
 
 			is_shooting = false;
@@ -66,15 +67,23 @@ void Turret::Update_bullet()
 	{
 		if (nextBool(1))
 		{
-			gunbot->attack_degree = GetDegree(gunbot->x, gunbot->y, wizard->GetX(), wizard->GetY());
+			attack_degree = GetDegree(x, y, character.GetX(), character.GetY());
 
-			gun_bullet->x = gunbot->x;
-			gun_bullet->y = gunbot->y;
+			bullet->x = x;
+			bullet->y = y;
 			//reposition bullet to match turret
-			gun_bullet->reposition_gun_bullet(gunbot->attack_degree, gunbot->width, gunbot->height);
-			gunbot->attack_degree = GetDegree(gun_bullet->x, gun_bullet->y, wizard->GetX(), wizard->GetY());
-			gunbot->attack_vector = new Vector(gunbot->attack_degree, 15);
-			gun_bullet_bool = true;
+			bullet->reposition_gun_bullet(attack_degree, width, height);
+			attack_degree = GetDegree(bullet->x, bullet->y, character.GetX(), character.GetY());
+			attack_vector = new Vector(attack_degree, 15);
+			is_shooting = true;
 		}
 	}
 }
+
+void Turret::Draw_bullet(Graphics &gfx)
+{
+	if (is_shooting)
+	bullet->sheet->drawFrame(gfx, 0, bullet->x, bullet->y);
+}
+
+

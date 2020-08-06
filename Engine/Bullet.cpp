@@ -1,23 +1,21 @@
 #include "Bullet.h"
 
-Bullet::Bullet(int x, int y, std::string fileName)
+Bullet::Bullet(int x, int y, std::string fileName, int rows, int cols)
 {
 	this->x = x;
 	this->y = y;
-	s = new Surface(fileName);
+	sheet = new SpriteSheet(fileName, 1, 1);
 
 }
 
 void Bullet::Draw(Graphics &gfx)
 {
-	gfx.drawSurface(x, y, *s);
 }
 
 void Bullet::DrawReverse(Graphics &gfx)
 {
 	
 }
-
 
 
 void Bullet::Accelerate(int direction, int speed)

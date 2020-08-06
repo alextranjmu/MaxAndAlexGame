@@ -93,7 +93,7 @@ private:
 	boolean wiz_shot_at_bool;
 	
 
-	Enemy *gunbot;
+	Turret *gunbot;
 	Enemy *lazerbot;
 	Enemy *gunbot_legs;
 	Enemy *lazerbot_legs;

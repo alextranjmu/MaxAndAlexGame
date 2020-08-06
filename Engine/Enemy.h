@@ -48,7 +48,7 @@ public:
 	void randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height);
 	void MoveTowardsCharacter();
 	void clamp_screen(int left, int right, int top, int bottom);
-	virtual void shoot();
+	virtual void Update_bullet();
 
 	double GetDegree(int a1, int a2, int b1, int b2);
 	

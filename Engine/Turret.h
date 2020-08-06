@@ -2,10 +2,13 @@
 #include "Enemy.h"
 #include "Graphics.h"
 #include "Bullet.h"
+#include "Character.h"
 
 class Turret : public Enemy {
 public:
-	Turret(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols, int width, int height, int lives);
+	Turret(Direction direction, int x, int y, int speed, std::string fileName, std::string bullet_file,int rows, int cols, int width, int height, int lives);
+
+	void Update_everything();
 
 	Bullet *bullet;
 
@@ -17,8 +20,9 @@ public:
 
 	void Draw(Graphics &gfx);
 
-	void Update_bullet();
-	void Draw_bullet();
+	void Update_bullet(Character &character);
+
+	void Draw_bullet(Graphics &gfx);
 
 
 };

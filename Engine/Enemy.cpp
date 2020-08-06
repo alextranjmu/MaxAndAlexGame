@@ -139,10 +139,11 @@ void Enemy::clamp_screen(int left, int right, int top, int bottom)
 	}
 }
 
-void Enemy::shoot()
+void Enemy::Update_bullet()
 {
-
 }
+
+
 
 double Enemy::GetDegree(int a1, int a2, int b1, int b2)
 {
