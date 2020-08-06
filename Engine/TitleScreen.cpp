@@ -92,16 +92,15 @@ void TitleScreen::end_screen_select(int cursor_x, int cursor_y, Character &chara
 
 void TitleScreen::pause_screen_select(int cursor_x, int cursor_y, boolean & is_paused,boolean & isRe_started)
 {
-	if (cursor_y > 179 + 30 && cursor_y < 280 + 30)
+	if (cursor_y > 93 + 30 && cursor_y < 168 + 30)
 	{
 		pause = resume;
 		if (GetKeyState(VK_LBUTTON) & 0x8000)
 		{
-
 			is_paused = false;
 		}
 	}
-	else if (cursor_y > 280 + 30 && cursor_y < 354 + 30)
+	else if (cursor_y > 168 + 30 && cursor_y < 248 + 30)
 	{
 		pause = menu_pause;
 		if (GetKeyState(VK_LBUTTON) & 0x8000)
@@ -109,7 +108,7 @@ void TitleScreen::pause_screen_select(int cursor_x, int cursor_y, boolean & is_p
 			isRe_started = true;
 		}
 	}
-	else if (cursor_y > 354 + 30 && cursor_y < 455 + 30)
+	else if (cursor_y > 248 + 30 && cursor_y < 337 + 30)
 	{
 		pause = quit_pause;
 		if (GetKeyState(VK_LBUTTON) & 0x8000)
@@ -168,15 +167,16 @@ void TitleScreen::Draw_End(Graphics & gfx)
 
 void TitleScreen::Draw_Pause(Graphics & gfx)
 {
+
 	switch (pause)
 	{
 	case resume:
 		sheet->drawFrame(gfx, 1, x, y);
 		break;
-	case menu:
+	case menu_pause:
 		sheet->drawFrame(gfx, 2, x, y);
 		break;
-	case quit:
+	case quit_pause:
 		sheet->drawFrame(gfx, 3, x, y);
 		break;
 	default:
