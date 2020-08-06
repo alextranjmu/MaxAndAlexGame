@@ -103,15 +103,7 @@ void Game::UpdateModel()
 		slug->y += slug->chase_vector->getY();
 */
 
-		if ((wizard->GetX() < slug->x + gun_bullet->s->getWidth()) && (wizard->GetY() < slug->y + gun_bullet->s->getHeight())
-			&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() < slug->y + gun_bullet->s->getHeight()))
-			&& ((wizard->GetX() < slug->x + gun_bullet->s->getWidth()) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
-			&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
-			)
-		{
-			slug->death = true;
-		}
-
+		
 		
 
 
@@ -234,7 +226,7 @@ void Game::UpdateModel()
 			}
 		}
 
-		//COLLISION CHUNGUS
+		//ALL IF STATEMENTS DOWN HERE ARE COLLISIONS
 		int wiz_x = wizard->GetX();
 		int wiz_y = wizard->GetY();
 		int bullet_x = gun_bullet->x;
@@ -246,6 +238,14 @@ void Game::UpdateModel()
 		wiz_shot_at_bool = false;
 
 
+		if ((wizard->GetX() < slug->x + gun_bullet->s->getWidth()) && (wizard->GetY() < slug->y + gun_bullet->s->getHeight())
+			&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() < slug->y + gun_bullet->s->getHeight()))
+			&& ((wizard->GetX() < slug->x + gun_bullet->s->getWidth()) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
+			&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
+			)
+		{
+			slug->death = true;
+		}
 
 		//wiz and gun_bullet
 		if ((wiz_x < bullet_x + gun_bullet->s->getWidth()) && (wiz_y < bullet_y + gun_bullet->s->getHeight())
@@ -277,7 +277,6 @@ void Game::UpdateModel()
 			&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y + wiz_sheet->Height() > lazer2_y))
 			)
 		{
-			//PlaySound("gun_sound_1", NULL, SND_SYNC);
 			wizard->lives -= 0.1;
 			wiz_shot_at_bool = true;
 		}
@@ -290,13 +289,6 @@ void Game::UpdateModel()
 			wizard->lives -= 1;
 			wiz_shot_at_bool = true;
 		}
-
-		//collision with the big boy robot
-		int ballbot_x = 600;
-		int ballbot_y = 350;
-
-
-
 
 
 
@@ -342,7 +334,7 @@ void Game::ComposeFrame()
 		
 		
 		wizard->Draw(gfx);
-		gunbot->DrawTurret(gfx);
+		gunbot->Draw(gfx);
 		gunbot_legs->Draw_legs(gfx);
 		lazerbot->Draw_lazer_bot(gfx);
 		lazerbot_legs->Draw_legs(gfx);
@@ -494,7 +486,7 @@ void Game::Restart()
 
 	lazer_bullet2 = false;
 
-	gunbot = new Enemy(LEFT, 600, 300, 1, "gunbot.bmp", 4, 2, 55, 55, 10);
+	gunbot = new Turret(LEFT, 600, 300, 1, "gunbot.bmp", 4, 2, 55, 55, 10);
 	gunbot_legs = new Enemy(LEFT, 600, 300, 1, "gunbot_legs.bmp", 3, 1, 55, 55, 100);
 
 	lazerbot = new Enemy(LEFT, 400, 300, 2, "lazerbot.bmp", 2, 2, 0, 0, 10);
@@ -547,8 +539,8 @@ void Game::Restart()
 	turret_sheet = new SpriteSheet("turret.bmp", 4, 2);
 	turret_anime = new Animation(-1, 8, 0, 7);
 
-	explosion_sheet = new SpriteSheet("explosion.bmp", 4, 3);
-	explosion_anime = new Animation(-1, 8, 0, 11);
+	explosion_sheet = new SpriteSheet("explosion.bmp", 2, 2);
+	explosion_anime = new Animation(-1, 8, 0, 3);
 
 
 

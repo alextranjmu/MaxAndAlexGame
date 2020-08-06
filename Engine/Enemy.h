@@ -44,8 +44,7 @@ public:
 	Direction direction;
 	void Update(int x1, int x2, int y1, int y2);
 	
-	void Enemy::Draw(Graphics & gfx);
-		void DrawTurret(Graphics &gfx);
+	virtual void Enemy::Draw(Graphics & gfx);
 	void Enemy::Draw_lazer_bot(Graphics & gfx);
 	void Enemy::Draw_legs(Graphics & gfx);
 	void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height);
