@@ -29,28 +29,6 @@ void Enemy::Draw(Graphics & gfx)
 
 
 
-void Enemy::Draw_lazer_bot(Graphics & gfx)
-{
-	if (is_shooting_left_missile)
-	{
-		sheet->drawFrame(gfx, 2, x, y);
-	}
-	else if (is_shooting_right_missile)
-	{
-		sheet->drawFrame(gfx, 3, x, y);
-	}
-	else if (is_shooting_left_missile && is_shooting_right_missile)
-	{
-		sheet->drawFrame(gfx, 1, x, y);
-	}
-	else
-	{
-		sheet->drawFrame(gfx, 0, x, y);
-	}
-	
-}
-
-
 void Enemy::Draw_legs(Graphics & gfx)
 {
 	sheet->drawFrame(gfx, anime->getCurrentFrame(), x, y);
@@ -97,17 +75,6 @@ void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_
 	}
 }
 
-void Enemy::MoveTowardsCharacter()
-{
-	
-
-	x += round(chase_vector->getX());
-	y += round(chase_vector->getY());
-	chase_vector->setX(0);
-	chase_vector->setY(0);
-	/*	gun_bullet->x += round(gunbot->attack_vector->getX());
-	gun_bullet->y += round(gunbot->attack_vector->getY());*/
-}
 
 //the parameters are screen size
 //right is distance from right side

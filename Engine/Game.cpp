@@ -93,16 +93,7 @@ void Game::UpdateModel()
 			enemies[i]->randomMove(obstacles, 0,0);
 		}
 
-		slug->chase_degree = GetDegree(slug->x, slug->y, wizard->GetX(), wizard->GetY());
-		slug->chase_vector = new Vector(slug->chase_degree, slug->speed);
-
-		slug->MoveTowardsCharacter();
-
-		/*slug->x += slug->chase_vector->getX();
-		slug->y += slug->chase_vector->getY();
-*/
-
-		
+		slug->Move_to_character(*wizard);
 
 		gunbot_legs->x = gunbot->x;
 		gunbot_legs->y = gunbot->y;
@@ -118,6 +109,7 @@ void Game::UpdateModel()
 
 		//SHOOTING CODE
 		gunbot->Update_bullet(*wizard);
+		lazerbot->Update_bullet();
 		//if (beam1_bool)
 		//{
 		//	beam1_height -= beam1_speed;
@@ -198,100 +190,8 @@ void Game::UpdateModel()
 		//	}
 		//}
 
-		//if (gun_bullet_bool)
-		//{
-		//	gun_bullet->x += round(gunbot->attack_vector->getX());
-		//	gun_bullet->y += round(gunbot->attack_vector->getY());
-
-		//	if (gun_bullet->x < 100 || gun_bullet->y < 100 || gun_bullet->x > Graphics::ScreenWidth - 100 || gun_bullet->y > Graphics::ScreenHeight - 100)
-		//	{
-
-		//		gun_bullet_bool = false;
-		//	}
-		//}
-
-		//if (!gun_bullet_bool)
-		//{
-		//	if (nextBool(1))
-		//	{
-		//		gunbot->attack_degree = GetDegree(gunbot->x, gunbot->y, wizard->GetX() , wizard->GetY() );
-
-		//		gun_bullet->x = gunbot->x;
-		//		gun_bullet->y = gunbot->y;
-		//		//reposition bullet to match turret
-		//		gun_bullet->reposition_gun_bullet(gunbot->attack_degree, gunbot->width, gunbot->height);
-		//		gunbot->attack_degree = GetDegree(gun_bullet->x, gun_bullet->y, wizard->GetX() , wizard->GetY() );
-		//		gunbot->attack_vector = new Vector(gunbot->attack_degree, 15);
-		//		gun_bullet_bool = true;
-		//	}
-		//}
-
-		//ALL IF STATEMENTS DOWN HERE ARE COLLISIONS
-		int wiz_x = wizard->GetX();
-		int wiz_y = wizard->GetY();
-		int bullet_x = gun_bullet->x;
-		int bullet_y = gun_bullet->y;
-		int lazer1_x = lazer1->x;
-		int lazer1_y = lazer1->y;
-		int lazer2_x = lazer2->x;
-		int lazer2_y = lazer2->y;
-		wiz_shot_at_bool = false;
-
-
-		//if ((wizard->GetX() < slug->x + gun_bullet->s->getWidth()) && (wizard->GetY() < slug->y + gun_bullet->s->getHeight())
-		//	&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() < slug->y + gun_bullet->s->getHeight()))
-		//	&& ((wizard->GetX() < slug->x + gun_bullet->s->getWidth()) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
-		//	&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
-		//	)
-		//{
-		//	slug->death = true;
-		//}
-
-		////wiz and gun_bullet
-		//if ((wiz_x < bullet_x + gun_bullet->s->getWidth()) && (wiz_y < bullet_y + gun_bullet->s->getHeight())
-		//	&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y < bullet_y + gun_bullet->s->getHeight()))
-		//	&& ((wiz_x < bullet_x + gun_bullet->s->getWidth()) && (wiz_y + wiz_sheet->Height() > bullet_y))
-		//	&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y + wiz_sheet->Height() > bullet_y))
-		//	)
-		//{
-		//	wizard->lives -= 0.1;
-		//	wiz_shot_at_bool = true;
-		//}
-
-		////wiz and lazer1
-		//if ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y < lazer1_y + lazer1->s->getHeight())
-		//	&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y < lazer1_y + lazer1->s->getHeight()))
-		//	&& ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer1_y))
-		//	&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y + wiz_sheet->Height() > lazer1_y))
-		//	)
-		//{
-
-		//	wizard->lives -= 0.1;
-		//	wiz_shot_at_bool = true;
-		//}
-
-		////wi and lazer 2
-		//if ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y < lazer2_y + lazer1->s->getHeight())
-		//	&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y < lazer2_y + lazer1->s->getHeight()))
-		//	&& ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer2_y))
-		//	&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y + wiz_sheet->Height() > lazer2_y))
-		//	)
-		//{
-		//	wizard->lives -= 0.1;
-		//	wiz_shot_at_bool = true;
-		//}
-
-		////wiz and beam
-		//if (((wiz_x < 730 + beam1_width && wiz_x > 730) || (wiz_x + wiz_sheet->Width() > 730 && wiz_x + wiz_sheet->Width() < 730 + beam1_width)
-		//	|| (wiz_x + wiz_sheet->Width() / 2 < 730 + beam1_width && wiz_x + wiz_sheet->Width() / 2 > 730))
-		//	&& beam1_height < wiz_y)
-		//{
-		//	wizard->lives -= 1;
-		//	wiz_shot_at_bool = true;
-		//}
-
-
-
+		
+		UpdateCollision();
 		gunbot->clamp_screen(100, 100, 100, 150);
 		lazerbot->clamp_screen(150, 150, 150, 150);
 		
@@ -336,7 +236,6 @@ void Game::ComposeFrame()
 		wizard->Draw(gfx);
 		gunbot->Draw(gfx);
 		gunbot_legs->Draw_legs(gfx);
-		lazerbot->Draw_lazer_bot(gfx);
 		lazerbot_legs->Draw_legs(gfx);
 		
 
@@ -346,7 +245,7 @@ void Game::ComposeFrame()
 			shot_wiz->Draw(gfx);
 		}
 
-	//	lazerbot->Draw(gfx);
+		lazerbot->Draw(gfx);
 
 		
 
@@ -375,15 +274,7 @@ void Game::ComposeFrame()
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 		
 
-		if (lazer_bullet1)
-		{
-			lazer1->Draw(gfx);
-		}
-
-		if (lazer_bullet2)
-		{
-			lazer2->Draw(gfx);
-		}
+		
 		
 		if (gun_bullet_bool)
 		{
@@ -411,12 +302,11 @@ void Game::ComposeFrame()
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 50, 10, ++frame_counter, Color(0, 0, 0));
 	}
 
-	if (!slug->death)
-	{
 	
-		slug->Draw(gfx);
-	}
+	slug->Draw(gfx);
+	
 	gunbot->Draw_bullet(gfx);
+	lazerbot->Draw_missile(gfx);
 	if (slug->death && !slug->exploded)
 	{
 
@@ -451,6 +341,73 @@ double Game::GetDegree(int a1, int a2, int b1, int b2)
 		theta += TWOPI;
 	}*/
 	return theta  ;
+}
+
+void Game::UpdateCollision()
+{
+	//ALL IF STATEMENTS DOWN HERE ARE COLLISIONS
+	int wiz_x = wizard->GetX();
+	int wiz_y = wizard->GetY();
+	int bullet_x = gunbot->bullet->x;
+	int bullet_y = gunbot->bullet->y;
+	int lazer1_x = lazer1->x;
+	int lazer1_y = lazer1->y;
+	int lazer2_x = lazer2->x;
+	int lazer2_y = lazer2->y;
+	wiz_shot_at_bool = false;
+
+	//wiz and slug
+	if ((wizard->GetX() < slug->x + slug->sheet->Width()) && (wizard->GetY() < slug->y + slug->sheet->Height())
+		&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() < slug->y + slug->sheet->Height()))
+		&& ((wizard->GetX() < slug->x + slug->sheet->Width()) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
+		&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
+		)
+	{
+		slug->death = true;
+	}
+
+	////wiz and gun_bullet
+	if ((wiz_x < bullet_x + gunbot->bullet->sheet->Width()) && (wiz_y < bullet_y + gunbot->bullet->sheet->Height())
+		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y < bullet_y + gunbot->bullet->sheet->Height()))
+		&& ((wiz_x < bullet_x + gunbot->bullet->sheet->Width()) && (wiz_y + wiz_sheet->Height() > bullet_y))
+		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y + wiz_sheet->Height() > bullet_y))
+		)
+	{
+		wizard->lives -= 0.1;
+		wiz_shot_at_bool = true;
+	}
+
+	////wiz and lazer1
+	//if ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y < lazer1_y + lazer1->s->getHeight())
+	//	&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y < lazer1_y + lazer1->s->getHeight()))
+	//	&& ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer1_y))
+	//	&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y + wiz_sheet->Height() > lazer1_y))
+	//	)
+	//{
+
+	//	wizard->lives -= 0.1;
+	//	wiz_shot_at_bool = true;
+	//}
+
+	////wi and lazer 2
+	//if ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y < lazer2_y + lazer1->s->getHeight())
+	//	&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y < lazer2_y + lazer1->s->getHeight()))
+	//	&& ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer2_y))
+	//	&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y + wiz_sheet->Height() > lazer2_y))
+	//	)
+	//{
+	//	wizard->lives -= 0.1;
+	//	wiz_shot_at_bool = true;
+	//}
+
+	////wiz and beam
+	//if (((wiz_x < 730 + beam1_width && wiz_x > 730) || (wiz_x + wiz_sheet->Width() > 730 && wiz_x + wiz_sheet->Width() < 730 + beam1_width)
+	//	|| (wiz_x + wiz_sheet->Width() / 2 < 730 + beam1_width && wiz_x + wiz_sheet->Width() / 2 > 730))
+	//	&& beam1_height < wiz_y)
+	//{
+	//	wizard->lives -= 1;
+	//	wiz_shot_at_bool = true;
+	//}
 }
 
 //DONT LOOK INSIDE THIS FUNCTION 
@@ -489,17 +446,16 @@ void Game::Restart()
 	gunbot = new Turret(LEFT, 600, 300, 1, "gunbot.bmp", "bigredbullet24.bmp",4, 2, 55, 55, 10);
 	gunbot_legs = new Enemy(LEFT, 600, 300, 1, "gunbot_legs.bmp", 3, 1, 55, 55, 100);
 
-	lazerbot = new Enemy(LEFT, 400, 300, 2, "lazerbot.bmp", 2, 2, 0, 0, 10);
+	lazerbot = new LazerBot(LEFT, 400, 300, 2, "lazerbot.bmp", 2, 2, 0, 0, 10);
 	lazerbot_legs = new Enemy(LEFT, 400, 300, 2, "lazerbot_legs.bmp", 2, 1, 0, 0, 10);
 
-	slug = new Enemy(LEFT, 500, 200, 1, "slug.bmp", 5, 1, 0, 0, 10);
+	slug = new Slug(LEFT, 500, 200, 1, "slug.bmp", 5, 1, 0, 0, 10);
 	slug->chase_vector = new Vector(0, 5);
 
 
 	//lazer1 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");//left missile
 	//lazer2 = new Bullet(lazerbot->x, lazerbot->y, "lazer.bmp");//right missile
 
-	//gun_bullet = new Bullet(0, 0, "bigredbullet24.bmp");//red ball
 	
 
 	game_over = false;
@@ -569,3 +525,4 @@ void Game::Update_when_paused()
 	pause_screen->pause_screen_select(cursor_point.x, cursor_point.y, paused,isRe_started);
 
 }
+

@@ -10,6 +10,7 @@ Bullet::Bullet(int x, int y, std::string fileName, int rows, int cols)
 
 void Bullet::Draw(Graphics &gfx)
 {
+
 }
 
 void Bullet::DrawReverse(Graphics &gfx)

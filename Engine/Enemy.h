@@ -23,8 +23,6 @@ class Enemy
 {
 public:
 	Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols, int width, int height, int lives);
-	bool is_shooting_left_missile = false;
-	bool is_shooting_right_missile = false;
 	bool death = false;
 	bool exploded = false;
 	int explode_max_frame_count = 3;

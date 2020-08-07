@@ -24,6 +24,8 @@
 #include "Keyboard.h"
 #include <iostream>
 #include "Turret.h"
+#include "Slug.h"
+#include "LazerBot.h"
 #pragma comment(lib,"winmm")
 
 using namespace::std;
@@ -48,6 +50,7 @@ private:
 	void UpdateLazer1();
 	void UpdateLazer2();
 	double GetDegree(int a1, int a2, int b1, int b2);
+	void UpdateCollision();
 	
 	/********************************/
 	/*  User Functions              */
@@ -94,10 +97,10 @@ private:
 	
 
 	Turret *gunbot;
-	Enemy *lazerbot;
+	LazerBot *lazerbot;
 	Enemy *gunbot_legs;
 	Enemy *lazerbot_legs;
-	Enemy *slug;
+	Slug *slug;
 
 	Bullet *lazer1; 	
 	Bullet *lazer2;

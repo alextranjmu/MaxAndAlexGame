@@ -105,6 +105,12 @@
     <ClInclude Include="Turret.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Slug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LazerBot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -180,6 +186,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Turret.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Slug.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LazerBot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
