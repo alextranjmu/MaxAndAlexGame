@@ -18,7 +18,6 @@ public:
 	int x2;
 	int y1;
 	int y2;
-private:
 	SpriteSheet *sprites;
 	Animation *frames;
 	bool animated = false;

@@ -199,7 +199,6 @@ void Game::ComposeFrame()
 		//DRAW OBSTICLES
 		ballbot->Draw(gfx);
 
-
 		
 
 
@@ -379,7 +378,7 @@ void Game::Restart()
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 
-	ballbot = new Ballbot(400, 400, 600, 400, 350, 500, "ballRobot24.bmp", 1, 1);
+	ballbot = new Ballbot(800, 200, 600, 400, 350, 500, "ballRobot24.bmp", 1, 1);
 
 
 	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");

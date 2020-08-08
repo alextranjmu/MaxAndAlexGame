@@ -7,7 +7,8 @@ Obstacle::Obstacle(int x, int y, int x1, int x2, int y1, int y2, std::string fil
 	this->x2 = x2;
 	this->y1 = y1;
 	this->y2 = y2;
-
+	this->x = x;
+	this->y = y;
 	sprites = new SpriteSheet(fileName, rows, columns);
 	frames = new Animation(-1, -1, -1, -1);
 }
