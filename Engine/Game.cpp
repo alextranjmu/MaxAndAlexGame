@@ -31,10 +31,6 @@ void Game::Go(boolean &is_restarted)
 	{
 		paused = true;
 	}
-	/*else if (paused && wnd.kbd.KeyIsPressed(VK_BACK))
-	{
-		paused = false;
-	}*/
 
 	if (!paused)
 	{
@@ -83,6 +79,7 @@ void Game::UpdateModel()
 
 	else if( isStarted && !game_over)
 	{
+		//MOVE AND CLAMP
 		for (int i = 0; i < characters.size(); i++)
 		{
 			characters[i]->Move(wnd.kbd, obstacles, wiz_sheet->Width(), wiz_sheet->Height());
@@ -92,22 +89,24 @@ void Game::UpdateModel()
 		{
 			enemies[i]->randomMove(obstacles, 0,0);
 		}
+		gunbot->clamp_screen(100, 100, 100, 150);
+		lazerbot->clamp_screen(150, 150, 150, 150);
 
-		slug->Move_to_character(*wizard);
-
+		//LEGS CODE
 		gunbot_legs->x = gunbot->x;
 		gunbot_legs->y = gunbot->y;
 
 		lazerbot_legs->x = lazerbot->x;
 		lazerbot_legs->y = lazerbot->y;
 
+		//LIFEBAR CODE
 		wiz_life_bar->width = round(wizard->lives);
-
 		wiz_life_bar->x = wizard->GetX();
 		wiz_life_bar->y = wizard->GetY();
 
 
-		//SHOOTING CODE
+		//ATTACK CODE
+		slug->Move_to_character(*wizard);
 		gunbot->Update_bullet(*wizard);
 		lazerbot->Update_bullet();
 		//if (beam1_bool)
@@ -145,55 +144,11 @@ void Game::UpdateModel()
 		//}
 
 
-		//if (!lazer_bullet1)
-		//{
-		//	lazerbot->is_shooting_left_missile = false;
-		//	if (nextBool(0.05));
-		//	{
-
-		//		lazer_bullet1 = true;
-		//	}
-		//}
-
-		//if (lazer_bullet1)
-		//{
-		//	lazer1->Accelerate(3, 10);
-		//	if (lazer1->x < 70)
-		//	{
-		//		lazer1->x = lazerbot->x - lazer1->s->getWidth();
-		//		lazer1->y = lazerbot->y + 50;
-		//		lazer_bullet1 = false;
-		//		lazerbot->is_shooting_left_missile = true;
-		//	}
-		//}
-
-
-
-		//if (lazer_bullet2)
-		//{
-		//	lazerbot->is_shooting_right_missile = false;
-		//	lazer2->Accelerate(4, 10);
-		//	if (lazer2->x > Graphics::ScreenWidth - 100)
-		//	{
-		//		lazer_bullet2 = false;
-		//	}
-		//}
-
-		//if (!lazer_bullet2)
-		//{
-		//	if (nextBool(0.05))
-		//	{
-		//		lazer2->x = lazerbot->x + lazerbot->sheet->Width();
-		//		lazer2->y = lazerbot->y + 50;
-		//		lazer_bullet2 = true;
-		//		lazerbot->is_shooting_right_missile = true;
-		//	}
-		//}
+		//COLLISION CODE
+		UpdateCollision();
 
 		
-		UpdateCollision();
-		gunbot->clamp_screen(100, 100, 100, 150);
-		lazerbot->clamp_screen(150, 150, 150, 150);
+		
 		
 	}
 	else if (!game_over)
@@ -232,20 +187,24 @@ void Game::ComposeFrame()
 		tree_anime->nextFrame();
 
 		
-		
+		//DRAW WIZ
 		wizard->Draw(gfx);
-		gunbot->Draw(gfx);
-		gunbot_legs->Draw_legs(gfx);
-		lazerbot_legs->Draw_legs(gfx);
-		
-
-
 		if (wiz_shot_at_bool)
 		{
 			shot_wiz->Draw(gfx);
 		}
 
+		//DRAW ENEMIES AND LEGS
+		gunbot->Draw(gfx);
+		gunbot_legs->Draw_legs(gfx);
+
 		lazerbot->Draw(gfx);
+		lazerbot_legs->Draw_legs(gfx);
+		
+		//DRAW LIFEBAR
+		wiz_life_bar->Draw(gfx);
+
+		
 
 		
 
@@ -276,11 +235,7 @@ void Game::ComposeFrame()
 
 		
 		
-		if (gun_bullet_bool)
-		{
-			
-			gun_bullet->Draw(gfx);
-		}
+		
 		rock_sheet->drawFrame(gfx, 0, 400, 400);
 
 
@@ -360,9 +315,11 @@ void Game::UpdateCollision()
 	if ((wizard->GetX() < slug->x + slug->sheet->Width()) && (wizard->GetY() < slug->y + slug->sheet->Height())
 		&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() < slug->y + slug->sheet->Height()))
 		&& ((wizard->GetX() < slug->x + slug->sheet->Width()) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
-		&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() + wiz_sheet->Height() > slug->y))
+		&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() + wiz_sheet->Height() > slug->y) && !slug->death)
 		)
 	{
+		wizard->lives -= 10;
+		wiz_shot_at_bool = true;
 		slug->death = true;
 	}
 
@@ -377,28 +334,29 @@ void Game::UpdateCollision()
 		wiz_shot_at_bool = true;
 	}
 
-	////wiz and lazer1
-	//if ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y < lazer1_y + lazer1->s->getHeight())
-	//	&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y < lazer1_y + lazer1->s->getHeight()))
-	//	&& ((wiz_x < lazer1_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer1_y))
-	//	&& ((wiz_x + wiz_sheet->Width() > lazer1_x) && (wiz_y + wiz_sheet->Height() > lazer1_y))
-	//	)
-	//{
+	//wiz and left_missile
+	if ((wiz_x < lazerbot->left_missile->x + lazerbot->left_missile->sheet->Width()) && (wiz_y < lazerbot->left_missile->y + lazerbot->left_missile->sheet->Height())
+		&& ((wiz_x + wiz_sheet->Width() > lazerbot->left_missile->x) && (wiz_y < lazerbot->left_missile->y + lazerbot->left_missile->sheet->Height()))
+		&& ((wiz_x < lazerbot->left_missile->x + lazerbot->left_missile->sheet->Width()) && (wiz_y + wiz_sheet->Height() > lazerbot->left_missile->y))
+		&& ((wiz_x + wiz_sheet->Width() > lazerbot->left_missile->x) && (wiz_y + wiz_sheet->Height() > lazerbot->left_missile->y))
+		)
+	{
 
-	//	wizard->lives -= 0.1;
-	//	wiz_shot_at_bool = true;
-	//}
+		wizard->lives -= 0.1;
+		wiz_shot_at_bool = true;
+	}
 
-	////wi and lazer 2
-	//if ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y < lazer2_y + lazer1->s->getHeight())
-	//	&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y < lazer2_y + lazer1->s->getHeight()))
-	//	&& ((wiz_x < lazer2_x + lazer1->s->getWidth()) && (wiz_y + wiz_sheet->Height() > lazer2_y))
-	//	&& ((wiz_x + wiz_sheet->Width() > lazer2_x) && (wiz_y + wiz_sheet->Height() > lazer2_y))
-	//	)
-	//{
-	//	wizard->lives -= 0.1;
-	//	wiz_shot_at_bool = true;
-	//}
+	//wi and lazer 2
+	if ((wiz_x < lazerbot->right_missile->x + lazerbot->right_missile->sheet->Width()) && (wiz_y < lazerbot->right_missile->y + lazerbot->right_missile->sheet->Height())
+		&& ((wiz_x + wiz_sheet->Width() > lazerbot->right_missile->x) && (wiz_y < lazerbot->right_missile->y + lazerbot->right_missile->sheet->Height()))
+		&& ((wiz_x < lazerbot->right_missile->x + lazerbot->right_missile->sheet->Width()) && (wiz_y + wiz_sheet->Height() > lazerbot->right_missile->y))
+		&& ((wiz_x + wiz_sheet->Width() > lazerbot->right_missile->x) && (wiz_y + wiz_sheet->Height() > lazerbot->right_missile->y))
+		)
+	{
+
+		wizard->lives -= 0.1;
+		wiz_shot_at_bool = true;
+	}
 
 	////wiz and beam
 	//if (((wiz_x < 730 + beam1_width && wiz_x > 730) || (wiz_x + wiz_sheet->Width() > 730 && wiz_x + wiz_sheet->Width() < 730 + beam1_width)
