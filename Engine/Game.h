@@ -81,6 +81,8 @@ private:
 	boolean is_Replay;
 	boolean paused;
 	/********************************/
+	SpriteSheet *factory_sheet;
+	Animation *factory_anime;
 	Surface *map1;
 	Surface *rock;
 	Surface *pressenter;
@@ -96,6 +98,7 @@ private:
 	
 
 	Ballbot *ballbot;
+	Obstacle *robot_maker;
 
 	Turret *gunbot;
 	LazerBot *lazerbot;
