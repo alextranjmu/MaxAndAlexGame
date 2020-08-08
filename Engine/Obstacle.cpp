@@ -1,5 +1,6 @@
 #include "Obstacle.h"
-
+#include "Animation.h"
+#include "SpriteSheet.h"
 Obstacle::Obstacle(int x1, int x2, int y1, int y2, std::string fileName, int rows, int columns)
 {
 	this->x1 = x1;
