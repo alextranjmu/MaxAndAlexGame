@@ -1,7 +1,7 @@
 #include "Obstacle.h"
 #include "Animation.h"
 #include "SpriteSheet.h"
-Obstacle::Obstacle(int x1, int x2, int y1, int y2, std::string fileName, int rows, int columns)
+Obstacle::Obstacle(int x, int y, int x1, int x2, int y1, int y2, std::string fileName, int rows, int columns)
 {
 	this->x1 = x1;
 	this->x2 = x2;
@@ -27,7 +27,7 @@ void Obstacle::Draw(Graphics &gfx)
 	}
 	else
 	{
-		sprites->drawFrame(gfx, 0, x1, y1);
+		sprites->drawFrame(gfx, 0, x, y);
 	}
 }
 

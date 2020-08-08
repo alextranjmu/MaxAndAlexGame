@@ -109,6 +109,10 @@ void Game::UpdateModel()
 		slug->Move_to_character(*wizard);
 		gunbot->Update_bullet(*wizard);
 		lazerbot->Update_bullet();
+		//ballbot->Update_Beams();
+
+
+
 		//if (beam1_bool)
 		//{
 		//	beam1_height -= beam1_speed;
@@ -174,18 +178,6 @@ void Game::ComposeFrame()
 	else if (isStarted)
 	{
 
-		beach_sheet->drawFrame(gfx, beach_anime->getCurrentFrame(), 0, 0);
-		beach_anime->nextFrame();
-
-		tree_sheet->drawFrame(gfx, tree_anime->getCurrentFrame(), 48, 300);
-		tree_anime->nextFrame();
-
-		flipped_palm_tree_sheet->drawFrame(gfx, flipped_palm_tree_anime->getCurrentFrame(), 100, 350);
-		flipped_palm_tree_anime->nextFrame();
-
-		tree_sheet->drawFrame(gfx, tree_anime->getCurrentFrame(), 50, 400);
-		tree_anime->nextFrame();
-
 		
 		//DRAW WIZ
 		wizard->Draw(gfx);
@@ -204,11 +196,12 @@ void Game::ComposeFrame()
 		//DRAW LIFEBAR
 		wiz_life_bar->Draw(gfx);
 
-		
+		//DRAW OBSTICLES
+		ballbot->Draw(gfx);
+
 
 		
 
-		gfx.drawSurface(600, 300, *ballBot);
 
 
 		if (beam1_bool)
@@ -236,7 +229,6 @@ void Game::ComposeFrame()
 		
 		
 		
-		rock_sheet->drawFrame(gfx, 0, 400, 400);
 
 
 		wiz_life_bar->Draw(gfx);
@@ -387,10 +379,8 @@ void Game::Restart()
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 
-	ballBot = new Surface("ballRobot24.bmp");
-	ballBot_obstacle = new Obstacle(600, 800, 350, 500);
+	ballbot = new Ballbot(400, 400, 600, 400, 350, 500, "ballRobot24.bmp", 1, 1);
 
-	beach = new Obstacle(0, 1120, 0, 100);
 
 	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
 	//itsover = new Surface("pressenter.bmp");
@@ -400,7 +390,7 @@ void Game::Restart()
 	lazer_bullet1 = false;
 
 	lazer_bullet2 = false;
-
+	
 	gunbot = new Turret(LEFT, 600, 300, 1, "gunbot.bmp", "bigredbullet24.bmp",4, 2, 55, 55, 10);
 	gunbot_legs = new Enemy(LEFT, 600, 300, 1, "gunbot_legs.bmp", 3, 1, 55, 55, 100);
 
@@ -466,8 +456,8 @@ void Game::Restart()
 	enemies.push_back(lazerbot);
 
 
-	obstacles.push_back(ballBot_obstacle);
-	obstacles.push_back(beach);
+	obstacles.push_back(ballbot);
+	
 }
 
 void Game::Replay()

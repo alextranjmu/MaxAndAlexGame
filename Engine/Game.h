@@ -26,6 +26,7 @@
 #include "Turret.h"
 #include "Slug.h"
 #include "LazerBot.h"
+#include "Ballbot.h"
 #pragma comment(lib,"winmm")
 
 using namespace::std;
@@ -71,8 +72,7 @@ private:
 	Wizard *wizard; // should be a subclass of character (and tbh a subclass of a new class - Player)
 	Wizard *shot_wiz;
 
-	Obstacle *ballBot_obstacle;
-	Obstacle *beach;
+
 	static constexpr int nPoo = 1000;
 	boolean game_won;
 	boolean isStarted;
@@ -84,7 +84,6 @@ private:
 	Surface *map1;
 	Surface *rock;
 	Surface *pressenter;
-	Surface *ballBot;
 	Surface *itsover;
 	int frame_counter;
 	clock_t time_between_frames;
@@ -95,6 +94,8 @@ private:
 	boolean gun_bullet_bool;
 	boolean wiz_shot_at_bool;
 	
+
+	Ballbot *ballbot;
 
 	Turret *gunbot;
 	LazerBot *lazerbot;
