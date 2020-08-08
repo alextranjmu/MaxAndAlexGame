@@ -178,7 +178,10 @@ void Game::ComposeFrame()
 	else if (isStarted)
 	{
 
-		
+		//DRAW MAP
+		factory_sheet->drawFrame(gfx, factory_anime->getCurrentFrame(), 0, 0);
+		factory_anime->nextFrame();
+
 		//DRAW WIZ
 		wizard->Draw(gfx);
 		if (wiz_shot_at_bool)
@@ -198,6 +201,8 @@ void Game::ComposeFrame()
 
 		//DRAW OBSTICLES
 		ballbot->Draw(gfx);
+
+		robot_maker->Draw(gfx);
 
 		
 
@@ -378,9 +383,9 @@ void Game::Restart()
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 
-	ballbot = new Ballbot(800, 200, 600, 400, 350, 500, "ballRobot24.bmp", 1, 1);
-
-
+	ballbot = new Ballbot(800, 200, 800, 200, 350, 500, "ballbot.bmp", 1, 1);
+	robot_maker = new Obstacle(800, 100, 600, 400, 350, 500, "robot_maker.bmp", 2, 2);
+	robot_maker->setAnimation(-1, 0, 0, 3);
 	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
 	//itsover = new Surface("pressenter.bmp");
 
@@ -445,7 +450,8 @@ void Game::Restart()
 	explosion_sheet = new SpriteSheet("explosion.bmp", 2, 2);
 	explosion_anime = new Animation(-1, 8, 0, 3);
 
-
+	factory_sheet = new SpriteSheet("Factory.bmp", 5, 1);
+	factory_anime = new Animation(-1, 8, 0, 4);
 
 	//THEM LISTS FOR YOU MAX
 	characters.push_back(wizard);
@@ -456,6 +462,7 @@ void Game::Restart()
 
 
 	obstacles.push_back(ballbot);
+	obstacles.push_back(robot_maker);
 	
 }
 
