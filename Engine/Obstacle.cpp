@@ -6,9 +6,9 @@ Obstacle::Obstacle(int x, int y, int x1, int x2, int y1, int y2, std::string fil
 	sprites = new SpriteSheet(fileName, rows, columns);
 	frames = new Animation(-1, -1, -1, -1);
 	this->x1 = x1;
-	this->x2 = 1120;// sprites->Width();
+	this->x2 = x2;// sprites->Width();
 	this->y1 = y1;
-	this->y2 = 630;//sprites->Height();
+	this->y2 = y2;//sprites->Height();
 	this->x = x;
 	this->y = y;
 	
