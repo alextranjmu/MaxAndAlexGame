@@ -383,7 +383,7 @@ void Game::Restart()
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 
-	ballbot = new Ballbot(350, 200, 350, 200, 600, 400, "ballbot.bmp", 1, 1);
+	ballbot = new Ballbot(350, 300, 600, 800, 350, 500, "ballbot.bmp", 1, 1);
 	robot_maker = new Obstacle(800, 100, 800, 100, 900, 200, "robot_maker.bmp", 2, 2);
 	robot_maker->setAnimation(-1, 0, 0, 3);
 	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
