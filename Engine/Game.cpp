@@ -370,8 +370,8 @@ void Game::Restart()
 	frame_counter = 0;
 	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
 								   //window = wnd.hWnd;
-	wizard = new Wizard(200, 200, "Wizard.bmp", 4, 3);
-	shot_wiz = new Wizard(200, 200, "Wiz_shot.bmp", 4, 3);
+	wizard = new Wizard(200, 200, "Wizard.bmp", 1, 1);
+	shot_wiz = new Wizard(200, 200, "Wizard.bmp", 1, 1); // TODO: update wiz_shot.bmp
 
 	std::uniform_int_distribution<int> vDist(-1, 1);
 
@@ -379,7 +379,6 @@ void Game::Restart()
 	map1 = new Surface("map1.bmp");
 
 	ballbot = new Ballbot(800, 200, 600, 400, 350, 500, "ballRobot24.bmp", 1, 1);
-
 
 	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
 	//itsover = new Surface("pressenter.bmp");

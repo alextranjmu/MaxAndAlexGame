@@ -4,20 +4,79 @@ Bullet::Bullet(int x, int y, std::string fileName, int rows, int cols)
 {
 	this->x = x;
 	this->y = y;
-	sheet = new SpriteSheet(fileName, 1, 1);
+	sheet = new SpriteSheet(fileName, rows, cols);
+}
 
+Bullet::Bullet(int x, int y, SpriteSheet *sprites, Vector *v)
+{
+	this->x = x;
+	this->y = y;
+	sheet = sprites;
+	vector = v;
+}
+
+void Bullet::vector_move_forward()
+{
+	x += vector->getX();
+	y += vector->getY();
+}
+
+void Bullet::setVector(Vector *v)
+{
+	vector = v;
+}
+
+Bullet::~Bullet()
+{
+	if (animated)
+		delete anime;
+	if (vector != nullptr)
+	{
+		delete vector;
+	}
+	else
+	{
+		delete sheet;
+	}
 }
 
 void Bullet::Draw(Graphics &gfx)
 {
-
+	if (animated)
+	{
+		sheet->drawFrame(gfx, anime->getCurrentFrame(), x, y);
+		anime->nextFrame();
+	}
+	else
+	{
+		sheet->drawFrame(gfx, 0, x, y);
+	}
 }
 
 void Bullet::DrawReverse(Graphics &gfx)
 {
-	
+	if (animated)
+	{
+		sheet->drawFrameHorizontalFlip(gfx, anime->getCurrentFrame(), x, y);
+		anime->nextFrame();
+	}
+	else
+	{
+		sheet->drawFrame(gfx, 0, x, y);
+	}
 }
 
+void Bullet::setAnimation(int cancelable_start_frame, int frame_skips, int start_frame, int end_frame)
+{
+	anime = new Animation(cancelable_start_frame, frame_skips, start_frame, end_frame);
+	animated = true;
+}
+
+void Bullet::setAnimation(Animation * animation)
+{
+	anime = animation;
+	animated = true;
+}
 
 void Bullet::Accelerate(int direction, int speed)
 {
@@ -37,10 +96,14 @@ void Bullet::Accelerate(int direction, int speed)
 	case 4://right
 		x += SPEED; 
 		break;
-
-
-
-
+	case 5: //upleft
+		break;
+	case 6: //upright
+		break;
+	case 7: //downleft
+		break;
+	case 8: //downright
+		break;
 	}
 }
 

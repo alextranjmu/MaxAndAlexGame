@@ -1,5 +1,6 @@
 ﻿#include "Character.h"
 #include "Graphics.h"
+#include "Constants.h"
 
 Character::Character()
 {
