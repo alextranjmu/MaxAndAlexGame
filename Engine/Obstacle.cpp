@@ -1,6 +1,8 @@
 #include "Obstacle.h"
 #include "Animation.h"
 #include "SpriteSheet.h"
+#include <random>
+
 Obstacle::Obstacle(int x, int y, int x1, int x2, int y1, int y2, std::string fileName, int rows, int columns)
 {
 	sprites = new SpriteSheet(fileName, rows, columns);
@@ -41,5 +43,12 @@ Obstacle::~Obstacle()
 
 void Obstacle::update()
 {
+
+}
+
+bool Obstacle::nextBool(double probability)
+{
+	return rand() <  probability * ((double)RAND_MAX + 1.0);
+	
 
 }

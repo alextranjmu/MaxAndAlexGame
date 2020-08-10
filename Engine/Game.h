@@ -52,8 +52,8 @@ private:
 	void UpdateLazer2();
 	double GetDegree(int a1, int a2, int b1, int b2);
 	void UpdateCollision();
-	
-	/********************************/
+	bool Game::Detect_Collision(int x1, int y1, int x1plus, int y1plus, int x2, int y2, int x2plus, int y2plus);
+		/********************************/
 	/*  User Functions              */
 	void DrawGameOver( int x,int y );
 	void DrawTitleScreen( int x,int y );
@@ -99,6 +99,7 @@ private:
 
 	Ballbot *ballbot;
 	Obstacle *robot_maker;
+	Obstacle *river;
 
 	Turret *gunbot;
 	LazerBot *lazerbot;
@@ -139,10 +140,7 @@ private:
 	SpriteSheet *explosion_sheet;
 	Animation *explosion_anime;
 
-	int beam1_height;
-	int beam1_width;
-	int beam1_hold;
-	int beam1_speed;
+	
 	//int int_array[6] = { 6,7,8,9,10,11 };
 
 	Vector *gunbot_vec;
