@@ -73,6 +73,9 @@ void Enemy::randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_
 	case NO_DIRECTION:
 		break;
 	}
+	clamp_screen(150, 150, 150, 150); 
+
+	//clamp_screen(sheet->Width(), Graphics::ScreenWidth - sheet->Width(), sheet->Height(), Graphics::ScreenHeight - sheet->Height());
 }
 
 

@@ -89,8 +89,8 @@ void Game::UpdateModel()
 		{
 			enemies[i]->randomMove(obstacles, 0,0);
 		}
-		gunbot->clamp_screen(100, 100, 100, 150);
-		lazerbot->clamp_screen(150, 150, 150, 150);
+		/*gunbot->clamp_screen(100, 100, 100, 150);
+		lazerbot->clamp_screen(150, 150, 150, 150);*/
 
 		//LEGS CODE
 		gunbot_legs->x = gunbot->x;
@@ -109,44 +109,7 @@ void Game::UpdateModel()
 		slug->Move_to_character(*wizard);
 		gunbot->Update_bullet(*wizard);
 		lazerbot->Update_bullet();
-		//ballbot->Update_Beams();
-
-
-
-		//if (beam1_bool)
-		//{
-		//	beam1_height -= beam1_speed;
-		//	//bigredbullet->Accelerate(2, 10);
-		//	//if (bigredbullet->y == 0)
-		//	//{
-		//	//	bigredbullet->x = 735;
-		//	//	bigredbullet->y = 400;
-		//	//	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
-		//	//	beam1_bool = false;
-		//	//}
-		//	if (beam1_height <= 0)
-		//	{
-		//		beam1_height = 0;
-		//		beam1_speed = 0;
-		//		beam1_hold += 1;
-		//		if (beam1_hold == 200)
-		//		{
-		//			beam1_height = 450;
-		//			beam1_hold = 0;
-		//			beam1_bool = false;
-		//		}
-		//	}
-		//}
-
-		//if (!beam1_bool)
-		//{
-		//	if (nextBool(0.05))
-		//	{
-		//		beam1_speed = 50;
-		//		beam1_bool = true;
-		//	}
-		//}
-
+		ballbot->Update_Beams();
 
 		//COLLISION CODE
 		UpdateCollision();
@@ -201,28 +164,14 @@ void Game::ComposeFrame()
 
 		//DRAW OBSTICLES
 		ballbot->Draw(gfx);
-
+		ballbot->Draw_beams(gfx);
 		robot_maker->Draw(gfx);
 
 		
 
 
 
-		if (beam1_bool)
-		{
-			int tempX = 730 + beam1_width / 6;
-			int x = 730;
-			for (; x < beam1_width + 730; x++)
-			{
-				for (int y = 450; y > beam1_height; y--)
-				{
-					gfx.PutPixel(x, y, 222, 34, 34);
-				}
-			}
-			
-
-
-		}
+		
 
 		time_between_frames = clock() - time_between_frames;
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, time_between_frames, Color(0, 0, 0));
@@ -234,8 +183,6 @@ void Game::ComposeFrame()
 		
 		
 
-
-		wiz_life_bar->Draw(gfx);
 
 	}
 	else 
@@ -307,6 +254,23 @@ void Game::UpdateCollision()
 	int lazer2_y = lazer2->y;
 	wiz_shot_at_bool = false;
 
+
+	//wiz and middle beam
+	if (Detect_Collision(wiz_x, wiz_y, wiz_x + wiz_sheet->Width(), wiz_y + wiz_sheet->Height(), 
+
+	{
+
+	}
+
+	//wiz and gunbot
+	if (Detect_Collision(wiz_x, wiz_y, wiz_x + wiz_sheet->Width(), wiz_y + wiz_sheet->Height(),
+		gunbot->bullet->x, gunbot->bullet->y, gunbot->bullet->x + gunbot->bullet->sheet->Width(), gunbot->bullet->y + gunbot->bullet->sheet->Height()
+	))
+	{
+		wizard->lives -= 0.1;
+		wiz_shot_at_bool = true;
+	}
+
 	//wiz and slug
 	if ((wizard->GetX() < slug->x + slug->sheet->Width()) && (wizard->GetY() < slug->y + slug->sheet->Height())
 		&& ((wizard->GetX() + wiz_sheet->Width() > slug->x) && (wizard->GetY() < slug->y + slug->sheet->Height()))
@@ -319,17 +283,8 @@ void Game::UpdateCollision()
 		slug->death = true;
 	}
 
-	////wiz and gun_bullet
-	if ((wiz_x < bullet_x + gunbot->bullet->sheet->Width()) && (wiz_y < bullet_y + gunbot->bullet->sheet->Height())
-		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y < bullet_y + gunbot->bullet->sheet->Height()))
-		&& ((wiz_x < bullet_x + gunbot->bullet->sheet->Width()) && (wiz_y + wiz_sheet->Height() > bullet_y))
-		&& ((wiz_x + wiz_sheet->Width() > bullet_x) && (wiz_y + wiz_sheet->Height() > bullet_y))
-		)
-	{
-		wizard->lives -= 0.1;
-		wiz_shot_at_bool = true;
-	}
-
+	
+	
 	//wiz and left_missile
 	if ((wiz_x < lazerbot->left_missile->x + lazerbot->left_missile->sheet->Width()) && (wiz_y < lazerbot->left_missile->y + lazerbot->left_missile->sheet->Height())
 		&& ((wiz_x + wiz_sheet->Width() > lazerbot->left_missile->x) && (wiz_y < lazerbot->left_missile->y + lazerbot->left_missile->sheet->Height()))
@@ -364,6 +319,20 @@ void Game::UpdateCollision()
 	//}
 }
 
+bool Game::Detect_Collision(int x1, int y1, int x1plus, int y1plus, int x2, int y2, int x2plus, int y2plus)
+{
+	if (((x1 < x2plus) && (y1 < y2plus))
+		&& ((x1plus > x2) && (y1 < y2plus))
+		&& ((x1 < x2plus) && (y1plus > y2))
+		&& ((x1plus > x2) && (y1plus > y2))
+		)
+	{
+		return true;
+		
+	}
+	return false;
+}
+
 //DONT LOOK INSIDE THIS FUNCTION 
 void Game::Restart()
 {
@@ -383,9 +352,10 @@ void Game::Restart()
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 
-	ballbot = new Ballbot(350, 300, 600, 800, 350, 500, "ballbot.bmp", 1, 1);
-	robot_maker = new Obstacle(800, 100, 800, 100, 900, 200, "robot_maker.bmp", 2, 2);
+	ballbot = new Ballbot(600, 350, 600, 800, 350, 500, "ballbot.bmp", 1, 1);
+	robot_maker = new Obstacle(800, 100, 800, 900, 100, 200, "robot_maker.bmp", 2, 2);
 	robot_maker->setAnimation(-1, 0, 0, 3);
+	river = new Obstacle(-1, -1, 0, 1120, 400, 630, "map1.bmp", 1, 1);
 	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
 	//itsover = new Surface("pressenter.bmp");
 
@@ -421,10 +391,6 @@ void Game::Restart()
 
 	wiz_life_bar = new LifeBar(wizard->GetX(), wizard->GetY(), wizard->lives, 15);
 
-	beam1_width = 47;
-	beam1_height = 0;
-	beam1_hold = 0;
-	beam1_speed = 30;
 
 	wiz_sheet = new SpriteSheet("Wizard.bmp", 4, 3);
 	wiz_anime = new Animation(-1, 3, 6, 11);
@@ -463,7 +429,7 @@ void Game::Restart()
 
 	obstacles.push_back(ballbot);
 	obstacles.push_back(robot_maker);
-	
+	obstacles.push_back(river);
 }
 
 void Game::Replay()

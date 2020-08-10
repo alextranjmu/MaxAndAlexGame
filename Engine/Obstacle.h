@@ -11,7 +11,7 @@ public:
 	virtual void update();
 	void Draw(Graphics &gfx);
 	virtual ~Obstacle();
-
+	bool nextBool(double probability);
 	int x;
 	int y;
 	int x1;
