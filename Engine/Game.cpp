@@ -256,11 +256,7 @@ void Game::UpdateCollision()
 
 
 	//wiz and middle beam
-	if (Detect_Collision(wiz_x, wiz_y, wiz_x + wiz_sheet->Width(), wiz_y + wiz_sheet->Height(), 
-
-	{
-
-	}
+	
 
 	//wiz and gunbot
 	if (Detect_Collision(wiz_x, wiz_y, wiz_x + wiz_sheet->Width(), wiz_y + wiz_sheet->Height(),
