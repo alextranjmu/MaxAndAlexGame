@@ -2,6 +2,7 @@
 #include "Character.h"
 #include "Animation.h"
 #include "Obstacle.h"
+#include "Bullet.h"
 #include <vector>
 using std::vector;
 class Wizard :
@@ -23,8 +24,27 @@ private:
 	Animation *idle_animation;
 	Animation *walk_cycle;
 	Animation *spin_attack;
-	void setAnimation(Animation *anime);
+	Animation *swipe_attack;
+	bool setAnimation(Animation *anime); // returns true if animation was changed
+	int getAttackDirection(const Keyboard & kbd);
+	void tornado_attack(const Keyboard & kbd);
+
+	std::vector<Bullet*> projectiles;
+	Animation *tornado_anime;
+	SpriteSheet *tornado_sheet;
+	void rain_attack(const Keyboard & kbd);
+	Animation *rain_anime;
+	SpriteSheet *rain_sheet;
+	void fireball_attack(const Keyboard & kbd);
+	Animation *fireball_anime;
+	SpriteSheet *fireball_sheet;
+
 	/*int x;
 	int y;*/
+	int current_attack = NO_ATTACK;
+	static const int NO_ATTACK = -1;
+	static const int TORNADO = 0;
+	static const int FIREBALL = 1;
+	static const int RAINCLOUD = 2;
 };
 

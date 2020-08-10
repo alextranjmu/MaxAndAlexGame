@@ -1,4 +1,8 @@
+#define _USE_MATH_DEFINES
+
 #include "Vector.h"
+#include "Character.h"
+#include <cmath>
 
 Vector::Vector(double heading, double magnitude)
 {
@@ -6,6 +10,38 @@ Vector::Vector(double heading, double magnitude)
 	setY(0);
 	setMagnitude(magnitude);
 	setHeading(heading);
+}
+
+Vector::Vector(int direction, double magnitude)
+{
+	setMagnitude(magnitude);
+	switch (direction)
+	{
+	case RIGHT:
+		setHeading(0.0);
+		break;
+	case UP_RIGHT:
+		setHeading(M_PI / 4.0);
+		break;
+	case UP:
+		setHeading(M_PI / 2.0);
+		break;
+	case UP_LEFT:
+		setHeading(3.0 * M_PI / 4.0);
+		break;
+	case LEFT:
+		setHeading(M_PI);
+		break;
+	case DOWN_LEFT:
+		setHeading(5 * M_PI / 4.0);
+		break;
+	case DOWN:
+		setHeading(3 * M_PI / 2.0);
+		break;
+	case DOWN_RIGHT:
+		setHeading(7 * M_PI / 4.0);
+		break;
+	}
 }
 
 double Vector::getX()

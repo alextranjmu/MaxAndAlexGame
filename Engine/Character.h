@@ -27,6 +27,10 @@ protected:
 	static int const DOWN = 2;
 	static int const LEFT = 3;
 	static int const RIGHT = 4;
+	static int const UP_LEFT = 5;
+	static int const UP_RIGHT = 6;
+	static int const DOWN_LEFT = 7;
+	static int const DOWN_RIGHT = 8;
 
 
 	int SPEED = 4;
