@@ -52,12 +52,35 @@ void Game::Go(boolean &is_restarted)
 
 void Game::UpdateModel()
 {
-	if (wizard->lives <= 0)
+	if (wnd.kbd.KeyIsPressed(VK_RETURN))
+	{
+		game_won = true;
+	}
+
+	else if (game_won)
+	{
+		GetCursorPos(&cursor_point);
+		ScreenToClient(wnd.hWnd, &cursor_point);
+		won_screen->won_screen_select(cursor_point.x, cursor_point.y, *wizard, isRe_started, is_Replay);
+		if (isRe_started)
+		{
+			Restart();
+			isRe_started = false;
+		}
+
+		if (is_Replay)
+		{
+			Replay();
+			is_Replay = false;
+		}
+
+	}
+	 if (wizard->lives <= 0)
 	{
 		game_over = true;
 	}
 	
-	if (game_over)
+	 if (game_over)
 	{
 		GetCursorPos(&cursor_point);
 		ScreenToClient(wnd.hWnd, &cursor_point);
@@ -101,9 +124,13 @@ void Game::UpdateModel()
 
 		//LIFEBAR CODE
 		wiz_life_bar->width = round(wizard->lives);
-		wiz_life_bar->x = wizard->GetX();
-		wiz_life_bar->y = wizard->GetY();
+		wiz_life_bar->Update_pos(wizard->GetX(), wizard->GetY());
 
+		gunbot->lifebar->width = round(gunbot->lives);
+		gunbot->lifebar->Update_pos(gunbot->x, gunbot->y);
+
+		lazerbot->lifebar->width = round(lazerbot->lives);
+		lazerbot->lifebar->Update_pos(lazerbot->x, lazerbot->y);
 
 		//ATTACK CODE
 		slug->Move_to_character(*wizard);
@@ -134,9 +161,14 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
+
 	if (game_over)
 	{
 		end_screen->Draw_End(gfx);
+	}
+	else if (game_won)
+	{
+		won_screen->Draw_Won(gfx);
 	}
 	else if (isStarted)
 	{
@@ -152,7 +184,13 @@ void Game::ComposeFrame()
 			shot_wiz->Draw(gfx);
 		}
 
+		//DRAW BULLETS
+		gunbot->Draw_bullet(gfx);
+		lazerbot->Draw_missile(gfx);
+
 		//DRAW ENEMIES AND LEGS
+		slug->Draw(gfx);
+
 		gunbot->Draw(gfx);
 		gunbot_legs->Draw_legs(gfx);
 
@@ -161,11 +199,14 @@ void Game::ComposeFrame()
 		
 		//DRAW LIFEBAR
 		wiz_life_bar->Draw(gfx);
+		gunbot->lifebar->Draw(gfx);
+		lazerbot->lifebar->Draw(gfx);
 
 		//DRAW OBSTICLES
 		ballbot->Draw(gfx);
 		ballbot->Draw_beams(gfx);
 		robot_maker->Draw(gfx);
+
 
 		
 
@@ -201,10 +242,7 @@ void Game::ComposeFrame()
 	}
 
 	
-	slug->Draw(gfx);
 	
-	gunbot->Draw_bullet(gfx);
-	lazerbot->Draw_missile(gfx);
 	if (slug->death && !slug->exploded)
 	{
 
@@ -254,10 +292,6 @@ void Game::UpdateCollision()
 	int lazer2_y = lazer2->y;
 	wiz_shot_at_bool = false;
 
-
-	//wiz and middle beam
-	
-
 	//wiz and gunbot
 	if (Detect_Collision(wiz_x, wiz_y, wiz_x + wiz_sheet->Width(), wiz_y + wiz_sheet->Height(),
 		gunbot->bullet->x, gunbot->bullet->y, gunbot->bullet->x + gunbot->bullet->sheet->Width(), gunbot->bullet->y + gunbot->bullet->sheet->Height()
@@ -266,6 +300,29 @@ void Game::UpdateCollision()
 		wizard->lives -= 0.1;
 		wiz_shot_at_bool = true;
 	}
+
+	//wiz and middle beam
+	if (Detect_Collision(wiz_x, wiz_y, wiz_x + wiz_sheet->Width(), wiz_y + wiz_sheet->Height(),
+		ballbot->beam1_x, ballbot->beam1_height, ballbot->beam1_x + ballbot->beam1_width, ballbot->beam1_unchanged_height))
+	{
+		wizard->lives -= 0.1;
+		wiz_shot_at_bool = true;
+	}
+
+	if (Detect_Collision(wiz_x, wiz_y, wiz_x + wiz_sheet->Width(), wiz_y + wiz_sheet->Height(),
+		ballbot->left_beam_width, ballbot->left_beam_starting_height, ballbot->left_beam_width_right, ballbot->left_beam_starting_height + ballbot->left_beam_height))
+	{
+		wizard->lives -= 0.1;
+		wiz_shot_at_bool = true;
+	}
+
+	if (Detect_Collision(wiz_x, wiz_y, wiz_x + wiz_sheet->Width(), wiz_y + wiz_sheet->Height(),
+		ballbot->right_beam_width_left, ballbot->right_beam_starting_height, ballbot->right_beam_width, ballbot->right_beam_starting_height + ballbot->right_beam_height))
+	{
+		wizard->lives -= 0.1;
+		wiz_shot_at_bool = true;
+	}
+	
 
 	//wiz and slug
 	if ((wizard->GetX() < slug->x + slug->sheet->Width()) && (wizard->GetY() < slug->y + slug->sheet->Height())
@@ -337,6 +394,7 @@ void Game::Restart()
 	is_Replay = false;
 	isStarted = false;
 	game_over = false;
+	game_won = false;
 	frame_counter = 0;
 	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
 								   //window = wnd.hWnd;
@@ -348,7 +406,7 @@ void Game::Restart()
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 
-	ballbot = new Ballbot(600, 350, 600, 800, 350, 500, "ballbot.bmp", 1, 1);
+	ballbot = new Ballbot(500, 250, 600, 800, 350, 500, "ballbot.bmp", 1, 1);
 	robot_maker = new Obstacle(800, 100, 800, 900, 100, 200, "robot_maker.bmp", 2, 2);
 	robot_maker->setAnimation(-1, 0, 0, 3);
 	river = new Obstacle(-1, -1, 0, 1120, 400, 630, "map1.bmp", 1, 1);
@@ -361,10 +419,10 @@ void Game::Restart()
 
 	lazer_bullet2 = false;
 	
-	gunbot = new Turret(LEFT, 600, 300, 1, "gunbot.bmp", "bigredbullet24.bmp",4, 2, 55, 55, 10);
+	gunbot = new Turret(LEFT, 600, 300, 1, "gunbot.bmp", "bigredbullet24.bmp",4, 2, 55, 55, 100);
 	gunbot_legs = new Enemy(LEFT, 600, 300, 1, "gunbot_legs.bmp", 3, 1, 55, 55, 100);
 
-	lazerbot = new LazerBot(LEFT, 400, 300, 2, "lazerbot.bmp", 2, 2, 0, 0, 10);
+	lazerbot = new LazerBot(LEFT, 400, 300, 2, "lazerbot.bmp", 2, 2, 0, 0, 100);
 	lazerbot_legs = new Enemy(LEFT, 400, 300, 2, "lazerbot_legs.bmp", 2, 1, 0, 0, 10);
 
 	slug = new Slug(LEFT, 500, 200, 1, "slug.bmp", 5, 1, 0, 0, 10);
@@ -384,6 +442,7 @@ void Game::Restart()
 	end_screen = new TitleScreen(0, 0, "end_screen.bmp", 2, 2);
 	end_screen_win = new TitleScreen(0, 0, "end_screen_win.bmp", 2, 2);
 	pause_screen = new TitleScreen(0, 0, "pause_screen.bmp", 2, 2);
+	won_screen = new TitleScreen(0, 0, "won_end_screen.bmp", 2, 2);
 
 	wiz_life_bar = new LifeBar(wizard->GetX(), wizard->GetY(), wizard->lives, 15);
 

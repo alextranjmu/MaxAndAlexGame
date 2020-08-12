@@ -43,6 +43,7 @@ public:
 	void Restart();
 	void Replay();
 	void Update_when_paused();
+	
 
 private:
 	void ComposeFrame();
@@ -154,6 +155,7 @@ private:
 	TitleScreen *end_screen;
 	TitleScreen *end_screen_win;
 	TitleScreen *pause_screen;
+	TitleScreen *won_screen;
 
 	LifeBar *wiz_life_bar;
 	LifeBar *gunbot_life_bar;
