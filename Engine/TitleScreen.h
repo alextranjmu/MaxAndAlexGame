@@ -15,6 +15,8 @@ enum game_over_button {
 enum pause_button {
 	resume = 0, menu_pause = 1, quit_pause = 2
 };
+
+
 class TitleScreen
 {
 
@@ -29,9 +31,11 @@ public:
 	TitleScreen::TitleScreen(int x, int y, char * fileName, int rows, int cols);
 	void Change_difficulty(int cursor_x, int cursor_y, boolean &isStarted);
 	void end_screen_select(int cursor_x, int cursor_y, Character &character, boolean &isRe_started, boolean &is_Replay);
-	void TitleScreen::pause_screen_select(int cursor_x, int cursor_y, boolean & is_paused, boolean & isRe_started);
-		void Draw_Intro(Graphics &gfx);
+	void pause_screen_select(int cursor_x, int cursor_y, boolean & is_paused, boolean & isRe_started);
+	void won_screen_select(int cursor_x, int cursor_y, Character &character, boolean &isRe_started, boolean &is_Replay);
+	void Draw_Intro(Graphics &gfx);
 	void Draw_End(Graphics &gfx);
 	void Draw_Pause(Graphics &gfx);
+	void Draw_Won(Graphics &gfx);
 	
 };

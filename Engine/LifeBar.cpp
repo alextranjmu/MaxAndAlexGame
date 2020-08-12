@@ -10,6 +10,12 @@ LifeBar::LifeBar(int x, int y, int width, int height)
 	this->originalWidth = width;
 }
 
+void LifeBar::Update_pos(int x, int y)
+{
+	this->x = x;
+	this->y = y;
+}
+
 void LifeBar::Draw(Graphics  &gfx)
 {
 	for (int i = x; i < width + x; i++)

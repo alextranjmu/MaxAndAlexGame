@@ -17,6 +17,7 @@ Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName,
 	this->speed = speed;
 	direction = LEFT;
 	this->lives = lives;
+	lifebar = new LifeBar(x, y, lives, 10);
 
 }
 

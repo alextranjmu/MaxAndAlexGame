@@ -11,14 +11,20 @@ public:
 	bool left_beam_bool = false;
 	bool right_beam_bool = false;
 
-	int left_beam_width = 0;
+	int left_beam_width = this->x + 90;
+	int left_beam_width_right = this->x + 90;
 	int left_beam_height = 37;
+	int left_beam_starting_height = this->y + 80;
 
-	int right_beam_width = 800; 
+	int right_beam_width = this->x + 210; 
+	int right_beam_width_left = this->x + 210;
 	int right_beam_height = 35;
+	int right_beam_starting_height = this->y + 80;
 
+	int beam1_x = this->x + 130;
 	int beam1_width = 47;
-	int beam1_height = 0;
+	int beam1_height = this->y + 130;
+	int beam1_unchanged_height = this->y + 130;
 
 	int left_beam_hold = 0;
 	int left_beam_speed = 15;

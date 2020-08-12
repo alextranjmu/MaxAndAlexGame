@@ -118,6 +118,34 @@ void TitleScreen::pause_screen_select(int cursor_x, int cursor_y, boolean & is_p
 	}
 }
 
+void TitleScreen::won_screen_select(int cursor_x, int cursor_y, Character & character, boolean & isRe_started, boolean & is_Replay)
+{
+	if (cursor_y > 99 + 30 && cursor_y < 174 + 30)
+	{
+		over_button = replay;
+		if (GetKeyState(VK_LBUTTON) & 0x8000)
+		{
+			is_Replay = true;
+		}
+	}
+	else if (cursor_y > 174 + 30 && cursor_y < 285 + 30)
+	{
+		over_button = menu;
+		if (GetKeyState(VK_LBUTTON) & 0x8000)
+		{
+			isRe_started = true;
+		}
+	}
+	else if (cursor_y > 285 + 30 && cursor_y < 390 + 30)
+	{
+		over_button = quit;
+		if (GetKeyState(VK_LBUTTON) & 0x8000)
+		{
+			exit(EXIT_SUCCESS);
+		}
+	}
+}
+
 void TitleScreen::Draw_Intro(Graphics& gfx)
 {
 	switch (difficulty)
@@ -184,3 +212,24 @@ void TitleScreen::Draw_Pause(Graphics & gfx)
 		break;
 	}
 }
+
+void TitleScreen::Draw_Won(Graphics & gfx)
+{
+	switch (over_button)
+	{
+	case replay:
+		sheet->drawFrame(gfx, 1, x, y);
+		break;
+	case menu:
+		sheet->drawFrame(gfx, 2, x, y);
+		break;
+	case quit:
+		sheet->drawFrame(gfx, 3, x, y);
+		break;
+	default:
+		sheet->drawFrame(gfx, 0, x, y);
+		break;
+	}
+}
+
+

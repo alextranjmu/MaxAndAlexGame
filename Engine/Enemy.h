@@ -6,6 +6,7 @@
 #include "SpriteSheet.h"
 #include "Animation.h"
 #include <math.h>
+#include "LifeBar.h"
 using std::vector;
 
 enum botname
@@ -28,6 +29,7 @@ public:
 	int explode_max_frame_count = 3;
 	Vector *chase_vector;
 	double chase_degree;
+	LifeBar *lifebar;
 	int x;
 	int y;
 	int speed;
