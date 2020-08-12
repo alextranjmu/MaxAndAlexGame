@@ -20,26 +20,26 @@ Vector::Vector(int direction, double magnitude)
 	case RIGHT:
 		setHeading(0.0);
 		break;
-	case UP_RIGHT:
+	case DOWN_RIGHT:
 		setHeading(M_PI / 4.0);
 		break;
-	case UP:
+	case DOWN:
 		setHeading(M_PI / 2.0);
 		break;
-	case UP_LEFT:
+	case DOWN_LEFT:
 		setHeading(3.0 * M_PI / 4.0);
 		break;
 	case LEFT:
 		setHeading(M_PI);
 		break;
-	case DOWN_LEFT:
-		setHeading(5 * M_PI / 4.0);
+	case UP_LEFT:
+		setHeading(5.0 * M_PI / 4.0);
 		break;
-	case DOWN:
-		setHeading(3 * M_PI / 2.0);
+	case UP:
+		setHeading(3.0 * M_PI / 2.0);
 		break;
-	case DOWN_RIGHT:
-		setHeading(7 * M_PI / 4.0);
+	case UP_RIGHT:
+		setHeading(7.0 * M_PI / 4.0);
 		break;
 	}
 }

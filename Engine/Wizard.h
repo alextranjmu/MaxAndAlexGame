@@ -20,6 +20,8 @@ public:
 	void collisionUpdateydown(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
 
 private:
+	int attack_counter;
+
 	Animation *current_animation;
 	Animation *idle_animation;
 	Animation *walk_cycle;
@@ -39,8 +41,6 @@ private:
 	Animation *fireball_anime;
 	SpriteSheet *fireball_sheet;
 
-	/*int x;
-	int y;*/
 	int current_attack = NO_ATTACK;
 	static const int NO_ATTACK = -1;
 	static const int TORNADO = 0;
