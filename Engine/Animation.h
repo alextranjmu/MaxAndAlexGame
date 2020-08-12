@@ -5,7 +5,7 @@
 
 class Animation
 {
-private:
+public:
 	int cancelable_start_frame;
 	int frame_skips;
 	std::vector<int> frames;
@@ -13,7 +13,7 @@ private:
 
 	int cur_frame_skip;
 	int current_frame;
-public:
+//public:
 	Animation(int cancelable_start_frame, int frame_skips, int num_frames, int *fs);
 	Animation(int cancelable_start_frame, int frame_skips, int start_frame, int end_frame);
 	int getCurrentFrame();

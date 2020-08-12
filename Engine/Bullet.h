@@ -10,7 +10,7 @@
 class Bullet {
 public:
 	Bullet(int x, int y, std::string fileName, int rows, int cols);
-	Bullet(int x, int y, SpriteSheet *sheet, Vector *v);
+	Bullet(int x, int y, SpriteSheet *sheet, int direction, double magnitude);
 	~Bullet();
 
 	void Draw(Graphics &gfx);
@@ -20,16 +20,18 @@ public:
 	void setAnimation(int cancelable_start_frame, int frame_skips, int start_frame, int end_frame);
 	void setAnimation(Animation *animation);
 	void vector_move_forward();
-	void setVector(Vector *v);
+	void setVector(int direction, double magnitude);
+	void expire();
 
 	bool animated = false;
 	Vector *vector = nullptr;
-	int x;
-	int y;
+	double x;
+	double y;
 	int SPEED;
 	int speed_elapsed = 0;
 	SpriteSheet *sheet;
 	Animation *anime;
 
-
+	int direction;
+	double magnitude;
 };

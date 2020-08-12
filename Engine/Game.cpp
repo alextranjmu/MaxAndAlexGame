@@ -370,8 +370,8 @@ void Game::Restart()
 	frame_counter = 0;
 	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
 								   //window = wnd.hWnd;
-	wizard = new Wizard(200, 200, "Wizard.bmp", 1, 1);
-	shot_wiz = new Wizard(200, 200, "Wizard.bmp", 1, 1); // TODO: update wiz_shot.bmp
+	wizard = new Wizard(200, 200, "Wizard.bmp", 6, 3);
+	shot_wiz = new Wizard(200, 200, "Wizard.bmp", 6, 3); // TODO: update wiz_shot.bmp
 
 	std::uniform_int_distribution<int> vDist(-1, 1);
 

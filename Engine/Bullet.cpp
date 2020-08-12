@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "Graphics.h"
 
 Bullet::Bullet(int x, int y, std::string fileName, int rows, int cols)
 {
@@ -7,29 +8,44 @@ Bullet::Bullet(int x, int y, std::string fileName, int rows, int cols)
 	sheet = new SpriteSheet(fileName, rows, cols);
 }
 
-Bullet::Bullet(int x, int y, SpriteSheet *sprites, Vector *v)
+Bullet::Bullet(int x, int y, SpriteSheet *sprites, int direction, double magnitude)
 {
 	this->x = x;
 	this->y = y;
 	sheet = sprites;
-	vector = v;
+	this->direction = direction;
+	this->magnitude = magnitude;
 }
 
 void Bullet::vector_move_forward()
 {
-	x += vector->getX();
-	y += vector->getY();
+	Vector vector = Vector(direction, magnitude);
+	x += vector.getX();
+	y += vector.getY();
+
+	if (x > Graphics::ScreenWidth - sheet->Width() || x < 0 
+		|| y > Graphics::ScreenHeight - sheet->Height() || y < 0)
+	{
+		expire();
+	}
 }
 
-void Bullet::setVector(Vector *v)
+void Bullet::expire()
 {
-	vector = v;
+	x = Graphics::ScreenWidth / 2;
+	y = Graphics::ScreenHeight / 2;
+}
+
+void Bullet::setVector(int direction, double magnitude)
+{
+	this->direction = direction;
+	this->magnitude = magnitude;
 }
 
 Bullet::~Bullet()
 {
-	if (animated)
-		delete anime;
+	//if (animated)
+		//delete anime;
 	if (vector != nullptr)
 	{
 		delete vector;
