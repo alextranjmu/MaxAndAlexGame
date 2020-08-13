@@ -27,6 +27,15 @@
 #include "Slug.h"
 #include "LazerBot.h"
 #include "Ballbot.h"
+#include "MainWindow.h"
+#include <random>
+#include <windows.h>
+#include "Block.h"
+#include "Graphics.h"
+#include "BotMaker.h"
+#include <cmath>
+#include <vector>
+#include <queue>
 #pragma comment(lib,"winmm")
 
 using namespace::std;
@@ -99,7 +108,7 @@ private:
 	
 
 	Ballbot *ballbot;
-	Obstacle *robot_maker;
+	BotMaker *robot_maker;
 	Obstacle *river;
 
 	Turret *gunbot;
@@ -150,6 +159,9 @@ private:
 	vector<Enemy*> enemies;
 	vector<Obstacle*> obstacles;
 	vector<Bullet*> bullets;
+	vector<BotMaker*> botmakers;
+
+	queue<Enemy*> dead_enemies;
 
 	TitleScreen *intro_screen;
 	TitleScreen *end_screen;

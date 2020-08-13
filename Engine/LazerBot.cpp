@@ -82,6 +82,15 @@ void LazerBot::Draw(Graphics & gfx)
 		sheet->drawFrame(gfx, 0, x, y);
 	}
 
+	if (shocked)
+	{
+		Draw_electric(gfx);
+	}
+
+	if (exploded)
+	{
+		draw_maxs_explosion(gfx);
+	}
 }
 
 void LazerBot::Draw_missile(Graphics &gfx)

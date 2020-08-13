@@ -45,7 +45,14 @@ void Turret::Draw(Graphics &gfx)
 	else
 	{
 		sheet->drawFrame(gfx, 4, x, y);
-
+	}
+	if (shocked)
+	{
+		Draw_electric(gfx);
+	}
+	if (exploded)
+	{
+		draw_maxs_explosion(gfx);
 	}
 }
 

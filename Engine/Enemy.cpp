@@ -8,6 +8,10 @@
 
 Enemy::Enemy(Direction direction, int x, int y, int speed, std::string fileName, int rows, int cols, int width, int height, int lives)
 {
+	max_explosion_sheet = new SpriteSheet("max_explosion.bmp", 9, 1);
+	max_explosion_anime = new Animation(-1, 8, 0, 8);
+	electric_sheet = new SpriteSheet("electric.bmp", 7, 1);
+	electric_animation = new Animation(-1, 8, 0, 6);
 	sheet = new SpriteSheet(fileName, rows, cols);
 	anime = new Animation(-1, 8, 0, rows*cols - 1);
 	this->x = x;
@@ -26,8 +30,32 @@ void Enemy::Draw(Graphics & gfx)
 {
 	sheet->drawFrame(gfx, anime->getCurrentFrame(), x, y);
 	anime->nextFrame();
+	
 }
 
+void Enemy::Draw_electric(Graphics & gfx)
+{
+	
+	electric_sheet->drawFrame(gfx, electric_animation->getCurrentFrame(), x, y);
+	electric_animation->nextFrame();
+	if (electric_animation->getCurrentFrame() >= 6)
+	{
+		shocked = false;
+		exploded = true;
+	}
+	
+}
+
+void Enemy::draw_maxs_explosion(Graphics &gfx)
+{
+	max_explosion_sheet->drawFrame(gfx, max_explosion_anime->getCurrentFrame(), x, y);
+	max_explosion_anime->nextFrame();
+	if (max_explosion_anime->getCurrentFrame() >= 8)
+	{
+		exploded = false;
+		reset(800, 200, 100, LEFT);
+	}
+}
 
 
 void Enemy::Draw_legs(Graphics & gfx)
@@ -170,4 +198,15 @@ void Enemy::collisionUpdateydown(int x1, int x2, int y1, int y2, int enemy_width
 	{
 		y -= speed;
 	}
+}
+
+void Enemy::reset(int x, int y, int lives, Direction direction)
+{
+	this->x = x;
+	this->y = y;
+	this->lives = lives;
+	this->direction = direction;
+	death = false;
+	max_explosion_anime = new Animation(-1, 8, 0, 8);
+	electric_animation = new Animation(-1, 8, 0, 6);
 }

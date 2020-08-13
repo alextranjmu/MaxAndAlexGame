@@ -49,6 +49,7 @@ void SpriteSheet::drawFrame(Graphics & gfx, int frame_num, int x, int y)
 			}
 			else
 			{
+				if (x + col < Graphics::ScreenWidth && y - row + frame_height < Graphics::ScreenHeight)
 				gfx.PutPixel(x + col, y - row + frame_height, p.red, p.green, p.blue);
 			}
 		}

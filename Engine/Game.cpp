@@ -1,14 +1,13 @@
 
-#include "MainWindow.h"
 #include "Game.h"
-#include <random>
-#include <windows.h>
-#include "Block.h"
-#include "Graphics.h"
-#include <cmath>
-#include <vector>
-#pragma comment(lib,"winmm")
 
+#pragma comment(lib,"winmm")
+#include <iostream>
+using namespace std;
+template<typename Base, typename T>
+inline bool instanceof(const T*) {
+	return is_base_of<Base, T>::value;
+}
 
 Game::Game(MainWindow& wnd)
 	:
@@ -110,7 +109,10 @@ void Game::UpdateModel()
 		}
 		for (int i = 0; i < enemies.size(); i++)
 		{
-			enemies[i]->randomMove(obstacles, 0,0);
+			if (!enemies[i]->shocked)
+			{
+				enemies[i]->randomMove(obstacles, 0, 0);
+			}
 		}
 		/*gunbot->clamp_screen(100, 100, 100, 150);
 		lazerbot->clamp_screen(150, 150, 150, 150);*/
@@ -139,6 +141,33 @@ void Game::UpdateModel()
 		ballbot->Update_Beams();
 
 		//COLLISION CODE
+		for (int i = 0; i < enemies.size(); i++)
+		{
+			if (enemies[i]->y > 450)
+			{
+				enemies[i]->shocked = true;
+				enemies[i]->death = true;
+			}
+		}
+
+		//PUT DEAD ENEMIES IN QUEUE
+		if (slug->death)
+		{
+			robot_maker->dead_slugs_gunbots.push(slug);
+		}
+		for (int i = 0; i < enemies.size(); i++)
+		{
+			
+			
+		}
+
+		//SYNTHESIZE BOTS.
+		if (robot_maker->is_closed && robot_maker->dead_slugs_gunbots.size() > 0)
+		{
+			robot_maker->dead_slugs_gunbots.front()->death = false;
+			robot_maker->dead_slugs_gunbots.pop();
+		}
+
 		UpdateCollision();
 
 		
@@ -191,8 +220,10 @@ void Game::ComposeFrame()
 		//DRAW ENEMIES AND LEGS
 		slug->Draw(gfx);
 
+		
 		gunbot->Draw(gfx);
 		gunbot_legs->Draw_legs(gfx);
+		
 
 		lazerbot->Draw(gfx);
 		lazerbot_legs->Draw_legs(gfx);
@@ -205,10 +236,10 @@ void Game::ComposeFrame()
 		//DRAW OBSTICLES
 		ballbot->Draw(gfx);
 		ballbot->Draw_beams(gfx);
-		robot_maker->Draw(gfx);
+		//robot_maker->Draw(gfx);
 
 
-		
+	
 
 
 
@@ -406,12 +437,10 @@ void Game::Restart()
 	rock = new Surface("fatrock24.bmp");
 	map1 = new Surface("map1.bmp");
 
-	ballbot = new Ballbot(500, 250, 600, 800, 350, 500, "ballbot.bmp", 1, 1);
-	robot_maker = new Obstacle(800, 100, 800, 900, 100, 200, "robot_maker.bmp", 2, 2);
-	robot_maker->setAnimation(-1, 0, 0, 3);
+	ballbot = new Ballbot(800, 360, 600, 800, 350, 500, "ballbot.bmp", 1, 1);
+	robot_maker = new BotMaker(800, 100, 800, 900, 100, 200, "robot_maker.bmp", 2, 2);
 	river = new Obstacle(-1, -1, 0, 1120, 400, 630, "map1.bmp", 1, 1);
-	//bigredbullet = new Bullet(735, 400, "bigredbullet24.bmp");
-	//itsover = new Surface("pressenter.bmp");
+	
 
 	beam1_bool = false;
 
@@ -481,10 +510,10 @@ void Game::Restart()
 	enemies.push_back(gunbot);
 	enemies.push_back(lazerbot);
 
-
-	obstacles.push_back(ballbot);
-	obstacles.push_back(robot_maker);
-	obstacles.push_back(river);
+	botmakers.push_back(robot_maker);
+	//obstacles.push_back(ballbot);
+	//obstacles.push_back(robot_maker);
+	//obstacles.push_back(river);
 }
 
 void Game::Replay()
