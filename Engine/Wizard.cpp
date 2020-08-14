@@ -124,9 +124,17 @@ void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_wi
 	}
 
 	// update projectiles
-	for (int i = 0; i < projectiles.size(); i++)
+	for (int i = projectiles.size() - 1; i >= 0; i--)
 	{
-		projectiles.at(i)->vector_move_forward();
+		if (projectiles.at(i)->isExpired())
+		{
+			//delete (projectiles.at(i));
+			projectiles.erase(projectiles.begin() + i);
+		}
+		else
+		{
+			projectiles.at(i)->vector_move_forward();
+		}
 	}
 }
 
