@@ -32,8 +32,14 @@ void Bullet::vector_move_forward()
 
 void Bullet::expire()
 {
-	x = Graphics::ScreenWidth / 2;
-	y = Graphics::ScreenHeight / 2;
+	//x = Graphics::ScreenWidth / 2;
+	//y = Graphics::ScreenHeight / 2;
+	expired = true;
+}
+
+bool Bullet::isExpired() 
+{
+	return expired;
 }
 
 void Bullet::setVector(int direction, double magnitude)

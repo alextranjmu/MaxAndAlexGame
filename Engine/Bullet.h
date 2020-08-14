@@ -22,8 +22,10 @@ public:
 	void vector_move_forward();
 	void setVector(int direction, double magnitude);
 	void expire();
+	bool isExpired();
 
 	bool animated = false;
+	bool expired = false;
 	Vector *vector = nullptr;
 	double x;
 	double y;
