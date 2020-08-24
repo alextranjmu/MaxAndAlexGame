@@ -4,6 +4,8 @@
 #include "SpriteSheet.h"
 #include "Animation.h"
 #include "Vector.h"
+#include "Enemy.h"
+#include <vector>
 
 # define M_PI           3.14159265358979323846  /* pi */
 
@@ -11,7 +13,7 @@ class Bullet {
 public:
 	Bullet(int x, int y, std::string fileName, int rows, int cols);
 	Bullet(int x, int y, SpriteSheet *sheet, int direction, double magnitude);
-	~Bullet();
+	virtual ~Bullet();
 
 	void Draw(Graphics &gfx);
 	void Bullet::DrawReverse(Graphics &gfx);
@@ -23,6 +25,7 @@ public:
 	void setVector(int direction, double magnitude);
 	void expire();
 	bool isExpired();
+	virtual void update(std::vector<Enemy*> enemies);
 
 	bool animated = false;
 	bool expired = false;
@@ -35,5 +38,6 @@ public:
 	Animation *anime;
 
 	int direction;
+	int expire_timer;
 	double magnitude;
 };

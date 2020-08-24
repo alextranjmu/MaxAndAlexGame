@@ -45,7 +45,7 @@ public:
 	void Update_when_paused();
 	
 
-private:
+//private:
 	void ComposeFrame();
 	bool nextBool(double probability);
 	void UpdateModel();
@@ -59,7 +59,7 @@ private:
 	void DrawGameOver( int x,int y );
 	void DrawTitleScreen( int x,int y );
 	/********************************/
-private:
+//private:
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/

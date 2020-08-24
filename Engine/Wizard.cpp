@@ -2,9 +2,10 @@
 #include "Keyboard.h"
 #include "Obstacle.h"
 
-Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols)
+Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols, Game *g)
 	: Character::Character(x2, y2, spritesheet, ssrows, sscols)
 {
+	game = g;
 	SPEED = 4;
 	int idle[1] = { 0 };
 	idle_animation = new Animation(-1, 3, 0, 0);
@@ -14,11 +15,13 @@ Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols)
 	spin_attack = new Animation(10, 3, 12, spin);
 	swipe_attack = new Animation(5, 3, 12, 17);
 	projectiles = {};
+	puddles = {};
 
 	tornado_anime = new Animation(-1, 3, 0, 7);
 	tornado_sheet = new SpriteSheet("Tornado.bmp", 4, 2);
 	rain_anime = new Animation(-1, 2, 0, 17);
 	rain_sheet = new SpriteSheet("Thundercloud.bmp", 6, 3);
+	puddle_sheet = new SpriteSheet("Puddle.bmp", 1, 1);
 	fireball_anime = new Animation(-1, 3, 0, 3);
 	fireball_sheet = new SpriteSheet("Fireball.bmp", 2, 2);
 
@@ -133,7 +136,21 @@ void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_wi
 		}
 		else
 		{
-			projectiles.at(i)->vector_move_forward();
+			projectiles.at(i)->update(game->enemies);
+		}
+	}
+
+	// update puddles
+	for (int i = puddles.size() - 1; i >= 0; i--)
+	{
+		if (puddles.at(i)->expired)
+		{
+			//delete (projectiles.at(i));
+			puddles.erase(puddles.begin() + i);
+		}
+		else
+		{
+			puddles.at(i)->doCollision(game->enemies);
 		}
 	}
 }
@@ -155,6 +172,10 @@ void Wizard::Draw(Graphics& gfx)
 	for (int i = 0; i < projectiles.size(); i++)
 	{
 		projectiles.at(i)->Draw(gfx);
+	}
+	for (int i = 0; i < puddles.size(); i++)
+	{
+		puddles.at(i)->Draw(gfx, puddle_sheet);
 	}
 }
 
@@ -215,7 +236,7 @@ void Wizard::tornado_attack(const Keyboard & kbd)
 		projectiles.push_back(new Bullet(x, y, tornado_sheet, getAttackDirection(kbd), 1.0));
 		for (int i = 0; i < 10; i++)
 		{
-			projectiles.at(projectiles.size() - 1)->vector_move_forward();
+			projectiles.at(projectiles.size() - 1)->update(game->enemies);
 		}
 		projectiles.at(projectiles.size() - 1)->setAnimation(-1, 3, 0, 7);
 	}
@@ -226,23 +247,22 @@ void Wizard::tornado_attack(const Keyboard & kbd)
 void Wizard::rain_attack(const Keyboard & kbd)
 {
 	current_attack = RAINCLOUD;
+	Bullet *cur_projectile = new Bullet(x, y, rain_sheet, getAttackDirection(kbd), 1.0);
 	if (attack_counter == 12)
 	{
 		// spawn raincloud
-		Bullet *cur_projectile = new Bullet(x, y, rain_sheet, getAttackDirection(kbd), 1.0);
 		projectiles.push_back(cur_projectile);
 		for (int i = 0; i < 20; i++)
 		{
-			cur_projectile->vector_move_forward();
+			cur_projectile->update(game->enemies);
 		}
 		cur_projectile->setAnimation(-1, 2, 0, 17);
 		cur_projectile->setVector(0.0, 0.0);
 	}
-	if (attack_counter == 30)
+	if (attack_counter == 35)
 	{
-		
+		puddles.push_back(new Puddle(cur_projectile->x, cur_projectile->y + 20));
 	}
-	// send throw direction to the tornado every time this is called
 	attack_counter++;
 }
 
@@ -256,7 +276,7 @@ void Wizard::fireball_attack(const Keyboard & kbd)
 		projectiles.push_back(cur_projectile);
 		for (int i = 0; i < 2; i++)
 		{
-			cur_projectile->vector_move_forward();
+			cur_projectile->update(game->enemies);
 		}
 		cur_projectile->setAnimation(-1, 3, 0, 3);
 	}
