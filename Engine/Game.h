@@ -109,6 +109,7 @@ private:
 
 	Ballbot *ballbot;
 	BotMaker *robot_maker;
+	BotMaker *robot_maker2;
 	Obstacle *river;
 
 	Turret *gunbot;
