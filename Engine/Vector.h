@@ -6,7 +6,7 @@ class Vector
 private:
 	double xComponent;
 	double yComponent;
-
+	double heading;
 
 	static int const NO_DIRECTION = 0;
 	static int const UP = 1;
@@ -21,6 +21,7 @@ private:
 
 public:
 	Vector(double heading, double magnitude);
+	Vector(int x1, int y1, int x2, int y2);
 	Vector(int direction, double magnitude);
 	double getX();
 	double getY();
@@ -29,6 +30,7 @@ public:
 	double getHeading();
 	double getMagnitude();
 	void setHeading(double heading);
+	void appendHeading(double angle);
 	void setMagnitude(double magnitude);
 
 };

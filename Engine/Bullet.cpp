@@ -42,6 +42,19 @@ bool Bullet::isExpired()
 	return expired;
 }
 
+void Bullet::update(std::vector<Enemy*> enemies)
+{
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		bool collision = false; // collision code
+		if (collision)
+		{
+			enemies.at(i)->lives -= 20;
+		}
+	}
+	vector_move_forward();
+}
+
 void Bullet::setVector(int direction, double magnitude)
 {
 	this->direction = direction;

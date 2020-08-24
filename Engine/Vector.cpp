@@ -12,6 +12,36 @@ Vector::Vector(double heading, double magnitude)
 	setHeading(heading);
 }
 
+Vector::Vector(int x1, int y1, int x2, int y2)
+{
+	double x_dist = x2 - x1;
+	double y_dist = y2 - y1;
+	double y = abs(y_dist);
+	double x = abs(x_dist);
+	if (x_dist > 0 && y_dist > 0) // Down-Right
+	{
+		setHeading(atan(x / y) + 3 * M_PI / 2);
+	}
+	if (x_dist < 0 && y_dist > 0) // Down-Left
+	{
+		setHeading(atan(y / x) + M_PI);
+	}
+	if (x_dist > 0 && y_dist < 0) // Up-Right
+	{
+		setHeading(atan(y / x));
+	}
+	if (x_dist < 0 && y_dist < 0) // Up-Left
+	{
+		setHeading(atan(x / y) + M_PI / 2);
+	}
+	if (x_dist == 0 || y_dist == 0)
+	{
+		// fuck
+		setHeading(-9999999999999999999);
+	}
+	setMagnitude(x_dist * x_dist + y_dist * y_dist);
+}
+
 Vector::Vector(int direction, double magnitude)
 {
 	setMagnitude(magnitude);
@@ -77,6 +107,15 @@ double Vector::getMagnitude()
 
 void Vector::setHeading(double heading)
 {
+	this->heading = heading;
+	double magnitude = getMagnitude();
+	setX(cos(heading) * magnitude);
+	setY(sin(heading) * magnitude);
+}
+
+void Vector::appendHeading(double angle)
+{
+	heading += angle;
 	double magnitude = getMagnitude();
 	setX(cos(heading) * magnitude);
 	setY(sin(heading) * magnitude);
