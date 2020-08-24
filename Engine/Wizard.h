@@ -5,6 +5,7 @@
 #include "Bullet.h"
 #include "Game.h"
 #include <vector>
+
 using std::vector;
 class Wizard :
 	public Character
