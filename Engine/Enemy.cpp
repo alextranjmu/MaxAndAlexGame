@@ -53,7 +53,7 @@ void Enemy::draw_maxs_explosion(Graphics &gfx)
 	if (max_explosion_anime->getCurrentFrame() >= 8)
 	{
 		exploded = false;
-		reset(800, 200, 100, LEFT);
+		reset(800 - sheet->Width(), 200 + 50, 100, LEFT);
 	}
 }
 
