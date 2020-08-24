@@ -10,6 +10,6 @@ public:
 	int expire_timer;
 	~Tornado();
 private:
-	vector<Enemy*> grabbed_enemies = {};
+	//vector<Enemy*> grabbed_enemies = {};
 };
 

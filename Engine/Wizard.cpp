@@ -2,10 +2,10 @@
 #include "Keyboard.h"
 #include "Obstacle.h"
 
-Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols, Game *g)
+Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols, vector<Enemy*> enem)
 	: Character::Character(x2, y2, spritesheet, ssrows, sscols)
 {
-	game = g;
+	enemies = enem;
 	SPEED = 4;
 	int idle[1] = { 0 };
 	idle_animation = new Animation(-1, 3, 0, 0);
@@ -136,7 +136,7 @@ void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_wi
 		}
 		else
 		{
-			projectiles.at(i)->update(game->enemies);
+			projectiles.at(i)->update(enemies);
 		}
 	}
 
@@ -150,7 +150,7 @@ void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_wi
 		}
 		else
 		{
-			puddles.at(i)->doCollision(game->enemies);
+			puddles.at(i)->doCollision(enemies);
 		}
 	}
 }
@@ -236,7 +236,7 @@ void Wizard::tornado_attack(const Keyboard & kbd)
 		projectiles.push_back(new Bullet(x, y, tornado_sheet, getAttackDirection(kbd), 1.0));
 		for (int i = 0; i < 10; i++)
 		{
-			projectiles.at(projectiles.size() - 1)->update(game->enemies);
+			projectiles.at(projectiles.size() - 1)->update(enemies);
 		}
 		projectiles.at(projectiles.size() - 1)->setAnimation(-1, 3, 0, 7);
 	}
@@ -254,7 +254,7 @@ void Wizard::rain_attack(const Keyboard & kbd)
 		projectiles.push_back(cur_projectile);
 		for (int i = 0; i < 20; i++)
 		{
-			cur_projectile->update(game->enemies);
+			cur_projectile->update(enemies);
 		}
 		cur_projectile->setAnimation(-1, 2, 0, 17);
 		cur_projectile->setVector(0.0, 0.0);
@@ -276,7 +276,7 @@ void Wizard::fireball_attack(const Keyboard & kbd)
 		projectiles.push_back(cur_projectile);
 		for (int i = 0; i < 2; i++)
 		{
-			cur_projectile->update(game->enemies);
+			cur_projectile->update(enemies);
 		}
 		cur_projectile->setAnimation(-1, 3, 0, 3);
 	}

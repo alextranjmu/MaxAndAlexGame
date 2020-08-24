@@ -435,10 +435,10 @@ void Game::Restart()
 	game_over = false;
 	game_won = false;
 	frame_counter = 0;
-	time_between_frames = clock(); // makes the first measure inaccurate, fuck it though
+	time_between_frames = clock(); // makes the first measure inaccurate
 								   //window = wnd.hWnd;
-	wizard = new Wizard(200, 200, "Wizard.bmp", 6, 3, this);
-	shot_wiz = new Wizard(200, 200, "Wizard.bmp", 6, 3, this);
+	wizard = new Wizard(200, 200, "Wizard.bmp", 6, 3, enemies);
+	shot_wiz = new Wizard(200, 200, "Wizard.bmp", 6, 3, enemies);
 
 	std::uniform_int_distribution<int> vDist(-1, 1);
 

@@ -3,7 +3,8 @@
 #include "Animation.h"
 #include "Obstacle.h"
 #include "Bullet.h"
-#include "Game.h"
+//#include "Game.h"
+#include "Enemy.h"
 #include <vector>
 
 using std::vector;
@@ -12,7 +13,7 @@ class Wizard :
 {
 public:
 	double lives;
-	Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols, Game *g);
+	Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols, vector<Enemy*> enem);
 	~Wizard();
 	void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height);
 	void Draw(Graphics &gfx);
@@ -23,7 +24,7 @@ public:
 
 private:
 	int attack_counter;
-	Game *game;
+	vector<Enemy*> enemies;
 
 	Animation *current_animation;
 	Animation *idle_animation;

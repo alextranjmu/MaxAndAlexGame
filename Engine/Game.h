@@ -82,7 +82,6 @@ public:
 	Wizard *wizard; // should be a subclass of character (and tbh a subclass of a new class - Player)
 	Wizard *shot_wiz;
 
-
 	static constexpr int nPoo = 1000;
 	boolean game_won;
 	boolean isStarted;
