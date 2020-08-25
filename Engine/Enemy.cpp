@@ -48,12 +48,13 @@ void Enemy::Draw_electric(Graphics & gfx)
 
 void Enemy::draw_maxs_explosion(Graphics &gfx)
 {
-	max_explosion_sheet->drawFrame(gfx, max_explosion_anime->getCurrentFrame(), x, y);
+	max_explosion_sheet->drawFrame(gfx, max_explosion_anime->getCurrentFrame(), x - 75, y);
 	max_explosion_anime->nextFrame();
 	if (max_explosion_anime->getCurrentFrame() >= 8)
 	{
 		exploded = false;
 		reset(800 - sheet->Width(), 200 + 50, 100, LEFT);
+
 	}
 }
 

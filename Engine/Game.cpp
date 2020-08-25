@@ -51,26 +51,28 @@ void Game::Go(boolean &is_restarted)
 
 void Game::UpdateModel()
 {
-	if (wizard->lives <= 0)
+	if (wizard->lives <= 0 && !game_won)
 	{
 		game_over = true;
 	}
-    if (total_deaths > 5)
-	{
-		//total_deaths = 0;
-		game_won = true;
-	}
-	if (wnd.kbd.KeyIsPressed(VK_SPACE))
+   /* if (total_deaths > 1000 && !game_over)
 	{
 		game_won = true;
-	}
+	}*/
+	/*if (wnd.kbd.KeyIsPressed(VK_SPACE))
+	{
+		game_won = true;
+	}*/
     if (game_won)
 	{
+
 		GetCursorPos(&cursor_point);
 		ScreenToClient(wnd.hWnd, &cursor_point);
 		won_screen->won_screen_select(cursor_point.x, cursor_point.y, *wizard, isRe_started, is_Replay);
 		if (isRe_started)
 		{
+			total_deaths = 0;
+			game_won = false;
 			Restart();
 			isRe_started = false;
 		}
@@ -130,7 +132,6 @@ void Game::UpdateModel()
 		{
 			if (enemies[i]->lives < 10)
 			{
-				total_deaths += 1;
 				enemies[i]->shocked = true;
 				enemies[i]->death = true;
 			}
@@ -192,6 +193,7 @@ void Game::UpdateModel()
 
 		if (slug->exploded)
 		{
+			total_deaths += 1;
 			robot_maker->open = true;
 			slug->lives = 11;
 			slug->x = robot_maker->x - slug->sheet->Width();
@@ -558,6 +560,7 @@ void Game::Restart()
 
 void Game::Replay()
 {
+	total_deaths = 0;
 	Restart();
 	isStarted = true;
 	game_won = false;
