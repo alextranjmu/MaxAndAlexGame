@@ -123,7 +123,7 @@
     <ClInclude Include="Tornado.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Puddle.h">
+    <ClInclude Include="Constants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -221,7 +221,7 @@
     <ClCompile Include="Tornado.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Puddle.cpp">
+    <ClCompile Include="Constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

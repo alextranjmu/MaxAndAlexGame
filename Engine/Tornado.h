@@ -6,7 +6,7 @@ class Tornado :
 {
 public:
 	Tornado(int x, int y, SpriteSheet *sprites, int direction, double magnitude);
-	void update(std::vector<Enemy*> enemies);
+	virtual void update(std::vector<Enemy*> enemies);
 	int expire_timer;
 	~Tornado();
 private:

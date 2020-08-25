@@ -5,7 +5,7 @@ class Thundercloud :
 {
 public:
 	Thundercloud(int x, int y, SpriteSheet *sprites, int direction, double magnitude);
-	void update(std::vector<Enemy*> enemies);
+	virtual void update(std::vector<Enemy*> enemies);
 	~Thundercloud();
 };
 

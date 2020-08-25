@@ -162,7 +162,6 @@
     <ClInclude Include="Pixel.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="PPM.h" />
-    <ClInclude Include="Puddle.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Slug.h" />
     <ClInclude Include="SpriteSheet.h" />
@@ -198,7 +197,6 @@
     <ClCompile Include="Pixel.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="PPM.cpp" />
-    <ClCompile Include="Puddle.cpp" />
     <ClCompile Include="Slug.cpp" />
     <ClCompile Include="SpriteSheet.cpp" />
     <ClCompile Include="Surface.cpp" />

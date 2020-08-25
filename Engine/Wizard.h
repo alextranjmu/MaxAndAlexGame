@@ -89,6 +89,7 @@ private:
 					// check collision
 				}
 			}
+			timer++;
 		}
 	};
 	std::vector<Puddle*> puddles;
