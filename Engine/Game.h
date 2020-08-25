@@ -52,6 +52,7 @@ public:
 	void Restart();
 	void Replay();
 	void Update_when_paused();
+	int total_deaths;
 	
 
 //private:
@@ -168,6 +169,7 @@ public:
 	TitleScreen *end_screen_win;
 	TitleScreen *pause_screen;
 	TitleScreen *won_screen;
+	TitleScreen *new_intro;
 
 	LifeBar *wiz_life_bar;
 	LifeBar *gunbot_life_bar;

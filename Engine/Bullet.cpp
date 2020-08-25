@@ -46,13 +46,34 @@ void Bullet::update(std::vector<Enemy*> enemies)
 {
 	for (int i = 0; i < enemies.size(); i++)
 	{
-		bool collision = false; // collision code
-		if (collision)
+		for (int i = 0; i < enemies.size(); i++)
 		{
-			enemies.at(i)->lives -= 20;
+			if (Detect_Collision(x, y, x + sheet->Width(), y + sheet->Height(), enemies[i]->x, enemies[i]->y, enemies[i]->x + enemies[i]->sheet->Width(), enemies[i]->y + enemies[i]->sheet->Height()))
+			{
+				enemies[i]->lives -= 0.00000001;
+			}
 		}
+		//bool collision = false; // collision code
+		//if (collision)
+		//{
+		//	enemies.at(i)->lives -= 20;
+		//}
 	}
 	vector_move_forward();
+}
+
+bool Bullet::Detect_Collision(int x1, int y1, int x1plus, int y1plus, int x2, int y2, int x2plus, int y2plus)
+{
+	if (((x1 < x2plus) && (y1 < y2plus))
+		&& ((x1plus > x2) && (y1 < y2plus))
+		&& ((x1 < x2plus) && (y1plus > y2))
+		&& ((x1plus > x2) && (y1plus > y2))
+		)
+	{
+		return true;
+
+	}
+	return false;
 }
 
 void Bullet::setVector(int direction, double magnitude)

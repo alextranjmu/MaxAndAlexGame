@@ -7,10 +7,11 @@ LazerBot::LazerBot(Direction direction, int x, int y, int speed, std::string fil
 }
 void LazerBot::Update_bullet()
 {
+
 	if (!is_shooting_left_missile)
 	{
 
-		if (nextBool(0.05));
+		if (nextBool(0.00005));
 		{
 			left_missile->x = x - left_missile->sheet->Width();
 			left_missile->y = y + 50;
@@ -33,7 +34,7 @@ void LazerBot::Update_bullet()
 
 	if (!is_shooting_right_missile)
 	{
-		if (nextBool(0.05));
+		if (nextBool(0.00005));
 		{
 			right_missile->x = x + sheet->Width();
 			right_missile->y = y + 50;

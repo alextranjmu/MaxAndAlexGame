@@ -26,6 +26,7 @@ public:
 	void expire();
 	bool isExpired();
 	virtual void update(std::vector<Enemy*> enemies);
+	bool Detect_Collision(int x1, int y1, int x1plus, int y1plus, int x2, int y2, int x2plus, int y2plus);
 
 	bool animated = false;
 	bool expired = false;

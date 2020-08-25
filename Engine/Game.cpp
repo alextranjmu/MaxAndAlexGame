@@ -51,12 +51,20 @@ void Game::Go(boolean &is_restarted)
 
 void Game::UpdateModel()
 {
-	if (wnd.kbd.KeyIsPressed(VK_RETURN))
+	if (wizard->lives <= 0)
+	{
+		game_over = true;
+	}
+    if (total_deaths > 5)
+	{
+		//total_deaths = 0;
+		game_won = true;
+	}
+	if (wnd.kbd.KeyIsPressed(VK_SPACE))
 	{
 		game_won = true;
 	}
-
-	else if (game_won)
+    if (game_won)
 	{
 		GetCursorPos(&cursor_point);
 		ScreenToClient(wnd.hWnd, &cursor_point);
@@ -69,17 +77,17 @@ void Game::UpdateModel()
 
 		if (is_Replay)
 		{
+			total_deaths = 0;
+			game_won = false;
 			Replay();
 			is_Replay = false;
+			
 		}
 
 	}
-	 if (wizard->lives <= 0)
-	{
-		game_over = true;
-	}
 	
-	 if (game_over)
+	
+	else if (game_over)
 	{
 		GetCursorPos(&cursor_point);
 		ScreenToClient(wnd.hWnd, &cursor_point);
@@ -104,9 +112,11 @@ void Game::UpdateModel()
 		//MOVE AND CLAMP
 		for (int i = 0; i < characters.size(); i++)
 		{
-			characters[i]->Move(wnd.kbd, obstacles, wiz_sheet->Width(), wiz_sheet->Height());
+			characters[i]->Move(wnd.kbd, obstacles, wiz_sheet->Width(), wiz_sheet->Height(), enemies);
 			characters[i]->ClampToScreen(wiz_sheet->Width(), wiz_sheet->Height());
+			
 		}
+		
 		for (int i = 0; i < enemies.size(); i++)
 		{
 			if (!enemies[i]->shocked)
@@ -114,8 +124,19 @@ void Game::UpdateModel()
 				enemies[i]->randomMove(obstacles, 0, 0);
 			}
 		}
-		/*gunbot->clamp_screen(100, 100, 100, 150);
-		lazerbot->clamp_screen(150, 150, 150, 150);*/
+
+		//UPDATE LIFE
+		for (int i = 0; i < enemies.size(); i++)
+		{
+			if (enemies[i]->lives < 10)
+			{
+				total_deaths += 1;
+				enemies[i]->shocked = true;
+				enemies[i]->death = true;
+			}
+		}
+		/*gunbot->clamp_screen(100, 100, 100, 150);*/
+		lazerbot->clamp_screen(300, 300, 150, 150);
 
 		//LEGS CODE
 		gunbot_legs->x = gunbot->x;
@@ -150,6 +171,13 @@ void Game::UpdateModel()
 				enemies[i]->death = true;
 			}
 		}
+
+		////wizard moves and collision
+		//for (int i = 0; i < Wizard::projectiles.size(); i++)
+		//{
+		//	Wizard::projectiles[i]->update(enemies);
+		//}
+
 		//botmaker stuff
 		if (slug->death && !slug->exploded)
 		{
@@ -165,7 +193,7 @@ void Game::UpdateModel()
 		if (slug->exploded)
 		{
 			robot_maker->open = true;
-			slug->lives = 100;
+			slug->lives = 11;
 			slug->x = robot_maker->x - slug->sheet->Width();
 			slug->y = robot_maker->y + 50;
 			slug->death = false;
@@ -185,7 +213,7 @@ void Game::UpdateModel()
 	{
 		GetCursorPos(&cursor_point);
 		ScreenToClient(wnd.hWnd, &cursor_point);
-		intro_screen->Change_difficulty(cursor_point.x, cursor_point.y, isStarted);
+		new_intro->new_intro_select(cursor_point.x, cursor_point.y, isStarted);
 	}
 	
 
@@ -217,7 +245,7 @@ void Game::ComposeFrame()
 		wizard->Draw(gfx);
 		if (wiz_shot_at_bool)
 		{
-			shot_wiz->Draw(gfx);
+			//shot_wiz->Draw(gfx);
 		}
 
 		//DRAW BULLETS
@@ -281,8 +309,7 @@ void Game::ComposeFrame()
 				gfx.PutPixel(x, y, 255, 255, 255);
 			}
 		}
-		intro_screen->Draw_Intro(gfx);
-
+		new_intro->Draw_new_intro(gfx);
 		time_between_frames = clock() - time_between_frames;
 		draw.WriteNumber(gfx, Graphics::ScreenWidth - 10, 10, time_between_frames, Color(0, 0, 0));
 		time_between_frames = clock();
@@ -427,7 +454,8 @@ bool Game::Detect_Collision(int x1, int y1, int x1plus, int y1plus, int x2, int 
 
 //DONT LOOK INSIDE THIS FUNCTION 
 void Game::Restart()
-{
+{	
+	total_deaths = 0;
 	paused = false;
 	isRe_started = false;
 	is_Replay = false;
@@ -463,7 +491,7 @@ void Game::Restart()
 	lazerbot = new LazerBot(LEFT, 400, 300, 2, "lazerbot.bmp", 2, 2, 0, 0, 100);
 	lazerbot_legs = new Enemy(LEFT, 400, 300, 2, "lazerbot_legs.bmp", 2, 1, 0, 0, 10);
 
-	slug = new Slug(LEFT, 500, 200, 1, "slug.bmp", 5, 1, 0, 0, 10);
+	slug = new Slug(LEFT, 500, 200, 1, "slug.bmp", 5, 1, 0, 0, 11);
 	slug->chase_vector = new Vector(0, 5);
 
 
@@ -481,6 +509,7 @@ void Game::Restart()
 	end_screen_win = new TitleScreen(0, 0, "end_screen_win.bmp", 2, 2);
 	pause_screen = new TitleScreen(0, 0, "pause_screen.bmp", 2, 2);
 	won_screen = new TitleScreen(0, 0, "won_end_screen.bmp", 2, 2);
+	new_intro = new TitleScreen(0, 0, "intro_screen_only_start.bmp", 2, 1);
 
 	wiz_life_bar = new LifeBar(wizard->GetX(), wizard->GetY(), wizard->lives, 15);
 
@@ -514,22 +543,24 @@ void Game::Restart()
 
 	//THEM LISTS FOR YOU MAX
 	characters.push_back(wizard);
-	characters.push_back(shot_wiz);
+	//characters.push_back(shot_wiz);
 
 	enemies.push_back(gunbot);
 	enemies.push_back(lazerbot);
+	enemies.push_back(slug);
 
 
 	botmakers.push_back(robot_maker);
 	//obstacles.push_back(ballbot);
 	//obstacles.push_back(robot_maker);
-	//obstacles.push_back(river);
+	obstacles.push_back(river);
 }
 
 void Game::Replay()
 {
 	Restart();
 	isStarted = true;
+	game_won = false;
 }
 
 void Game::Update_when_paused()

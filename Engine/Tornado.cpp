@@ -13,6 +13,7 @@ void Tornado::update(std::vector<Enemy*> enemies)
 	expire_timer++;
 	for (int i = 0; i < enemies.size(); i++)
 	{
+		
 		bool collision = false; // collision logic
 		if (collision)
 		{

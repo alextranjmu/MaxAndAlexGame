@@ -72,7 +72,7 @@ void Turret::Update_bullet(Character &character)
 
 	if (!is_shooting)
 	{
-		if (nextBool(1))
+		if (nextBool(0.005))
 		{
 			attack_degree = GetDegree(x, y, character.GetX(), character.GetY());
 

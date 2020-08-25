@@ -29,7 +29,7 @@ void Ballbot::Update_Beams()
 
 	if (!beam1_bool)
 	{
-		if (nextBool(0.005))
+		if (nextBool(0.0005))
 		{
 			beam1_speed = 15;
 			beam1_bool = true;
@@ -57,7 +57,7 @@ void Ballbot::Update_Beams()
 
 	if (!left_beam_bool)
 	{
-		if (nextBool(0.005))
+		if (nextBool(0.0005))
 		{
 			//left_beam_width = 600;
 			left_beam_speed = 15;
@@ -85,7 +85,7 @@ void Ballbot::Update_Beams()
 
 	if (!right_beam_bool)
 	{
-		if (nextBool(0.005))
+		if (nextBool(0.0005))
 		{
 			right_beam_speed = 15;
 			right_beam_bool = true;

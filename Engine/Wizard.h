@@ -12,11 +12,13 @@ class Wizard :
 	public Character
 {
 public:
+	static vector<Bullet*> projectiles;
 	double lives;
 	Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols, vector<Enemy*> enem);
 	~Wizard();
-	void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height);
-	void Draw(Graphics &gfx);
+	void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height, vector<Enemy*> enemiesnew);
+	void UpdateProjectiles();
+		void Draw(Graphics &gfx);
 	void collisionUpdatexup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
 	void collisionUpdatexdown(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
 	void collisionUpdateyup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height);
@@ -35,13 +37,14 @@ private:
 	int getAttackDirection(const Keyboard & kbd);
 	void tornado_attack(const Keyboard & kbd);
 
-	std::vector<Bullet*> projectiles;
 	Animation *tornado_anime;
 	SpriteSheet *tornado_sheet;
 	void rain_attack(const Keyboard & kbd);
 	Animation *rain_anime;
 	SpriteSheet *rain_sheet;
 	void fireball_attack(const Keyboard & kbd);
+	bool Detect_Collision(int x1, int y1, int x1plus, int y1plus, int x2, int y2, int x2plus, int y2plus);
+
 	Animation *fireball_anime;
 	SpriteSheet *fireball_sheet;
 

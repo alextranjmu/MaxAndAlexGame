@@ -21,6 +21,7 @@ class TitleScreen
 {
 
 public:
+	bool start = false;
 	int x;
 	int y;
 	game_over_button over_button;
@@ -32,10 +33,11 @@ public:
 	void Change_difficulty(int cursor_x, int cursor_y, boolean &isStarted);
 	void end_screen_select(int cursor_x, int cursor_y, Character &character, boolean &isRe_started, boolean &is_Replay);
 	void pause_screen_select(int cursor_x, int cursor_y, boolean & is_paused, boolean & isRe_started);
+	void new_intro_select(int cursor_x, int cursor_y, boolean &isStarted);
 	void won_screen_select(int cursor_x, int cursor_y, Character &character, boolean &isRe_started, boolean &is_Replay);
 	void Draw_Intro(Graphics &gfx);
 	void Draw_End(Graphics &gfx);
 	void Draw_Pause(Graphics &gfx);
 	void Draw_Won(Graphics &gfx);
-	
+	void Draw_new_intro(Graphics &gfx);
 };

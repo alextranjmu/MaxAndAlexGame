@@ -118,6 +118,22 @@ void TitleScreen::pause_screen_select(int cursor_x, int cursor_y, boolean & is_p
 	}
 }
 
+void TitleScreen::new_intro_select(int cursor_x, int cursor_y, boolean & isStarted)
+{
+	if (cursor_y > 205 && cursor_y < 400 && cursor_x > 530+200 && cursor_x < 886+200)
+	{
+		start = true;
+		if (GetKeyState(VK_LBUTTON) & 0x8000)
+		{
+			isStarted = true;
+		}
+	}
+	else
+	{
+		start = false;
+	}
+}
+
 void TitleScreen::won_screen_select(int cursor_x, int cursor_y, Character & character, boolean & isRe_started, boolean & is_Replay)
 {
 	if (cursor_y > 99 + 30 && cursor_y < 174 + 30)
@@ -229,6 +245,18 @@ void TitleScreen::Draw_Won(Graphics & gfx)
 	default:
 		sheet->drawFrame(gfx, 0, x, y);
 		break;
+	}
+}
+
+void TitleScreen::Draw_new_intro(Graphics & gfx)
+{
+	if (start)
+	{
+		sheet->drawFrame(gfx, 1, x, y);
+	}
+	else
+	{
+		sheet->drawFrame(gfx, 0, x, y);
 	}
 }
 

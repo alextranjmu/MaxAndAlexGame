@@ -1,6 +1,7 @@
 #include "Wizard.h"
 #include "Keyboard.h"
 #include "Obstacle.h"
+vector<Bullet*> Wizard::projectiles;
 
 Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols, vector<Enemy*> enem)
 	: Character::Character(x2, y2, spritesheet, ssrows, sscols)
@@ -30,7 +31,7 @@ Wizard::Wizard(int x2, int y2, char* spritesheet, int ssrows, int sscols, vector
 	lives = 100;
 }
 
-void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height)
+void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_width, int wiz_height, vector<Enemy*> enemiesnew)
 {
 
 	if (current_animation->isCancelable())
@@ -136,7 +137,7 @@ void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_wi
 		}
 		else
 		{
-			projectiles.at(i)->update(enemies);
+			projectiles[i]->update(enemiesnew);
 		}
 	}
 
@@ -150,9 +151,14 @@ void Wizard::Move(const Keyboard & kbd, vector<Obstacle*>& obstacles, int wiz_wi
 		}
 		else
 		{
-			puddles.at(i)->doCollision(enemies);
+			puddles.at(i)->doCollision(enemiesnew);
 		}
 	}
+}
+
+void Wizard::UpdateProjectiles()
+{
+	
 }
 
 void Wizard::Draw(Graphics& gfx)
@@ -238,6 +244,7 @@ void Wizard::tornado_attack(const Keyboard & kbd)
 		{
 			projectiles.at(projectiles.size() - 1)->update(enemies);
 		}
+		
 		projectiles.at(projectiles.size() - 1)->setAnimation(-1, 3, 0, 7);
 	}
 	// send throw direction to the tornado every time this is called
@@ -272,15 +279,30 @@ void Wizard::fireball_attack(const Keyboard & kbd)
 	if (attack_counter == 8)
 	{
 		// spawn fireball
-		Bullet *cur_projectile = new Bullet(x, y, fireball_sheet, getAttackDirection(kbd), 4.0);
+		Bullet *cur_projectile = new Bullet(x, y, fireball_sheet, getAttackDirection(kbd), 15.0);
 		projectiles.push_back(cur_projectile);
 		for (int i = 0; i < 2; i++)
 		{
 			cur_projectile->update(enemies);
 		}
+		
 		cur_projectile->setAnimation(-1, 3, 0, 3);
 	}
 	attack_counter++;
+}
+
+bool Wizard::Detect_Collision(int x1, int y1, int x1plus, int y1plus, int x2, int y2, int x2plus, int y2plus)
+{
+	if (((x1 < x2plus) && (y1 < y2plus))
+		&& ((x1plus > x2) && (y1 < y2plus))
+		&& ((x1 < x2plus) && (y1plus > y2))
+		&& ((x1plus > x2) && (y1plus > y2))
+		)
+	{
+		return true;
+
+	}
+	return false;
 }
 
 void Wizard::collisionUpdatexup(int x1, int x2, int y1, int y2, int wiz_width, int wiz_height)

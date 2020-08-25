@@ -52,7 +52,7 @@ public:
 	void draw_maxs_explosion(Graphics &gfx);
 	void Draw_lazer_bot(Graphics & gfx);
 	virtual void Draw_legs(Graphics & gfx);
-	void randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height);
+	virtual void randomMove(vector<Obstacle*>& obstacles, int enemy_width, int enemy_height);
 	void MoveTowardsCharacter();
 	void clamp_screen(int left, int right, int top, int bottom);
 	virtual void Update_bullet();
